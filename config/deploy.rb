@@ -10,6 +10,8 @@ set :rails_env, 'production'
 server '103.14.16.67:8000', user: "#{fetch(:user)}", roles: %w{app db web}, primary: true
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :pty, true
+set :rvm_ruby_version, '2.4.0'
+set :rvm_type, :user
 
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/puma.rb')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
