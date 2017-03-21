@@ -26,7 +26,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-nginx'
   gem 'capistrano3-puma', '1.2.1'
-  gem 'capistrano-rails'
+  gem 'capistrano-rails', '1.1.8'
   gem 'capistrano-rails-db'
   gem 'capistrano-rails-console'
   gem 'capistrano-upload-config'
