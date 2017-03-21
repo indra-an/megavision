@@ -30,6 +30,7 @@ group :development do
   gem 'capistrano-rails-db'
   gem 'capistrano-rails-console'
   gem 'capistrano-upload-config'
+  gem 'capistrano-bundler'
   gem 'sshkit-sudo'
 
   gem 'web-console', '>= 3.3.0'
