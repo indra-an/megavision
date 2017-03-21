@@ -200,12 +200,12 @@ DEPENDENCIES
   byebug
   capistrano (= 3.5.0)
   capistrano-nginx
-  capistrano-rails (= 1.1.8)
+  capistrano-rails
   capistrano-rails-console
   capistrano-rails-db
   capistrano-rvm
   capistrano-upload-config
-  capistrano3-puma (= 1.2.1)
+  capistrano3-puma
   closure-compiler
   coffee-rails (~> 4.2)
   jquery-rails
