@@ -23,14 +23,14 @@ end
 
 group :development do
   gem 'capistrano', '3.5.0'
-  gem 'capistrano-rvm'
   gem 'capistrano-nginx'
   gem 'capistrano3-puma'
   gem 'capistrano-rails'
+  gem 'capistrano-bundler', '>= 1.1.0'
+  gem 'capistrano-rvm', git: 'git@github.com:capistrano/rvm.git'
   gem 'capistrano-rails-db'
   gem 'capistrano-rails-console'
   gem 'capistrano-upload-config'
-  gem 'capistrano-bundler'
   gem 'sshkit-sudo'
 
   gem 'web-console', '>= 3.3.0'
