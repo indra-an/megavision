@@ -16,6 +16,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug', platform: :mri
