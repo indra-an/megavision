@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_for([:admins, vacancy], :html => { :class => 'form-horizontal' }) do |f| %>
+          <% if vacancy.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <strong>Ops! <%= pluralize(vacancy.errors.count, "error") %> found:</strong><br/>
+              <ul>
+                <% vacancy.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :position, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_field :position, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :icon, 'Vacancy Icon', :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-4">
+              <% if vacancy.try(:icon_url) %>
+                <%= image_tag vacancy.icon_url, :class => 'img-responsive img-thumbnail' %>
+              <% end %>
+              <%= f.file_field :icon %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :location, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_field :location, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :requirements, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_area :requirements, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 text-right">
+              <%= link_to admins_vacancies_path, :class => 'btn btn-warning' do %>
+                <span class="glyphicon glyphicon-menu-left"></span>&nbsp;Back
+              <% end %>
+            </div>
+            <div class="col-md-6 text-left">
+              <%= f.submit 'Save', :class => 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

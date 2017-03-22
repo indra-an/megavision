@@ -7,5 +7,7 @@ Rails.application.routes.draw do
     get 'dashboard' => 'dashboard#index'
 
     put 'update_password' => 'dashboard#update_password'
+
+    resources :vacancies
   end
 end

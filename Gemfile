@@ -17,6 +17,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
 gem 'devise'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'byebug', platform: :mri

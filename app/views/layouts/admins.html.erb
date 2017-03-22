@@ -60,6 +60,11 @@
             <span class="glyphicon glyphicon-dashboard"></span>&nbsp;Dashboard
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:vacancies) %>">
+          <%= link_to admins_vacancies_path do %>
+            <span class="glyphicon glyphicon-blackboard"></span>&nbsp;Vacancy
+          <% end %>
+        </li>
         <li role="presentation" class="divider"></li>
         <li class="<%= class_for_content_indicator(:admins) %>">
           <%= link_to '#' do %>
