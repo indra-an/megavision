@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     put 'update_password' => 'dashboard#update_password'
 
+    resources :questions
     resources :vacancies
   end
 end

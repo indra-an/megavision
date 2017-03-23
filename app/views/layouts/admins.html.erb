@@ -61,8 +61,13 @@
           <% end %>
         </li>
         <li class="<%= class_for_content_indicator(:vacancies) %>">
+          <%= link_to admins_questions_path do %>
+            <span class="glyphicon glyphicon-question-sign"></span>&nbsp;Questions and Answers
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:vacancies) %>">
           <%= link_to admins_vacancies_path do %>
-            <span class="glyphicon glyphicon-blackboard"></span>&nbsp;Vacancy
+            <span class="glyphicon glyphicon-bullhorn"></span>&nbsp;Vacancy
           <% end %>
         </li>
         <li role="presentation" class="divider"></li>

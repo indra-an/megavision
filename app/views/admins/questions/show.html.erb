@@ -1,0 +1,38 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Questions', admins_questions_path %>
+    <%= breadcrumb_item 'Preview' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><%= @question.question %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= @question.answer %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= link_to admins_questions_path, :class => 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-menu-left"></span>&nbsp;Back
+        <% end %>
+        <%= link_to edit_admins_question_path(@question), :class => 'btn btn-info' do %>
+          <span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
