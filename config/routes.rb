@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :admins
 
   get 'jobs/:slug_id' => 'home#job_detail', :as => :public_job_vacancy_detail
+  get 'channels/:slug_id' => 'home#channel_detail', :as => :public_channel_detail
 
   namespace :admins do
     get 'dashboard' => 'dashboard#index'

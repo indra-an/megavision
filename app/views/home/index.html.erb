@@ -84,22 +84,15 @@
   <div class="container">
     <div class="row">
       <div class="channel-bdg">
-        <a href="channel.html" class="channel-btn">
-          <div class="border-1px outer-border">
-            <div class="channel-btn-name">
-              <p class="font-18"><b class="font-24">BANDUNG</b><br>Channel List</p>
+        <% @channel_cities.each do |channel_city| %>
+          <%= link_to public_channel_detail_path(channel_city.slug), :class => 'channel-btn' do %>
+            <div class="border-1px outer-border">
+              <div class="channel-btn-name">
+                <p class="font-18"><b class="font-24"><%= channel_city.city %></b><br>Channel List</p>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-      <div class="channel-bogor">
-        <a href="channel.html" class="channel-btn">
-          <div class="border-1px outer-border">
-            <div class="channel-btn-name">
-              <p class="font-18"><b class="font-24">BOGOR</b><br>Channel List</p>
-            </div>
-          </div>
-        </a>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

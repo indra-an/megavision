@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323125315) do
+ActiveRecord::Schema.define(version: 20170323153024) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20170323125315) do
 
   create_table "channel_cities", force: :cascade do |t|
     t.string "city"
+    t.string "slug"
+    t.index ["slug"], name: "index_channel_cities_on_slug"
   end
 
   create_table "channel_cities_channels", force: :cascade do |t|
