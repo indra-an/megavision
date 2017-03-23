@@ -115,50 +115,12 @@
           <p>Megavision adalah layanan TV Kabel plus Internet Broadband. Dengan layanan kami ini, pelanggan dapat menikmati puluhan channel unggulan dari mancanegara selama 24 jam, sekaligus dapat mengakses internet berkecepatan tinggi dengan koneksi stabil dan tanpa kuota (unlimited). Paket Megavision internet merupakan pilihan pebisnis & keluarga modern masa kini, karena merupakan layanan unlimited Broadband Internet dengan akses internet kecepatan tinggi dan koneksi internet yang stabil tanpa saluran telepon.Kami menawarkan kecepatan internet yang lebih tinggi hingga 5 Mbps,untuk memenuhi kebutuhan bisnis pribadi, kantor  dan usaha menengah yang membutuhkan kecepatan tinggi Jelajahi dunia maya dan semua aktivitas internet Anda akan lebih nyaman dengan produk Kami.</p>
         </div>
         <div class="starnet-prices">
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
-
-          <div class="star-price text-right">
-            <h2><sup class="font-18">Rp</sup>149.<sup class="font-18">000</sup><sub class="font-12">/BLN</sub></h2>
-            <p><em>up to 3 mbps</em></p>
-          </div>
+          <% @prices.each do |price| %>
+            <div class="star-price text-right">
+              <h2><%= format_number_to_price_tag(price.amount) %></h2>
+              <p><em>up to <%= [price.up_to_speed, price.unit].join(' ') %></em></p>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
