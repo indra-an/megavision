@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Prices', admins_prices_path %>
+    <%= breadcrumb_item 'Create Price' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Create a Price</h1>
+  </div>
+</div>
+
+<%= render 'form', price: @price %>
