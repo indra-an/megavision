@@ -39,7 +39,11 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <%= @vacancy.requirements %>
+        <ol>
+          <% @vacancy.requirements.each do |req| %>
+            <li><%= req %></li>
+          <% end %>
+        </ol>
       </div>
     </div>
   </div>

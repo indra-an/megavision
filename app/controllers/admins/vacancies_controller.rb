@@ -53,6 +53,6 @@ class Admins::VacanciesController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def vacancy_params
-      params.require(:vacancy).permit(:position, :icon, :location, :requirements)
+      params.require(:vacancy).permit(:position, :icon, :location, :requirements => [])
     end
 end
