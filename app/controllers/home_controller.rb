@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     @vacancies = Vacancy.order(:position => :asc)
-    @questions = Questions.order(:question => :asc)
+    @questions = Question.order(:question => :asc)
   end
 
   def job_detail

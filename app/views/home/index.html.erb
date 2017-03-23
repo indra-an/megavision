@@ -171,18 +171,20 @@
     <div class="row">
       <h2 class="uppercase text-center white bold">Questions and Answers</h2>
       <div class="panel-group " id="accordion-question">
-        <div class="panel panel-default bg-transparent">
-          <div class="panel-heading bg-transparent question-title">
-            <h4 class="panel-title mega-yellow bold border-bot-1px">
-              <a data-toggle="collapse" data-parent="#accordion-question" href="#question1">
-                Apa saja channel yang diberikan?<i class="fa fa-plus-circle pull-right font-18" aria-hidden="true"></i>
-              </a>
-            </h4>
+        <% @questions.each_with_index do |question, index| %>
+          <div class="panel panel-default bg-transparent">
+            <div class="panel-heading bg-transparent question-title">
+              <h4 class="panel-title mega-yellow bold border-bot-1px">
+                <a data-toggle="collapse" data-parent="#accordion-question" href="#question<%= index %>">
+                  <%= question.question %><i class="fa fa-plus-circle pull-right font-18" aria-hidden="true"></i>
+                </a>
+              </h4>
+            </div>
+            <div id="question<%= index %>" class="panel-collapse collapse">
+              <div class="panel-body white no-border"><%= question.answer %></div>
+            </div>
           </div>
-          <div id="question1" class="panel-collapse collapse in">
-            <div class="panel-body white no-border">Menyajikan kepada pemirsa channel lengkap sesuai kebutuhan keluarga mulai dari saluran keluarga, channel favorit anak, film, olah raga, pengetahuan, hiburan, berita nasional maupun Internasional.</div>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
