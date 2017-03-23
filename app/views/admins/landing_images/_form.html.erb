@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_for([:admins, landing_image], :html => { :class => 'form-horizontal' }) do |f| %>
+          <% if landing_image.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <strong>Ops! <%= pluralize(landing_image.errors.count, "error") %> found:</strong><br/>
+              <ul>
+                <% landing_image.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :title, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_area :title, :class => 'form-control', :rows => 4 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :subtitle, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.text_area :subtitle, :class => 'form-control', :rows => 4 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :addon_image, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-4">
+              <% if landing_image.try(:addon_image_url) %>
+                <%= image_tag landing_image.addon_image_url, :class => 'img-responsive img-thumbnail' %>
+              <% end %>
+              <%= f.file_field :addon_image %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :background, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-4">
+              <% if landing_image.try(:background_url) %>
+                <%= image_tag landing_image.background_url, :class => 'img-responsive img-thumbnail' %>
+              <% end %>
+              <%= f.file_field :background %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 text-right">
+              <%= link_to admins_questions_path, :class => 'btn btn-warning' do %>
+                <span class="glyphicon glyphicon-menu-left"></span>&nbsp;Back
+              <% end %>
+            </div>
+            <div class="col-md-6 text-left">
+              <%= f.submit 'Save', :class => 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

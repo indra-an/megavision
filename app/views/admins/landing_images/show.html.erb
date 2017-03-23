@@ -1,0 +1,58 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Landing Images', admins_landing_images_path %>
+    <%= breadcrumb_item 'Preview' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header"><%= @landing_image.title %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= @landing_image.subtitle %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= image_tag @landing_image.background_url, :class => 'img-responsive img-thumbnail' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= image_tag @landing_image.addon_image_url, :class => 'img-responsive img-thumbnail' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= link_to admins_landing_images_path, :class => 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-menu-left"></span>&nbsp;Back
+        <% end %>
+        <%= link_to edit_admins_landing_image_path(@landing_image), :class => 'btn btn-info' do %>
+          <span class="glyphicon glyphicon-pencil"></span>&nbsp;Edit
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

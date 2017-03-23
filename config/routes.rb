@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     resources :prices
     resources :questions
     resources :vacancies
+    resources :landing_images do
+      get 'make_draft'
+      get 'make_published'
+    end
   end
 end

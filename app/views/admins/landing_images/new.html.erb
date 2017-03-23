@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Landing Images', admins_landing_images_path %>
+    <%= breadcrumb_item 'Create Landing Images' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Create a Landing Images</h1>
+  </div>
+</div>
+
+<%= render 'form', landing_image: @landing_image %>
