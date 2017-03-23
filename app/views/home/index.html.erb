@@ -229,17 +229,19 @@
 <section class="job-vacan-sect" style="background: url(<%= asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Job Vacancy</h2>
-    <div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
-      <a href="#" class="btn-vacan col-xs-12 border-1px-white no-padding">
-        <div class=" text-center">
-          <div class="border-bot-1px bg-white-opa"><h3>IT Engineer</h3></div>
-          <div class="img-vacan">
-            <%= image_tag 'sample-vacancy-icon.png' %>
+    <% @vacancies.each do |vacancy| %>
+      <div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
+        <%= link_to public_job_vacancy_detail_path(vacancy.slug), :class => 'btn-vacan col-xs-12 border-1px-white no-padding' do %>
+          <div class=" text-center">
+            <div class="border-bot-1px bg-white-opa"><h3><%= vacancy.position %></h3></div>
+            <div class="img-vacan">
+              <%= image_tag vacancy.icon_url %>
+            </div>
+            <span class="border-1px-white pull-right">more-detail</span>
           </div>
-          <span class="border-1px-white pull-right">more-detail</span>
-        </div>
-      </a>
-    </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </section>
 

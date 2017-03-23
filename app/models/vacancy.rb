@@ -6,6 +6,11 @@ class Vacancy < ApplicationRecord
   validates_presence_of :position, :icon, :location, :requirements
   validate :ensure_valid_requirements_content
 
+  def update_slug
+    slug = [self.position, self.location].join(' ').truncate(48).parameterize
+    update(:slug => slug)
+  end
+
   private
 
   def ensure_valid_requirements_content
