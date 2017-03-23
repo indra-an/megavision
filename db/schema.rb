@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323072927) do
+ActiveRecord::Schema.define(version: 20170323125315) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -24,6 +24,21 @@ ActiveRecord::Schema.define(version: 20170323072927) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
+  end
+
+  create_table "channel_cities", force: :cascade do |t|
+    t.string "city"
+  end
+
+  create_table "channel_cities_channels", force: :cascade do |t|
+    t.integer "channel_city_id"
+    t.integer "channel_id"
+    t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id"
+    t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "landing_images", force: :cascade do |t|

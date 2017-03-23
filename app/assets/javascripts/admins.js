@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require shared/bootstrap.min
+//= require shared/chosen.jquery.min
 //= require turbolinks
 //= require_self
 
@@ -8,6 +9,13 @@ $(document).on('turbolinks:load', function() {
   // reattach callback
   $(".notification").fadeTo(3000, 500).slideUp(500, function() {
     $(".notification").slideUp(500);
+  });
+
+  // reattach chosen jquery
+  $('.chosen').chosen({
+    width: '100%',
+    no_results_text: 'No channels matches',
+    placeholder_text_multiple: 'Select channels'
   });
 
   initVacancyRequirements();
