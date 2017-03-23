@@ -32,7 +32,7 @@
           <tbody>
             <% if @landing_images.empty? %>
               <tr>
-                <td colspan="6">You have no landing_image. <%= link_to 'Create a new one!', new_admins_landing_image_path %>.</td>
+                <td colspan="6">You have no landing image. <%= link_to 'Create a new one!', new_admins_landing_image_path %>.</td>
               </tr>
             <% else %>
               <% @landing_images.each do |landing_image| %>
@@ -43,7 +43,8 @@
                   <td>
                     <%= link_to 'Show', admins_landing_image_path(landing_image) %>&nbsp;|
                     <%= link_to 'Edit', edit_admins_landing_image_path(landing_image) %>&nbsp;|
-                    <%= link_to 'Destroy', admins_landing_image_path(landing_image), method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%= link_to 'Destroy', admins_landing_image_path(landing_image), method: :delete, data: { confirm: 'Are you sure?' } %>&nbsp;|
+                    <%= link_to landing_image.draft? ? 'Publish' : 'Make Draft', landing_image.draft? ? admins_landing_image_make_published_path(landing_image) : admins_landing_image_make_draft_path(landing_image), data: { confirm: 'Are you sure?' } %>
                   </td>
                 </tr>
               <% end %>

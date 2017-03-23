@@ -3,6 +3,7 @@ class HomeController < ApplicationController
     @vacancies = Vacancy.order(:position => :asc)
     @questions = Question.order(:question => :asc)
     @prices = Price.order(:amount => :asc)
+    @landing_images = LandingImage.published.order(:created_at => :desc)
   end
 
   def job_detail

@@ -4,21 +4,23 @@
     <div class="row">
       <div id="main-carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-          <li data-target="#main-carousel" data-slide-to="0" class="active"></li>
-          <li data-target="#main-carousel" data-slide-to="1"></li>
-          <li data-target="#main-carousel" data-slide-to="2"></li>
+          <% @landing_images.count.times do |i| %>
+            <li data-target="#main-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active' : '' %>"></li>
+          <% end %>
         </ol>
         <div class="carousel-inner caro-mega1" role="listbox">
-          <div class="item active">
-            <div class="detail-caro1 blue-opa">
-              <div class="center">
-                <h2 class="det-title bold italic"><i>Seru Tontonannya<br>Puas Internetannya</i></h2>
-                <p class="text-center white">Kini nikmati internet stabil dan cepat tanpa gangguan dengan teknologi fiber. Nikmati juga berbagai tayangan dan hiburan menarik hanya untuk anda.</p>
-                <a href="" class="jadwal-mov"><%= image_tag 'sample-movie-icon.png' %></a>
+          <% @landing_images.each_with_index do |landing_image, index| %>
+            <div class="item <%= index == 0 ? 'active' : '' %>">
+              <div class="detail-caro1 blue-opa">
+                <div class="center">
+                  <h2 class="det-title bold italic"><i><%= landing_image.title %></i></h2>
+                  <p class="text-center white"><%= landing_image.subtitle %></p>
+                  <a href="" class="jadwal-mov"><%= image_tag landing_image.addon_image_url %></a>
+                </div>
               </div>
+              <%= image_tag landing_image.background_url, :class => 'full-img' %>
             </div>
-            <%= image_tag 'sample-carousel-1.jpg', :class => 'full-img' %>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>

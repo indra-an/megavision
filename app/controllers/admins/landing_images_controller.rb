@@ -51,14 +51,15 @@ class Admins::LandingImagesController < Admins::BaseController
   end
 
   def make_published
-    @landing_image.published? if @landing_image.draft?
+    @landing_image.published! if @landing_image.draft?
     redirect_to admins_landing_images_path, notice: 'Landing image was successfully published'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_landing_image
-      @landing_image = LandingImage.find(params[:id])
+      landing_image_id = params[:id] || params[:landing_image_id]
+      @landing_image = LandingImage.find(landing_image_id)
     end
 
     # Only allow a trusted parameter "white list" through.
