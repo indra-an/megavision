@@ -5,12 +5,14 @@ Rails.application.routes.draw do
 
   get 'jobs/:slug_id' => 'home#job_detail', :as => :public_job_vacancy_detail
   get 'channels/:slug_id' => 'home#channel_detail', :as => :public_channel_detail
+  post 'submit_contact' => 'home#submit_contact', :as => :public_submit_contact
 
   namespace :admins do
     get 'dashboard' => 'dashboard#index'
 
     put 'update_password' => 'dashboard#update_password'
 
+    resources :contacts, :except => [:new, :create, :edit, :update]
     resources :channels, :except => [:show]
     resources :channel_cities, :except => [:show]
     resources :prices, :except => [:show]

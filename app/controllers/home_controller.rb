@@ -17,4 +17,11 @@ class HomeController < ApplicationController
     @channel_city = ChannelCity.find_by_slug(params[:slug_id])
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
   end
+
+  def submit_contact
+    contact = Contact.new(:name => params[:name], :email => params[:email],
+                          :subject => params[:subject], :message => params[:message])
+
+    redirect_to root_path, notice: contact.save ? 'success' : 'danger'
+  end
 end

@@ -90,6 +90,11 @@
             <span class="glyphicon glyphicon-blackboard"></span>&nbsp;Landing Images
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:contacts) %>">
+          <%= link_to admins_contacts_path do %>
+            <span class="glyphicon glyphicon-envelope"></span>&nbsp;Contacts
+          <% end %>
+        </li>
         <li role="presentation" class="divider"></li>
         <li class="<%= class_for_content_indicator(:admins) %>">
           <%= link_to '#' do %>

@@ -54,6 +54,16 @@
       <a href="" class="white social"><i class="fa fa-twitter font-24" aria-hidden="true"></i></a>
     </footer>
 
+    <% if notice %>
+      <div class="alert alert-<%= notice %> notification" role="alert">
+        <% if notice.eql?('success') %>
+          <strong>Thank you!</strong> Your message has been received, we'll contact you shortly.
+        <% else %>
+          <strong>Sorry!</strong> Something went wrong when submitting your message, please double check.
+        <% end %>
+      </div>
+    <% end %>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-eval' => false, 'data-turbolinks-track' => 'reload' %>
   </body>
 </html>

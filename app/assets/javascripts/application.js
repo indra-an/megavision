@@ -4,6 +4,11 @@
 //= require turbolinks
 
 $(document).on('turbolinks:load', function() {
+  // reattach callback
+  $(".notification").fadeTo(3000, 500).slideUp(500, function() {
+    $(".notification").slideUp(500);
+  });
+
   // smooth scroll
   $("a[href^='#']").on('click', function(e) {
     e.preventDefault();
