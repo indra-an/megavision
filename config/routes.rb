@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :prices, :except => [:show]
     resources :questions
     resources :vacancies
+    resources :admins, :except => [:edit, :update, :show]
     resources :landing_images do
       get 'make_draft'
       get 'make_published'
