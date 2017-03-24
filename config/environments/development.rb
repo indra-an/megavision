@@ -57,11 +57,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'http://investasi-ku.com' }
   config.action_mailer.smtp_settings = {
-    :address => "smtp.gmail.com",
+    :address => "mail.megavision.net.id",
     :port => 465,
-    :domain => "gmail.com",
-    :user_name => "web.investasiku@gmail.com",
-    :password => "investasiku2016",
+    :domain => "megavision.net.id",
+    :user_name => "web.service@megavision.net.id",
+    :password => "m3g4v1s10n",
     :authentication => "login",
     :ssl => true,
     :tls => true,
