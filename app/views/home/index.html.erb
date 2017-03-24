@@ -1,5 +1,5 @@
 <!-- main carousel -->
-<section class="caro-sect">
+<section id="sec-home" class="caro-sect">
   <div class="container-fluid">
     <div class="row">
       <div id="main-carousel" class="carousel slide" data-ride="carousel">
@@ -28,7 +28,7 @@
 </section>
 
 <!-- product -->
-<section class="product-sect">
+<section id="sec-product" class="product-sect">
   <div class="container">
     <div class="row">
       <h2 class="mega-blue bold text-center"><b>Our Product</b></h2>
@@ -123,7 +123,7 @@
 </section>
 
 <!-- questions and answers -->
-<section class="q-and-a-sect" style="background: url(<%= asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <div class="row">
       <h2 class="uppercase text-center white bold">Questions and Answers</h2>
@@ -148,7 +148,7 @@
 </section>
 
 <!-- about us -->
-<section class="about-us-sect">
+<section id="sec-about" class="about-us-sect">
   <div class="container-fluid no-padding">
     <h2 class="mega-blue uppercase text-center bold">About Us</h2>
     <div class="short-history">
@@ -185,7 +185,7 @@
 </section>
 
 <!-- job vacancy -->
-<section class="job-vacan-sect" style="background: url(<%= asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Job Vacancy</h2>
     <% @vacancies.each do |vacancy| %>
@@ -205,7 +205,7 @@
 </section>
 
 <!-- contact-us -->
-<section class="contact-sect" style="background: url(<%= asset_url('sample-contact.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-contact" class="contact-sect" style="background: url(<%= asset_url('sample-contact.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Contact Us</h2>
     <div class="col-md-4 col-sm-5 col-xs-12 address white">
