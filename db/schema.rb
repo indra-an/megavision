@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324080349) do
+ActiveRecord::Schema.define(version: 20170325160219) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -72,6 +72,12 @@ ActiveRecord::Schema.define(version: 20170324080349) do
     t.string "linked_in_url"
     t.string "facebook_url"
     t.string "twitter_url"
+    t.string "background_area_channel"
+    t.string "background_question_answer"
+    t.string "background_history"
+    t.string "background_vision_mission"
+    t.string "background_vacancy"
+    t.string "background_contact"
   end
 
   create_table "prices", force: :cascade do |t|

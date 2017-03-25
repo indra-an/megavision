@@ -80,7 +80,7 @@
 </section>
 
 <!-- area channel -->
-<section class="area-channel-sect text-center" style="background: url(<%= asset_url('sample-area-channel.jpg') %>);">
+<section class="area-channel-sect text-center" style="background: url(<%= @preference.background_area_channel %>);">
   <div class="container">
     <div class="row">
       <div class="channel-bdg">
@@ -123,7 +123,7 @@
 </section>
 
 <!-- questions and answers -->
-<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= @preference.background_question_answer %>);background-size: cover;background-position: center;">
   <div class="container">
     <div class="row">
       <h2 class="uppercase text-center white bold">Questions and Answers</h2>
@@ -153,7 +153,7 @@
     <h2 class="mega-blue uppercase text-center bold">About Us</h2>
     <div class="short-history">
       <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= asset_url('sample-history.jpg') %>);background-size: cover;background-position: center;"></div>
+        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= @preference.background_history %>);background-size: cover;background-position: center;"></div>
         <div class="col-md-7 col-xs-12">
           <h3 class="white">Sejarah Singkat</h3>
           <div class="white"><%= simple_format @preference.company_history %></div>
@@ -174,14 +174,14 @@
             <% end %>
           </ul>
         </div>
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= asset_url('sample-vision.jpg') %>);background-size: cover;background-position: center;"></div>
+        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= @preference.background_vision_mission %>);background-size: cover;background-position: center;"></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- job vacancy -->
-<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= @preference.background_vacancy %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Job Vacancy</h2>
     <% @vacancies.each do |vacancy| %>
@@ -201,7 +201,7 @@
 </section>
 
 <!-- contact-us -->
-<section id="sec-contact" class="contact-sect" style="background: url(<%= asset_url('sample-contact.jpg') %>);background-size: cover;background-position: center;">
+<section id="sec-contact" class="contact-sect" style="background: url(<%= @preference.background_contact %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Contact Us</h2>
     <div class="col-md-4 col-sm-5 col-xs-12 address white">
