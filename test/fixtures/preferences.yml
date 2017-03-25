@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  about_megavision: MyText
+  about_starnet: MyText
+  company_history: MyText
+  company_vision_mission: MyText
+  adresses: MyText
+  copyright_text: MyString
+  linked_in_url: MyString
+  facebook_url: MyString
+  twitter_url: MyString
+
+two:
+  about_megavision: MyText
+  about_starnet: MyText
+  company_history: MyText
+  company_vision_mission: MyText
+  adresses: MyText
+  copyright_text: MyString
+  linked_in_url: MyString
+  facebook_url: MyString
+  twitter_url: MyString

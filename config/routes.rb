@@ -9,8 +9,11 @@ Rails.application.routes.draw do
 
   namespace :admins do
     get 'dashboard' => 'dashboard#index'
+    get 'preferences' => 'dashboard#preferences'
 
     put 'update_password' => 'dashboard#update_password'
+
+    post 'preferences' => 'dashboard#save_preferences'
 
     resources :contacts, :except => [:new, :create, :edit, :update]
     resources :channels, :except => [:show]

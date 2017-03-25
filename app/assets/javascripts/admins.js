@@ -18,29 +18,37 @@ $(document).on('turbolinks:load', function() {
     placeholder_text_multiple: 'Select channels'
   });
 
-  initVacancyRequirements();
+  initDynamicFields();
 });
 
 // for dynamic job vacancy requirement
-function initVacancyRequirements() {
-  var requirement_field_sample = $(".req-field").html();
-  if(requirement_field_sample !== undefined) {
+function initDynamicFields() {
+  var offset = $(".req-field").data("offset-class");
+  var field_sample = $(".req-field").html();
+  if(field_sample !== undefined) {
     $(".req-field .req-add").off("click");
     $(".req-field .req-add").on("click", function(e) {
-      $(".req-field:last").clone()
-                          .insertAfter(".req-field:last")
-                          .addClass("col-sm-offset-2")
-                          .find("input")
-                          .val("");
-      initVacancyRequirements();
+      var insertAfter = $(".req-field").has($(this));
+      $(insertAfter).clone()
+                    .insertAfter(insertAfter)
+                    .addClass(offset)
+                    .find("input")
+                    .val("");
+      initDynamicFields();
     });
 
     $(".req-field .req-remove").off("click");
     $(".req-field .req-remove").on("click", function(e) {
-      if($(".req-field").length > 1) {
-        $(".req-field:last").remove();
-        initVacancyRequirements();
+      var parent_field = $(".req-field").has($(this));
+      var parent_children_count = $(parent_field).parent().children().length - 1;
+      var first_parent_child = $(".form-group").has($(parent_field));
+
+      if(parent_children_count > 1) {
+        $(parent_field).remove();
+        initDynamicFields();
       }
+
+      $(first_parent_child).find(".req-field:first").removeClass(offset);
     });
   }
 }

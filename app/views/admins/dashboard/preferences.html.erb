@@ -28,79 +28,101 @@
           <% end %>
 
           <div class="form-group">
-            <%= label_tag :facebook_link, 'Facebook Link', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :copyright_text, 'Copyright text', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= text_field_tag :facebook_link, @preference.facebook_link, :class => 'form-control' %>
+              <%= text_field_tag :copyright_text, @preference.copyright_text, :class => 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :twitter_link, 'Twitter Link', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :facebook_url, 'Facebook URL', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= text_field_tag :twitter_link, @preference.twitter_link, :class => 'form-control' %>
+              <%= text_field_tag :facebook_url, @preference.facebook_url, :class => 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :instagram_link, 'Instagram Link', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :twitter_url, 'Twitter URL', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= text_field_tag :instagram_link, @preference.instagram_link, :class => 'form-control' %>
+              <%= text_field_tag :twitter_url, @preference.twitter_url, :class => 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :banner_ad_script, 'Banner Ad Script', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :linked_in_url, 'LinkedIn URL', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= text_area_tag :banner_ad_script, @preference.banner_ad_script, :class => 'form-control', :rows => 7 %>
+              <%= text_field_tag :linked_in_url, @preference.linked_in_url, :class => 'form-control' %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :sidebar_ad_script, 'Sidebar Ad Script', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :about_megavision, 'About Megavision content', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= text_area_tag :sidebar_ad_script, @preference.sidebar_ad_script, :class => 'form-control', :rows => 7 %>
+              <%= text_area_tag :about_megavision, @preference.about_megavision, :class => 'form-control', :rows => 5 %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :news, 'Beritaku Home', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :about_starnet, 'About Starnet content', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= select_tag :news, options_for_select(@news, @news_selected), :multiple => false, :class => 'chosen' %>
+              <%= text_area_tag :about_starnet, @preference.about_starnet, :class => 'form-control', :rows => 5 %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :module_step_1, 'Learning Module Step 1', :class => 'col-sm-3 control-label' %>
+            <%= label_tag :company_history, 'Company history content', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= select_tag :module_step_1, options_for_select(@learning_modules, @module_selected_1), :multiple => false, :class => 'chosen' %>
+              <%= text_area_tag :company_history, @preference.company_history, :class => 'form-control', :rows => 5 %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :module_step_2, 'Learning Module Step 2', :class => 'col-sm-3 control-label' %>
-            <div class="col-sm-9">
-              <%= select_tag :module_step_2, options_for_select(@learning_modules, @module_selected_2), :multiple => false, :class => 'chosen' %>
+            <%= label_tag :company_vision_missions, 'Company vision and mission', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9 req-field" data-offset-class="col-sm-offset-3">
+              <% if @preference.company_vision_missions.any? %>
+                <% @preference.company_vision_missions.each do |vm| %>
+                  <div class="input-group">
+                    <%= text_field_tag 'company_vision_missions[]', vm, :class => 'form-control' %>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="input-group">
+                  <%= text_field_tag 'company_vision_missions[]', '', :class => 'form-control' %>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </span>
+                </div>
+              <% end %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= label_tag :module_step_3, 'Learning Module Step 3', :class => 'col-sm-3 control-label' %>
-            <div class="col-sm-9">
-              <%= select_tag :module_step_3, options_for_select(@learning_modules, @module_selected_3), :multiple => false, :class => 'chosen' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag :module_step_4, 'Learning Module Step 4', :class => 'col-sm-3 control-label' %>
-            <div class="col-sm-9">
-              <%= select_tag :module_step_4, options_for_select(@learning_modules, @module_selected_4), :multiple => false, :class => 'chosen' %>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= label_tag :module_step_5, 'Learning Module Step 5', :class => 'col-sm-3 control-label' %>
-            <div class="col-sm-9">
-              <%= select_tag :module_step_5, options_for_select(@learning_modules, @module_selected_5), :multiple => false, :class => 'chosen' %>
+            <%= label_tag :addresses, 'Company address', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9 req-field" data-offset-class="col-sm-offset-3">
+              <% if @preference.addresses.any? %>
+                <% @preference.addresses.each do |vm| %>
+                  <div class="input-group">
+                    <%= text_field_tag 'addresses[]', vm, :class => 'form-control', :placeholder => 'Name|Address Location|Phone' %>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="input-group">
+                  <%= text_field_tag 'addresses[]', '', :class => 'form-control', :placeholder => 'Format: Address Name|Address Location|Phone' %>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </span>
+                </div>
+              <% end %>
             </div>
           </div>
 
