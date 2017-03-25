@@ -48,10 +48,16 @@
 
     <footer class="footer bg-grey text-center">
       <a href="#sec-home" class="bg-grey to-top white"><i class="fa fa-angle-double-up font-18" aria-hidden="true"></i></a>
-      <p class="font-12 white">Copyrights 2016 Indonesia Broadband Communication</p>
-      <a href="" class="white social"><i class="fa fa-linkedin font-24" aria-hidden="true"></i></a>
-      <a href="" class="white social"><i class="fa fa-facebook font-24" aria-hidden="true"></i></a>
-      <a href="" class="white social"><i class="fa fa-twitter font-24" aria-hidden="true"></i></a>
+      <p class="font-12 white"><%= @preference.copyright_text.html_safe %></p>
+      <%= link_to @preference.linked_in_url, :class => 'white social' do %>
+        <i class="fa fa-linkedin font-24" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to @preference.facebook_url, :class => 'white social' do %>
+        <i class="fa fa-facebook font-24" aria-hidden="true"></i>
+      <% end %>
+      <%= link_to @preference.twitter_url, :class => 'white social' do %>
+        <i class="fa fa-twitter font-24" aria-hidden="true"></i>
+      <% end %>
     </footer>
 
     <% if notice %>

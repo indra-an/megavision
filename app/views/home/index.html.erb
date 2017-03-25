@@ -53,7 +53,7 @@
       <div class="mega-logo-tag">
         <%= image_tag 'logo-tag.png' %>
       </div>
-      <p>Teknologi jaringan yang dapat digunakan untuk mendukung pelayanan TV Kabel adalah HFC (Hybrid Fiber Coax), yang merupakan salah satu teknologi akses yang dibentuk dari gabungan jaringan fiber dan jaringan coaxial. Teknologi HFC ini sudah dipergunakan oleh operator TV Kabel untuk menyalurkan program televisi secara broadcast melalui kabel. Bandwidth yang dipergunakan adalah 450 MHz atau 650 MHz yang hanya digunakan untuk komunikasi satu arah. Dengan adanya dorongan untuk mengembangkan layanan informasi maka HFC yang semula digunakan untuk komunikasi satu arah kemudian dimodifikasi menjadi pelayanan dua arah. Untuk pelayanan informasi dua arah tersebut sistem HFC dibuat dengan kemampuan bandwidth sampai dengan 860 MHz, yaitu 5 sampai dengan 50 MHz untuk Upstream dan 70 sampai dengan 860 MHz untuk Downstream.</p>
+      <p><%= @preference.about_megavision %></p>
       <div class="mega-benefit">
         <div class="benefit-det text-center">
           <%= image_tag 'sample-tv-parallel.png', :class => 'benefit-img' %>
@@ -107,7 +107,7 @@
           <%= image_tag 'logo-starnet.png' %>
         </div>
         <div class="starnet-detail">
-          <p>Megavision adalah layanan TV Kabel plus Internet Broadband. Dengan layanan kami ini, pelanggan dapat menikmati puluhan channel unggulan dari mancanegara selama 24 jam, sekaligus dapat mengakses internet berkecepatan tinggi dengan koneksi stabil dan tanpa kuota (unlimited). Paket Megavision internet merupakan pilihan pebisnis & keluarga modern masa kini, karena merupakan layanan unlimited Broadband Internet dengan akses internet kecepatan tinggi dan koneksi internet yang stabil tanpa saluran telepon.Kami menawarkan kecepatan internet yang lebih tinggi hingga 5 Mbps,untuk memenuhi kebutuhan bisnis pribadi, kantor  dan usaha menengah yang membutuhkan kecepatan tinggi Jelajahi dunia maya dan semua aktivitas internet Anda akan lebih nyaman dengan produk Kami.</p>
+          <p><%= @preference.about_starnet %></p>
         </div>
         <div class="starnet-prices">
           <% @prices.each do |price| %>
@@ -156,11 +156,8 @@
         <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= asset_url('sample-history.jpg') %>);background-size: cover;background-position: center;"></div>
         <div class="col-md-7 col-xs-12">
           <h3 class="white">Sejarah Singkat</h3>
-          <p class="white">PT Indonesia Broadband Communication (Megavision) adalah perusahaan yang bergerak di bidang jasa telekomunikasi khususnya, TV Kabel. Megavision berdiri pada tanggal 4 Mei 2001 dan beralamat di Jalan Karang Layung 27 Bandung. <br><br>
-
-          Tidak hanya di Bandung, Megavision pun melakukan pengembangan ke wilayah Bogor, Semarang, Malang, Medan, Bekasi, Depok, Balikpapan, Palembang, dan kota lainnya. Dengan menggunakan teknologi kabel coaxial dan fiber optic, Megavision telah melakukan penjualan di seluruh area yang sudah tercover di Indonesia.<br><br>
-
-          Di Bogor, Megavision berdiri dan berkembang dengan nama PT. Indonesia Cable Network pada tanggal 28 November 2008. Lalu Megavision mengembangkan teknologinya tidak hanya TV Kabel tetapi juga produk Internet. </p>
+          <div class="white"><%= simple_format @preference.company_history %></div>
+          </p>
         </div>
       </div>
     </div>
@@ -172,10 +169,9 @@
         <div class="col-md-7 col-xs-12">
           <h3 class="white">Visi dan Misi</h3>
           <ul>
-            <li class="white">Memberikan kemudahan kepada masyarakat dalam mendapatkan akses informasi yang disajikan oleh penyelenggara jasa TV Kabel melalui pembangunan jaringan HFC (Hybrid Fiber Coaxial)</li> <br>
-            <li class="white">Menyediakan pelayanan dengan standar internasional</li><br>
-            <li class="white">Menghubungkan industri, pemerintah dan masyarakat, sehingga tercipta kondisi yang selaras dan seimbang utamanya dalam penataan penyelenggaraan telekomunikasi di Indonesia</li><br>
-            <li class="white">Menunjang program pemerintah dalam meningkatkan taraf hidup masyarakat</li><br>
+            <% @preference.company_vision_missions.each do |vm| %>
+              <li class="white"><%= vm %></li><br/>
+            <% end %>
           </ul>
         </div>
         <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= asset_url('sample-vision.jpg') %>);background-size: cover;background-position: center;"></div>
@@ -209,17 +205,14 @@
   <div class="container">
     <h2 class="uppercase text-center white bold">Contact Us</h2>
     <div class="col-md-4 col-sm-5 col-xs-12 address white">
-      <div class="address-det">
-        <h4 class="bold white no-margin">Bandung 1</h4>
-        <p class="no-margin font-12">Jl. Karang Tinggal No. 27 Cipedes Sukajadi</p>
-        <p class="no-margin font-12">Tel. 022 - 2042624</p>
-      </div>
-
-      <div class="address-det">
-        <h4 class="bold white no-margin">Bandung 1</h4>
-        <p class="no-margin font-12">Jl. Karang Tinggal No. 27 Cipedes Sukajadi</p>
-        <p class="no-margin font-12">Tel. 022 - 2042624</p>
-      </div>
+      <% @preference.addresses.each do |address| %>
+        <% splitted = address.split('|') %>
+        <div class="address-det">
+          <h4 class="bold white no-margin"><%= splitted[0] %></h4>
+          <p class="no-margin font-12"><%= splitted[1] %></p>
+          <p class="no-margin font-12">Tel. <%= splitted[2] %></p>
+        </div>
+      <% end %>
     </div>
 
     <div class="col-md-8 col-sm-7 col-xs-12 contact-form">

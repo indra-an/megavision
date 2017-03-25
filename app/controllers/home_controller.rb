@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :fetch_preferences, :except => [:submit_contact]
+
   def index
     @vacancies = Vacancy.order(:position => :asc)
     @questions = Question.order(:question => :asc)
@@ -23,5 +25,11 @@ class HomeController < ApplicationController
                           :subject => params[:subject], :message => params[:message])
 
     redirect_to root_path, notice: contact.save ? 'success' : 'danger'
+  end
+
+  private
+
+  def fetch_preferences
+    @preference = Preference.fetch || Preference.new
   end
 end
