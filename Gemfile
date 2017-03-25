@@ -18,6 +18,7 @@ gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
 gem 'devise'
 gem 'carrierwave'
+gem "recaptcha", require: 'recaptcha/rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

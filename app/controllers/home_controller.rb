@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     contact = Contact.new(:name => params[:name], :email => params[:email],
                           :subject => params[:subject], :message => params[:message])
 
-    redirect_to root_path, notice: contact.save ? 'success' : 'danger'
+    redirect_to root_path, notice: verify_recaptcha && contact.save ? 'success' : 'danger'
   end
 
   private
