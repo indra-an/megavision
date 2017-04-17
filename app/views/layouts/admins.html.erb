@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag 'admins', :media => 'all', 'data-turbolinks-track' => 'reload' %>
     <%= javascript_include_tag 'admins', 'data-turbolinks-track' => 'reload' %>
+    <%= yield :javascript %>
   </head>
 
   <body>
@@ -100,6 +101,11 @@
         <li class="<%= class_for_content_indicator(:admins) %>">
           <%= link_to admins_admins_path do %>
             <span class="glyphicon glyphicon-user"></span>&nbsp;Admin Accounts
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:dashboard, :area_coverages) %>">
+          <%= link_to admins_area_coverages_path do %>
+            <span class="glyphicon glyphicon-cloud"></span>&nbsp;Area Coverages
           <% end %>
         </li>
         <li class="<%= class_for_content_indicator(:dashboard, :preferences) %>">

@@ -2,6 +2,7 @@
  *= require shared/bootstrap.min
  *= require shared/font-awesome.min
  *= require shared/public
+ *= require shared/public-responsive
  *= require_self
  */
 

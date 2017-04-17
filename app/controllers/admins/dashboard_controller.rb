@@ -37,4 +37,27 @@ class Admins::DashboardController < Admins::BaseController
       render :preferences
     end
   end
+
+  def area_coverages
+    @coverages = Coverage.order(:name => :asc)
+  end
+
+  def save_area_coverages
+    if params[:new_region_names].count.eql?(params[:new_region_coords].count)
+      params[:new_region_names].each_with_index do |name, index|
+        coordinates = params[:new_region_coords][index].split('|').reject(&:empty?)
+        coordinates = coordinates.map { |coordinate| coordinate.split(',') }
+        Coverage.create(:name => name, :coordinates => coordinates)
+      end
+    end
+
+    redirect_to admins_area_coverages_path, notice: 'Area coverage coordinates saved.'
+  end
+
+  def destroy_area_coverage
+    coverage = Coverage.find(params[:id])
+    coverage.destroy
+
+    redirect_to admins_area_coverages_path, notice: 'Area coverage deleted.'
+  end
 end

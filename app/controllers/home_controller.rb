@@ -20,6 +20,10 @@ class HomeController < ApplicationController
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
   end
 
+  def check_area
+    @coverages = Coverage.order(:name => :asc)
+  end
+
   def submit_contact
     contact = Contact.new(:name => params[:name], :email => params[:email],
                           :subject => params[:subject], :message => params[:message])

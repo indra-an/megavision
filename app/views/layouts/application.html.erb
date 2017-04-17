@@ -30,15 +30,17 @@
 
         <div class="collapse navbar-collapse navbar-right" id="navbar-megavision">
           <div class="check-area-par">
-            <a href="check_area.html" class="check-area-btn"><i class="fa fa-map-marker" aria-hidden="true"></i>Check Area</a>
+            <%= link_to public_check_area_path, :class => 'check-area-btn' do %>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Check Area
+            <% end %>
           </div>
           <ul class="nav navbar-nav navbar-right margin-0">
-            <li><a href="#sec-home" class="active">Home</a></li>
-            <li><a href="#sec-product">Product</a></li>
-            <li><a href="#sec-about">About</a></li>
-            <li><a href="#sec-qa">Q &amp; A</a></li>
-            <li><a href="#sec-vacancy">Job Vacancy</a></li>
-            <li><a href="#sec-contact">Contact</a></li>
+            <li><%= link_to 'Home', is_landing_page? ? '#sec-home' : root_path + '#sec-home' %></li>
+            <li><%= link_to 'Product', is_landing_page? ? '#sec-product' : root_path + '#sec-product' %></li>
+            <li><%= link_to 'About', is_landing_page? ? '#sec-about' : root_path + '#sec-about' %></li>
+            <li><%= link_to 'Q & A', is_landing_page? ? '#sec-qa' : root_path + '#sec-qa' %></li>
+            <li><%= link_to 'Job Vacancy', is_landing_page? ? '#sec-vacancy' : root_path + '#sec-vacancy' %></li>
+            <li><%= link_to 'Contact', is_landing_page? ? '#sec-contact' : root_path + '#sec-contact' %></li>
           </ul>
         </div>
       </div>
@@ -71,5 +73,6 @@
     <% end %>
 
     <%= javascript_include_tag 'application', 'data-turbolinks-eval' => false, 'data-turbolinks-track' => 'reload' %>
+    <%= yield :javascript %>
   </body>
 </html>

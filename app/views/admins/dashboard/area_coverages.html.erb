@@ -1,0 +1,239 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Area Coverages' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Area Coverages</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <%= text_field_tag :map_search, '', :class => 'form-control', :placeholder => 'Search for places...' %>
+            <div id="map"></div>
+          </div>
+          <div class="col-md-6">
+            <%= form_tag admins_area_coverages_path do %>
+              <div class="row">
+                <div class="col-md-4">
+                  <%= link_to 'Create Region', 'javascript:onCreateRegionClick();', :class => 'btn btn-success btn-block' %>
+                </div>
+                <div class="col-md-4">
+                  <%= link_to 'Discard', admins_area_coverages_path, :class => 'btn btn-warning btn-block' %>
+                </div>
+                <div class="col-md-4">
+                  <%= submit_tag 'Save', :class => 'btn btn-primary btn-block' %>
+                </div>
+              </div>
+              <table class="table table-striped table-hover table-responsive table-coverage">
+                <thead>
+                  <th>Region name</th>
+                  <th>Created at</th>
+                  <th>Action</th>
+                </thead>
+                <tbody>
+                  <% if @coverages.empty? %>
+                    <tr>
+                      <td colspan="4">You have no coverage regions.</td>
+                    </tr>
+                  <% else %>
+                    <% @coverages.each_with_index do |coverage, index| %>
+                      <tr class="selectable" onclick="onListClick(this);" data-index="<%= index %>">
+                        <td><%= coverage.name %></td>
+                        <td><%= coverage.created_at %></td>
+                        <td><%= link_to 'Remove', admins_destroy_area_coverage_path(coverage), :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+  <script>
+    <% pre_regions = @coverages.map { |coverage| coverage.coordinates } %>
+
+    var map;
+    var pre_regions = <%= raw pre_regions %>;
+    var polygons = [];
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 0.783, lng: 113.9213 },
+        zoom: 5
+      });
+
+      var input = document.getElementById('map_search');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+          if(!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+          }
+
+          if(place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+        map.fitBounds(bounds);
+      });
+
+      // prepopulate
+      for(var i = 0; i < pre_regions.length; i++) {
+        coverage_coordinates = [];
+        region_coordinates = pre_regions[i];
+
+        for(var j = 0; j < region_coordinates.length; j++) {
+          coord = region_coordinates[j];
+          coverage_coordinates.push(new google.maps.LatLng(parseFloat(coord[0]), parseFloat(coord[1])));
+        }
+
+        var polygon = new google.maps.Polygon({
+          paths: coverage_coordinates,
+          draggable: false,
+          editable: false,
+          strokeColor: '#00FF00',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#00FF00',
+          fillOpacity: 0.35
+        });
+
+        polygons.push(polygon);
+      }
+    }
+
+    function onCreateRegionClick() {
+      if(map === undefined) {
+        return;
+      }
+
+      var text = prompt("Please enter region name", "");
+      if(text === "") {
+        alert("Region name cannot empty");
+        return;
+      }
+
+      var count = $(".table-coverage tbody tr.selectable").length;
+      if(count === 0) {
+        $(".table-coverage tbody").html("");
+      }
+
+      // calculate polygon coordinate to be drawn
+      var scale = Math.pow(2,map.getZoom());
+      var proj = map.getProjection();
+      var center = proj.fromLatLngToPoint(map.getCenter());
+      var bounds = new google.maps.LatLngBounds();
+      var sw = new google.maps.Point(((center.x * scale) - 50) / scale, ((center.y * scale) - 50) / scale);
+      var ne = new google.maps.Point(((center.x * scale) + 50) / scale, ((center.y * scale) + 50) / scale);
+      bounds.extend(proj.fromPointToLatLng(sw));
+      bounds.extend(proj.fromPointToLatLng(ne));
+      sw = bounds.getSouthWest();
+      ne = bounds.getNorthEast();
+      var nw = new google.maps.LatLng(ne.lat(), sw.lng());
+
+      // draw rectangle 100x100 in the center of viewport
+      var triangleCoords = [ne, nw, sw];
+      var polygon = new google.maps.Polygon({
+        paths: triangleCoords,
+        draggable: true, // turn off if it gets annoying
+        editable: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+      });
+
+      var onPolygonChange = function() {
+        var results = "";
+        for(var i = 0; i < polygon.getPath().getLength(); i++) {
+          results += polygon.getPath().getAt(i).toUrlValue(5);
+          results += "|";
+        }
+        // format: lat,lng|lat,lng
+        $(".table-coverage tbody tr.selectable.info input.new-region-coords").val(results);
+      };
+
+      google.maps.event.addListener(polygon.getPath(), "insert_at", onPolygonChange);
+      google.maps.event.addListener(polygon.getPath(), "set_at", onPolygonChange);
+
+      $(".table-coverage").append(
+        '<tr class="selectable warning new" onclick="onListClick(this);" data-index="' + count + '">' +
+          '<td>' + text + '</td>' +
+          '<td>-</td>' +
+          '<td><a href="javascript:void(0);" data-confirm="Are you sure?" onclick="onRemoveDraftRegionClick(this);">Remove</a></td>' +
+          '<input class="new-region-names" type="hidden" name="new_region_names[]" value="' + text + '" />' +
+          '<input class="new-region-coords" type="hidden" name="new_region_coords[]" value="" />' +
+        '</tr>'
+      );
+
+      // initial
+      onPolygonChange();
+      polygons.push(polygon);
+    }
+
+    function onRemoveDraftRegionClick(obj) {
+      var parent = $(obj).parent().parent();
+      var index = $(parent).data("index");
+      var polygon = polygons[index];
+      polygon.setMap(null);
+
+      delete polygons[index];
+
+      $(parent).remove();
+
+      var count = $(".table-coverage tbody tr.selectable").length;
+      if(count === 0) {
+        polygons = [];
+        $(".table-coverage").append(
+          '<tr>' +
+            '<td colspan="4">You have no coverage regions.</td>' +
+          '</tr>'
+        );
+      }
+    }
+
+    function onListClick(obj) {
+      $(".table-coverage tr.selectable").removeClass("info");
+      $(".table-coverage tr.selectable.new").removeClass("warning").addClass("warning");
+
+      var index = $(obj).data("index");
+      $(obj).removeClass("warning").addClass("info");
+
+      // clear polygons on map unless clicked list
+      for(var i = 0; i < polygons.length; i++) {
+        var polygon = polygons[i];
+        if(polygon === undefined) {
+          continue;
+        }
+        polygon.setMap(i === index ? map : null);
+      }
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_maps_api_key %>&libraries=places&callback=initMap"></script>
+<% end %>

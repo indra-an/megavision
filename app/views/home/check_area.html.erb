@@ -1,0 +1,154 @@
+<section class="check-area-page">
+  <div class="container-fluid blue-bg">
+    <div class="container">
+      <div class="check-opening">
+        <h1 class="white uppercase bold">Cek Area Anda</h1>
+      </div>
+    </div>
+  </div>
+
+  <div id="available" class="container-fluid tersedia">
+    <div class="notif-area container">
+      <span class="ok-color bold"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Area terjangkau</span>
+    </div>
+  </div>
+  <div id="unavailable" class="container-fluid tdk-tersedia">
+    <div class="notif-area container">
+      <span class="no-color bold"><i class="fa fa-warning" aria-hidden="true"></i> Area tidak terjangkau</span>
+    </div>
+  </div>
+  <div class="map">
+    <input id="check-area-search" class="controls" type="text" placeholder="Search for places...">
+    <div id="check-area-map"></div>
+  </div>
+</section>
+
+<%= content_for :javascript do %>
+  <script>
+    <% pre_regions = @coverages.map { |coverage| coverage.coordinates } %>
+
+    var map;
+    var marker;
+    var pre_regions = <%= raw pre_regions %>;
+    var polygons = [];
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("check-area-map"), {
+        center: { lat: 0.783, lng: 113.9213 },
+        zoom: 5,
+        scrollwheel: false
+      });
+
+      var input = document.getElementById("check-area-search");
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if(places.length == 0) {
+          return;
+        }
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+          if(!place.geometry) {
+            return;
+          }
+
+          if(place.geometry.viewport) {
+            bounds.union(place.geometry.viewport);
+          }
+          else {
+            bounds.extend(place.geometry.location);
+          }
+
+          var result = true;
+          for(var i = 0; i < polygons.length; i++) {
+            var polygon = polygons[i];
+            result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygon);
+            if(result) {
+              break;
+            }
+          }
+
+          placeMarker(place.geometry.location);
+          checkForLocation(place.geometry.location);
+        });
+
+        map.fitBounds(bounds);
+      });
+
+      // prepopulate
+      for(var i = 0; i < pre_regions.length; i++) {
+        coverage_coordinates = [];
+        region_coordinates = pre_regions[i];
+
+        for(var j = 0; j < region_coordinates.length; j++) {
+          coord = region_coordinates[j];
+          coverage_coordinates.push(new google.maps.LatLng(parseFloat(coord[0]), parseFloat(coord[1])));
+        }
+
+        var polygon = new google.maps.Polygon({
+          paths: coverage_coordinates,
+          draggable: false,
+          editable: false,
+          strokeColor: '#00FF00',
+          strokeOpacity: 0.5,
+          strokeWeight: 2,
+          fillColor: '#00FF00',
+          fillOpacity: 0.1,
+          clickable: false
+        });
+
+        polygon.setMap(map);
+        polygons.push(polygon);
+      }
+
+      google.maps.event.addListener(map, 'click', function(e) {
+        this.setOptions({ scrollwheel: true });
+        placeMarker(e.latLng);
+        checkForLocation(e.latLng);
+      });
+
+      google.maps.event.addListener(map, 'mouseout', function(e) {
+        this.setOptions({ scrollwheel: false });
+      });
+    }
+
+    function placeMarker(location) {
+      if(marker !== undefined) {
+        marker.setMap(null);
+        marker = null;
+      }
+
+      marker = new google.maps.Marker({ position: location, map: map });
+      map.panTo(location);
+    }
+
+    function checkForLocation(location) {
+      var result = false;
+      for(var i = 0; i < polygons.length; i++) {
+        var polygon = polygons[i];
+        result = google.maps.geometry.poly.containsLocation(location, polygon);
+        if(result) {
+          break;
+        }
+      }
+
+      if(result) {
+        $("#available").show();
+        $("#unavailable").hide();
+      }
+      else {
+        $("#available").hide();
+        $("#unavailable").show();
+      }
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.secrets.google_maps_api_key %>&libraries=places&callback=initMap"></script>
+<% end %>

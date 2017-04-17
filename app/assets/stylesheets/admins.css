@@ -942,3 +942,17 @@ h1.page-header {
   right: 2em;
   z-index: 99999;
 }
+
+#map {
+  width: 100%;
+  height: 75vh;
+}
+
+#map_search {
+  width: 300px;
+  margin-top: 7px;
+}
+
+.table-coverage tbody tr:hover {
+  cursor: default;
+}

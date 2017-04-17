@@ -12,4 +12,8 @@ module ApplicationHelper
     raw '<sup class="font-18">Rp</sup>' + number_with_delimiter(thousands, :delimiter => '.') +
         '.<sup class="font-18">' + hundreds + '</sup><sub class="font-12">/BLN</sub>'
   end
+
+  def is_landing_page?
+    controller.controller_name.eql?('home') && controller.action_name.eql?('index')
+  end
 end

@@ -5,15 +5,20 @@ Rails.application.routes.draw do
 
   get 'jobs/:slug_id' => 'home#job_detail', :as => :public_job_vacancy_detail
   get 'channels/:slug_id' => 'home#channel_detail', :as => :public_channel_detail
+  get 'check_area' => 'home#check_area', :as => :public_check_area
   post 'submit_contact' => 'home#submit_contact', :as => :public_submit_contact
 
   namespace :admins do
     get 'dashboard' => 'dashboard#index'
     get 'preferences' => 'dashboard#preferences'
+    get 'area_coverages' => 'dashboard#area_coverages'
 
     put 'update_password' => 'dashboard#update_password'
 
     post 'preferences' => 'dashboard#save_preferences'
+    post 'area_coverages' => 'dashboard#save_area_coverages'
+
+    delete 'area_coverages/:id' => 'dashboard#destroy_area_coverage', :as => :destroy_area_coverage
 
     resources :contacts, :except => [:new, :create, :edit, :update]
     resources :channels, :except => [:show]
