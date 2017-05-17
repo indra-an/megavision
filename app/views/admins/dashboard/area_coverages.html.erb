@@ -71,6 +71,20 @@
     var pre_regions = <%= raw pre_regions %>;
     var polygons = [];
     function initMap() {
+      // extend to get bounds from a polygon
+      google.maps.Polygon.prototype.getBounds = function() {
+        var bounds = new google.maps.LatLngBounds();
+        var paths = this.getPaths();
+        var path;
+        for (var i = 0; i < paths.getLength(); i++) {
+          path = paths.getAt(i);
+          for (var ii = 0; ii < path.getLength(); ii++) {
+            bounds.extend(path.getAt(ii));
+          }
+        }
+        return bounds;
+      }
+
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 0.783, lng: 113.9213 },
         zoom: 5
@@ -232,6 +246,10 @@
           continue;
         }
         polygon.setMap(i === index ? map : null);
+
+        if (i === index) {
+          map.fitBounds(polygon.getBounds());
+        }
       }
     }
   </script>
