@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170410052346) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
     t.string   "encrypted_password",  default: "", null: false
@@ -23,20 +26,20 @@ ActiveRecord::Schema.define(version: 20170410052346) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
   end
 
   create_table "channel_cities", force: :cascade do |t|
     t.string "city"
     t.string "slug"
-    t.index ["slug"], name: "index_channel_cities_on_slug"
+    t.index ["slug"], name: "index_channel_cities_on_slug", using: :btree
   end
 
   create_table "channel_cities_channels", force: :cascade do |t|
     t.integer "channel_city_id"
     t.integer "channel_id"
-    t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id"
-    t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id"
+    t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id", using: :btree
+    t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id", using: :btree
   end
 
   create_table "channels", force: :cascade do |t|
@@ -110,7 +113,9 @@ ActiveRecord::Schema.define(version: 20170410052346) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "slug"
-    t.index ["slug"], name: "index_vacancies_on_slug"
+    t.index ["slug"], name: "index_vacancies_on_slug", using: :btree
   end
 
+  add_foreign_key "channel_cities_channels", "channel_cities"
+  add_foreign_key "channel_cities_channels", "channels"
 end

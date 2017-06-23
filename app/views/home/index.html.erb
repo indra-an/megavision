@@ -9,16 +9,27 @@
           <% end %>
         </ol>
         <div class="carousel-inner caro-mega1" role="listbox">
-          <% @landing_images.each_with_index do |landing_image, index| %>
-            <div class="item <%= index == 0 ? 'active' : '' %>">
-              <div class="detail-caro1 blue-opa">
-                <div class="center">
-                  <h2 class="det-title bold italic"><i><%= landing_image.title %></i></h2>
-                  <p class="text-center white"><%= landing_image.subtitle %></p>
-                  <a href="" class="jadwal-mov"><%= image_tag landing_image.addon_image_url %></a>
+          <% if @landing_images.present? %>
+            <% @landing_images.each_with_index do |landing_image, index| %>
+             <div class="item <%= index == 0 ? 'active' : '' %>"">
+                <div class="caro-cover mob"> <!-- cover buat mobile -->
+                  <%= image_tag landing_image.background_url %>
+                </div>
+
+                <div class="caro-cover desk"> <!-- cover buat desktop -->
+                  <%= image_tag landing_image.addon_image_url %>
                 </div>
               </div>
-              <%= image_tag landing_image.background_url, :class => 'full-img' %>
+            <% end %>
+          <% else %>
+            <div class="item active"">
+              <div class="caro-cover mob"> <!-- cover buat mobile -->
+                <%= image_tag "sample-carousel-mobile.jpg" %>
+              </div>
+
+              <div class="caro-cover desk"> <!-- cover buat desktop -->
+                <%= image_tag "sample-carousel-desk.jpg" %>
+              </div>
             </div>
           <% end %>
         </div>
@@ -28,7 +39,7 @@
 </section>
 
 <!-- product -->
-<section id="sec-product" class="product-sect">
+<!-- <section id="sec-product" class="product-sect">
   <div class="container">
     <div class="row">
       <h2 class="mega-blue bold text-center"><b>Our Product</b></h2>
@@ -45,7 +56,7 @@
     </div>
   </div>
 </section>
-
+ -->
 <!-- about megavision -->
 <section id="about-megavision" class="about-mega">
   <div class="container text-center">
@@ -80,11 +91,11 @@
 </section>
 
 <!-- area channel -->
-<section class="area-channel-sect text-center" style="background: url(<%= @preference.background_area_channel %>);">
+<section class="area-channel-sect text-center" style="background: url(<%= (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg') %>);">
   <div class="container">
     <div class="row">
-      <div class="channel-bdg">
         <% @channel_cities.each do |channel_city| %>
+          <div class="channel-sec">
           <%= link_to public_channel_detail_path(channel_city.slug), :class => 'channel-btn' do %>
             <div class="border-1px outer-border">
               <div class="channel-btn-name">
@@ -92,14 +103,14 @@
               </div>
             </div>
           <% end %>
+          </div>
         <% end %>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- starnet -->
-<section class="starnet-sect">
+<!-- <section class="starnet-sect">
   <div class="container">
     <div class="row">
       <div class="starnet-det text-center">
@@ -120,10 +131,10 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- questions and answers -->
-<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= @preference.background_question_answer %>);background-size: cover;background-position: center;">
+<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= (@preference.background_question_answer.present?) ? @preference.background_question_answer : asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <div class="row">
       <h2 class="uppercase text-center white bold">Questions and Answers</h2>
@@ -153,7 +164,7 @@
     <h2 class="mega-blue uppercase text-center bold">About Us</h2>
     <div class="short-history">
       <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= @preference.background_history %>);background-size: cover;background-position: center;"></div>
+        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_history.present?) ? @preference.background_history : asset_url('sample-history.jpg') %>);background-size: cover;background-position: center;"></div>
         <div class="col-md-7 col-xs-12">
           <h3 class="white">Sejarah Singkat</h3>
           <div class="white"><%= simple_format @preference.company_history %></div>
@@ -174,14 +185,14 @@
             <% end %>
           </ul>
         </div>
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= @preference.background_vision_mission %>);background-size: cover;background-position: center;"></div>
+        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_vision_mission.present?) ? @preference.background_vision_mission : asset_url('sample-vision.jpg') %>);background-size: cover;background-position: center;"></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- job vacancy -->
-<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= @preference.background_vacancy %>);background-size: cover;background-position: center;">
+<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= (@preference.background_vacancy.present?) ? @preference.background_vacancy : asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Job Vacancy</h2>
     <% @vacancies.each do |vacancy| %>
@@ -201,7 +212,7 @@
 </section>
 
 <!-- contact-us -->
-<section id="sec-contact" class="contact-sect" style="background: url(<%= @preference.background_contact %>);background-size: cover;background-position: center;">
+<section id="sec-contact" class="contact-sect" style="background: url(<%= (@preference.background_contact.present?) ? @preference.background_contact : asset_url('sample-contact.jpg') %>);background-size: cover;background-position: center;">
   <div class="container">
     <h2 class="uppercase text-center white bold">Contact Us</h2>
     <div class="col-md-4 col-sm-5 col-xs-12 address white">
@@ -216,7 +227,7 @@
     </div>
 
     <div class="col-md-8 col-sm-7 col-xs-12 contact-form">
-      <%= form_tag public_submit_contact_path do %>
+      <%= form_tag public_submit_contact_path, id: 'contact' do %>
         <div class="form-group contact-input">
           <%= text_field_tag :name, '', :placeholder => 'Name', :class => 'form-control', :required => true %>
         </div>

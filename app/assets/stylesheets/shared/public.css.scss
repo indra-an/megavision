@@ -229,7 +229,7 @@ h2.det-title {
 
 /** channel-list **/
 
-.channel-bdg, .channel-bogor {
+.channel-sec {
     padding: 35px;
     text-align: center;
     display: inline-block;
@@ -502,6 +502,7 @@ hr.border-white-1px {
 }
 
 .btn-send {
+    background-color: transparent;
     border:1px solid white;
     padding: 5px 15px;
     text-align: center;
