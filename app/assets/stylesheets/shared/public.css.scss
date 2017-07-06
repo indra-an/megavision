@@ -746,3 +746,33 @@ div#myCarousel {
 #available, #unavailable {
     display: none;
 }
+
+/** cover **/
+.caro-cover {
+    width: 100%;
+    height: 100vh;
+}
+
+.caro-cover img {
+    width: 100%;
+}
+
+.caro-cover.mob {
+    display: none;
+}
+
+@media (min-width: 769px) {
+    .caro-cover.mob {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .caro-cover.mob {
+        display: block;
+    }
+
+    .caro-cover.desk {
+        direction: none;
+    }
+}
