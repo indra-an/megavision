@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: landing_images
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  subtitle    :text
+#  background  :string
+#  addon_image :string
+#  status      :integer          default("draft")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class LandingImage < ApplicationRecord
   mount_uploader :addon_image, ImageUploader
   mount_uploader :background, ImageUploader

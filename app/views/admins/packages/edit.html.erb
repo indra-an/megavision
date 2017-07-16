@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Packages', admins_packages_path %>
+    <%= breadcrumb_item 'Edit Package' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Edit <%= @package.name %></h1>
+  </div>
+</div>
+
+<%= render 'form', package: @package %>

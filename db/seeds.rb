@@ -11,6 +11,14 @@ unless ChannelCity.exists?
    ChannelCity.create(city)
 end
 
+#packages
+unless Package.exists?
+  package = [{name: "Silver"},
+                   {name: "Gold"}
+                  ]
+  Package.create(package)
+end
+
 #questions
 unless Question.exists?
    question = "Apa saja channel yang diberikan?"

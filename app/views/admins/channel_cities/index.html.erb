@@ -23,7 +23,8 @@
           <thead>
             <tr>
               <th>City</th>
-              <th>Channel Count</th>
+              <th>Panel Name</th>
+              <th>Channel Type Count</th>
               <th>Control</th>
             </tr>
           </thead>
@@ -37,7 +38,8 @@
               <% @channel_cities.each do |channel_city| %>
                 <tr>
                   <td><%= channel_city.city %></td>
-                  <td><%= channel_city.channels.count %></td>
+                  <td><%= channel_city.panel_name %></td>
+                  <td><%= link_to channel_city.channel_types.count, admins_channel_city_types_path(channel_city) %></td>
                   <td>
                     <%= link_to 'Edit', edit_admins_channel_city_path(channel_city) %>&nbsp;|
                     <%= link_to 'Destroy', admins_channel_city_path(channel_city), method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -1,16 +1,85 @@
 <!-- channel list -->
-<section class="channel-list-page" style="background: url(<%= asset_url('sample-channel-list.jpg') %>);background-size: cover;background-position: center;">
-  <div class="container">
-    <div class="channel-list-box col-md-12 col-xs-12 border-1px-white absolute-parent">
-      <div class="title-channel-area absolute bg-white">
-        <%= image_tag 'channel.png', :class => 'pull-left' %>
-        <h4 class="bold mega-blue uppercase"><%= @channel_city.city %> Channel List</h4>
-      </div>
-      <div class="channel-name">
-        <% @channel_city.channels.each do |channel| %>
-          <div class="col-md-3 col-sm-4 col-xs-6 font-12 white"><%= channel.name %></div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</section>
+      <section class="channel-list-page" style="background: url(<%= (@channel_city.background.present?) ? @channel_city.background : asset_url('sample-channel-list.jpg') %>);background-size: cover;background-position: center;">
+        <div class="container">
+          <div class="channel-list-box col-md-12 col-xs-12 absolute-parent">
+            <div class="title-channel-area-new text-center">
+              <h2 class="bold white uppercase"><%= @channel_city.panel_name %></h2>
+            </div>
+
+            <div id="exTab1" class="container">
+              <ul  class="nav nav-pills channel-paket">
+                <% @channel_city.channel_types.each_with_index do |type, index| %>
+                  <% active = (index == 0) ? "active" : "" %>
+                  <li class="<%=active%> text-center border-1px outer-border">
+                    <a  href="#<%=type.id%>a" data-toggle="tab"><%=type.name %></a>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="channel-list-all">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="tab-content clearfix no-padding">
+              <% @channel_city.channel_cities_types.each_with_index do |cities_type, index| %>
+                <% active = (index == 0) ? "active" : "" %>
+
+              <div class="tab-pane no-padding <%=active %>" id="<%=cities_type.channel_type.id%>a">
+                <% cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
+                   <%
+                        if package_idx%2 == 0
+                           bg_package = "background: rgba(0,114,188,1)"
+                           class_package = "bg-silver"
+                        else
+                            bg_package = "background: rgba(0,84,166,1)"
+                            class_package = "bg-gold"
+                        end %>
+                <div class="col-md-6 col-sm-12 no-padding">
+
+                  <div class="width-100 row" style="<%=bg_package%>;padding-top: 15px; padding-bottom: 35px;">
+                    <h3 class="white text-center paket-title">Paket <%=channel_package.package.name%></h3>
+                    <% channel_package.channel_groups.each do |channel_group| %>
+                    <div class="list-channel col-md-6 col-sm-12">
+                      <div class="list-body little-channel border-1px outer-border">
+                        <div class="list-kategori <%=class_package%>">
+                          <h5 class="white text-center"><%=channel_group.name %></h5>
+                        </div>
+                        <div class="kategori-channel">
+                          <% channel_group.channels.each do |channel| %>
+                            <p class="white"><%=channel.name %></p>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                  </div>
+
+                  <div class="harga-paket row">
+                    <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
+                    <% channel_package.prices.each do | price | %>
+                    <% amount = number_with_delimiter(price.amount.to_i, delimiter: " ")
+                          amount_split = amount.split(" ")
+                    %>
+                      <a href="" class="<%=class_package%>">
+                        <div class="wrap-price">
+                          <p class="no-margin harganya text-center white font-24"><sup>RP</sup><%=amount_split[0] %><sup><%=amount_split[1] %></sup></p>
+                          <p class="perbulan no-margin white">/BLN</p>
+                          <p class="speednya italic white"><i><%=[price.up_to_speed, price.unit].join(" ") %></i></p>
+                        </div>
+                      </a>
+                    <% end %>
+                    <br />
+                    <p class="font-12 ket-paket"><%=channel_package.description %></p>
+                  </div>
+                </div>
+                  <% end %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>

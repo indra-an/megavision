@@ -16,7 +16,7 @@ class HomeController < ApplicationController
   end
 
   def channel_detail
-    @channel_city = ChannelCity.find_by_slug(params[:slug_id])
+    @channel_city = ChannelCity.includes(:channel_types, :channel_groups, :packages, :prices).find_by_slug(params[:slug_id])
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
   end
 

@@ -67,6 +67,16 @@
             <span class="glyphicon glyphicon-th"></span>&nbsp;Channel List
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:channel_groups) %>">
+          <%= link_to admins_channel_groups_path do %>
+            <span class="glyphicon glyphicon-th-large"></span>&nbsp;Channel Group
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:channel_types) %>">
+          <%= link_to admins_channel_types_path do %>
+            <span class="glyphicon glyphicon-tag"></span>&nbsp;Channel Type
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:channel_cities) %>">
           <%= link_to admins_channel_cities_path do %>
             <span class="glyphicon glyphicon-th-list"></span>&nbsp;Channel City List
@@ -75,6 +85,11 @@
         <li class="<%= class_for_content_indicator(:prices) %>">
           <%= link_to admins_prices_path do %>
             <span class="glyphicon glyphicon-usd"></span>&nbsp;Price List
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:prices) %>">
+          <%= link_to admins_packages_path do %>
+            <span class="glyphicon glyphicon-folder-close"></span>&nbsp;Package
           <% end %>
         </li>
         <li class="<%= class_for_content_indicator(:questions) %>">

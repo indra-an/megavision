@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: vacancies
+#
+#  id           :integer          not null, primary key
+#  position     :string
+#  icon         :string
+#  location     :string
+#  requirements :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  slug         :string
+#
+
 class Vacancy < ApplicationRecord
   mount_uploader :icon, ImageUploader
 

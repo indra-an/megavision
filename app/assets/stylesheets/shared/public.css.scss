@@ -776,3 +776,187 @@ div#myCarousel {
         direction: none;
     }
 }
+
+
+/** channel list baru **/
+.title-channel-area-new {
+    margin-bottom: 35px;
+}
+
+.channel-paket {
+    margin: 0 auto;
+    display: block;
+    width: 780px;
+}
+
+.channel-paket li {
+    margin: 0 60px;
+}
+
+.channel-paket li a {
+    padding: 20px 20px;
+    margin: 0;
+    background: rgba(255,255,255,0.3);
+    border-radius: 0;
+    color: white;
+    width: 250px;
+    font-size: 17px;
+}
+
+.channel-paket li.active a {
+    background: rgba(255,255,0,0.5);
+    color: black !important;
+}
+
+.channel-paket li a:hover,.channel-paket li.active a:hover {
+    background: rgba(255,255,0,0.7);
+    color: black;
+}
+
+.bg-silver {
+    background: rgba(171,171,171,1);
+}
+
+.kategori-channel {
+    padding: 0 10px;
+}
+
+.list-kategori {
+    padding: 10px 0;
+    margin-bottom: 15px;
+}
+
+.list-kategori h5 {
+    margin: 0;
+}
+
+.kategori-channel p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.list-body {
+    padding: 0 0 15px !important;
+    width: 100%;
+}
+
+.lot-channel {
+    height: auto;
+}
+
+.med-channel {
+    height: auto;
+}
+
+.little-channel {
+    height: auto;;
+}
+
+.paket-title {
+    margin-bottom: 30px;
+}
+
+.list-channel {
+    margin-bottom: 20px;
+}
+
+.bg-gold {
+    background: rgba(205,163,44,1);
+}
+
+
+/** harga-paket **/
+.width-100 {
+    width: 100%;
+}
+
+.width-100.row {
+    margin: 0;
+    padding: 0 20px;
+}
+
+.harga-paket a {
+    width: 200px;
+    padding: 15px;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin: 0 15px 15px;
+}
+
+.harga-paket {
+    text-align: center;
+display: inline-block;
+}
+
+.harga-paket a p {
+    font-size: 30px;
+}
+
+.harga-paket a p sup {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0 3px;
+}
+
+.harga-paket a.bg-silver:hover {
+    text-decoration: none;
+    background: rgba(131,131,131,1);
+}
+
+.harga-paket {
+    padding: 35px 20px 55px;
+}
+
+.perbulan, .speednya {
+    font-size: 12px !important;
+    float: right;
+    clear: both;
+    margin-right: 5px;
+    margin-top: -3px;
+    font-weight: 300;
+}
+
+.perbulan {
+    margin-top: -16px;
+}
+
+.speednya {
+    margin-bottom: 0;
+}
+
+.italic {
+    text-transform: italic;
+}
+
+.wrap-price {
+    /* height: 57px; */
+    padding-right: 5px;
+    width: 130px;
+    margin: 0 auto;
+}
+
+.harga-paket {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+}
+
+.color-silver {
+    color: rgb(171,171,171);
+}
+
+.color-gold {
+    color: rgb(205,163,44);
+}
+
+.harga-paket a.bg-gold:hover {
+    text-decoration: none;
+    background: rgba(175,133,14,1);
+}
+
+.tab-pane br {
+    clear: both;
+}

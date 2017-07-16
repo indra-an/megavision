@@ -54,6 +54,6 @@ class Admins::ChannelCitiesController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def channel_city_params
-      params.require(:channel_city).permit(:city, :channel_ids => [])
+      params.require(:channel_city).permit(:city, :panel_name, :background)
     end
 end

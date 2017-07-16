@@ -22,7 +22,14 @@ Rails.application.routes.draw do
 
     resources :contacts, :except => [:new, :create, :edit, :update]
     resources :channels, :except => [:show]
-    resources :channel_cities, :except => [:show]
+    resources :channel_cities, :except => [:show] do
+      resources :types, :only => [:index, :edit, :update] do
+        resources :channel_packages, only: [:index, :edit, :update]
+      end
+    end
+    resources :channel_groups, :except => [:show]
+    resources :channel_types, :except => [:show]
+    resources :packages, :except => [:new, :show, :destroy]
     resources :prices, :except => [:show]
     resources :questions
     resources :vacancies

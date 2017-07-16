@@ -34,6 +34,7 @@ group :development do
   gem 'capistrano-rails-console'
   gem 'capistrano-upload-config'
   gem 'sshkit-sudo'
+  gem "annotate"
 
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'

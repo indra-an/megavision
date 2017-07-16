@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410052346) do
+ActiveRecord::Schema.define(version: 20170716115848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20170410052346) do
   create_table "channel_cities", force: :cascade do |t|
     t.string "city"
     t.string "slug"
+    t.string "panel_name"
+    t.string "background"
     t.index ["slug"], name: "index_channel_cities_on_slug", using: :btree
   end
 
@@ -40,6 +42,60 @@ ActiveRecord::Schema.define(version: 20170410052346) do
     t.integer "channel_id"
     t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id", using: :btree
     t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id", using: :btree
+  end
+
+  create_table "channel_cities_types", force: :cascade do |t|
+    t.integer "channel_city_id"
+    t.integer "channel_type_id"
+    t.index ["channel_city_id"], name: "index_channel_cities_types_on_channel_city_id", using: :btree
+    t.index ["channel_type_id"], name: "index_channel_cities_types_on_channel_type_id", using: :btree
+  end
+
+  create_table "channel_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "channel_groups_channels", force: :cascade do |t|
+    t.integer "channel_group_id"
+    t.integer "channel_id"
+    t.index ["channel_group_id"], name: "index_channel_groups_channels_on_channel_group_id", using: :btree
+    t.index ["channel_id"], name: "index_channel_groups_channels_on_channel_id", using: :btree
+  end
+
+  create_table "channel_package_channel_groups", force: :cascade do |t|
+    t.integer  "channel_package_id"
+    t.integer  "channel_group_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["channel_group_id"], name: "index_channel_package_channel_groups_on_channel_group_id", using: :btree
+    t.index ["channel_package_id"], name: "index_channel_package_channel_groups_on_channel_package_id", using: :btree
+  end
+
+  create_table "channel_package_prices", force: :cascade do |t|
+    t.integer  "channel_package_id"
+    t.integer  "price_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["channel_package_id"], name: "index_channel_package_prices_on_channel_package_id", using: :btree
+    t.index ["price_id"], name: "index_channel_package_prices_on_price_id", using: :btree
+  end
+
+  create_table "channel_packages", force: :cascade do |t|
+    t.integer  "channel_cities_type_id"
+    t.integer  "package_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.text     "description"
+    t.index ["channel_cities_type_id"], name: "index_channel_packages_on_channel_cities_type_id", using: :btree
+    t.index ["package_id"], name: "index_channel_packages_on_package_id", using: :btree
+  end
+
+  create_table "channel_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "channels", force: :cascade do |t|
@@ -70,6 +126,13 @@ ActiveRecord::Schema.define(version: 20170410052346) do
     t.integer  "status",      default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "packages", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "payment_title"
   end
 
   create_table "preferences", force: :cascade do |t|
@@ -118,4 +181,14 @@ ActiveRecord::Schema.define(version: 20170410052346) do
 
   add_foreign_key "channel_cities_channels", "channel_cities"
   add_foreign_key "channel_cities_channels", "channels"
+  add_foreign_key "channel_cities_types", "channel_cities"
+  add_foreign_key "channel_cities_types", "channel_types"
+  add_foreign_key "channel_groups_channels", "channel_groups"
+  add_foreign_key "channel_groups_channels", "channels"
+  add_foreign_key "channel_package_channel_groups", "channel_groups"
+  add_foreign_key "channel_package_channel_groups", "channel_packages"
+  add_foreign_key "channel_package_prices", "channel_packages"
+  add_foreign_key "channel_package_prices", "prices"
+  add_foreign_key "channel_packages", "channel_cities_types"
+  add_foreign_key "channel_packages", "packages"
 end

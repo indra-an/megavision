@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: channel_packages
+#
+#  id                     :integer          not null, primary key
+#  channel_cities_type_id :integer
+#  package_id             :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  channel_cities_type: one
+  package: one
+
+two:
+  channel_cities_type: two
+  package: two

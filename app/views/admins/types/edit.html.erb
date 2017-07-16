@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Channel Type', admins_channel_city_types_path(params[:channel_city_id]) %>
+    <%= breadcrumb_item 'Edit Channel Type' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Edit <%= @channel_type.channel_type.name %></h1>
+  </div>
+</div>
+
+<%= render 'form', channel_type: @channel_type %>
