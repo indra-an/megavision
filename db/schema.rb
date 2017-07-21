@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170716115848) do
+ActiveRecord::Schema.define(version: 20170721160944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,14 +181,14 @@ ActiveRecord::Schema.define(version: 20170716115848) do
 
   add_foreign_key "channel_cities_channels", "channel_cities"
   add_foreign_key "channel_cities_channels", "channels"
-  add_foreign_key "channel_cities_types", "channel_cities"
-  add_foreign_key "channel_cities_types", "channel_types"
+  add_foreign_key "channel_cities_types", "channel_cities", on_delete: :cascade
+  add_foreign_key "channel_cities_types", "channel_types", on_delete: :cascade
   add_foreign_key "channel_groups_channels", "channel_groups"
   add_foreign_key "channel_groups_channels", "channels"
   add_foreign_key "channel_package_channel_groups", "channel_groups"
-  add_foreign_key "channel_package_channel_groups", "channel_packages"
-  add_foreign_key "channel_package_prices", "channel_packages"
+  add_foreign_key "channel_package_channel_groups", "channel_packages", on_delete: :cascade
+  add_foreign_key "channel_package_prices", "channel_packages", on_delete: :cascade
   add_foreign_key "channel_package_prices", "prices"
-  add_foreign_key "channel_packages", "channel_cities_types"
+  add_foreign_key "channel_packages", "channel_cities_types", on_delete: :cascade
   add_foreign_key "channel_packages", "packages"
 end
