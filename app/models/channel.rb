@@ -7,9 +7,7 @@
 #
 
 class Channel < ApplicationRecord
-  has_and_belongs_to_many :channel_cities
-  has_and_belongs_to_many :channel_types
-  has_and_belongs_to_many :channel_groups
+  has_and_belongs_to_many :channel_groups, dependent: :destroy
 
   validates_presence_of :name
 end
