@@ -10,6 +10,7 @@
 
 class ChannelGroup < ApplicationRecord
   has_and_belongs_to_many :channels
+  has_many :channel_package_channel_groups, dependent: :destroy
 
   validates_presence_of :name
 
