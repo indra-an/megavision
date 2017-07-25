@@ -960,3 +960,27 @@ display: inline-block;
 .tab-pane br {
     clear: both;
 }
+
+
+.chan-area br {
+    clear: both;
+}
+
+.channel-list-all .col-md-6.col-sm-12.no-padding .chan-area {
+    padding-bottom: 502em !important;
+    margin-bottom: -500em;
+}
+
+section.channel-list-all .container-fluid {
+    overflow: hidden;
+}
+
+/** delete ketika full fitur selesai **/
+.channel-list-page {
+    min-height: 50vh;
+}
+
+.channel-list-box {
+    padding-top: 30px;
+}
+/** sampai sini delete **/

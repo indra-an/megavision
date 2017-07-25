@@ -212,44 +212,4 @@
 </section>
 
 <!-- contact-us -->
-<section id="sec-contact" class="contact-sect" style="background: url(<%= (@preference.background_contact.present?) ? @preference.background_contact : asset_url('sample-contact.jpg') %>);background-size: cover;background-position: center;">
-  <div class="container">
-    <h2 class="uppercase text-center white bold">Contact Us</h2>
-    <div class="col-md-4 col-sm-5 col-xs-12 address white">
-      <% @preference.addresses.each do |address| %>
-        <% splitted = address.split('|') %>
-        <div class="address-det">
-          <h4 class="bold white no-margin"><%= splitted[0] %></h4>
-          <p class="no-margin font-12"><%= splitted[1] %></p>
-          <p class="no-margin font-12">Tel. <%= splitted[2] %></p>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="col-md-8 col-sm-7 col-xs-12 contact-form">
-      <%= form_tag public_submit_contact_path, id: 'contact' do %>
-        <div class="form-group contact-input">
-          <%= text_field_tag :name, '', :placeholder => 'Name', :class => 'form-control', :required => true %>
-        </div>
-
-        <div class="form-group contact-input">
-          <%= email_field_tag :email, '', :placeholder => 'Email', :class => 'form-control', :required => true %>
-        </div>
-
-        <div class="form-group contact-input">
-          <%= text_field_tag :subject, '', :placeholder => 'Subject', :class => 'form-control', :required => true %>
-        </div>
-
-        <div class="form-group contact-input">
-          <%= text_area_tag :message, '', :placeholder => 'Message', :rows => 6, :class => 'form-control textarea', :required => true %>
-        </div>
-
-        <div class="form-group contact-input">
-          <%= recaptcha_tags %>
-        </div>
-
-        <%= submit_tag 'Send Message', :class => 'btn-send' %>
-      <% end %>
-    </div>
-  </div>
-</section>
+<%=render "contact_us", preference: @preference %>
