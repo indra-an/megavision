@@ -53,6 +53,6 @@ class Admins::QuestionsController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.require(:question).permit(:question, :answer)
+      params.require(:question).permit(:question, :answer, :attachment)
     end
 end

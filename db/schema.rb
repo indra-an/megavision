@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721160944) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20170727083439) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -26,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
+    t.index ["email"], name: "index_admins_on_email", unique: true
   end
 
   create_table "channel_cities", force: :cascade do |t|
@@ -34,21 +31,21 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.string "slug"
     t.string "panel_name"
     t.string "background"
-    t.index ["slug"], name: "index_channel_cities_on_slug", using: :btree
+    t.index ["slug"], name: "index_channel_cities_on_slug"
   end
 
   create_table "channel_cities_channels", force: :cascade do |t|
     t.integer "channel_city_id"
     t.integer "channel_id"
-    t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id", using: :btree
-    t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id", using: :btree
+    t.index ["channel_city_id"], name: "index_channel_cities_channels_on_channel_city_id"
+    t.index ["channel_id"], name: "index_channel_cities_channels_on_channel_id"
   end
 
   create_table "channel_cities_types", force: :cascade do |t|
     t.integer "channel_city_id"
     t.integer "channel_type_id"
-    t.index ["channel_city_id"], name: "index_channel_cities_types_on_channel_city_id", using: :btree
-    t.index ["channel_type_id"], name: "index_channel_cities_types_on_channel_type_id", using: :btree
+    t.index ["channel_city_id"], name: "index_channel_cities_types_on_channel_city_id"
+    t.index ["channel_type_id"], name: "index_channel_cities_types_on_channel_type_id"
   end
 
   create_table "channel_groups", force: :cascade do |t|
@@ -60,8 +57,8 @@ ActiveRecord::Schema.define(version: 20170721160944) do
   create_table "channel_groups_channels", force: :cascade do |t|
     t.integer "channel_group_id"
     t.integer "channel_id"
-    t.index ["channel_group_id"], name: "index_channel_groups_channels_on_channel_group_id", using: :btree
-    t.index ["channel_id"], name: "index_channel_groups_channels_on_channel_id", using: :btree
+    t.index ["channel_group_id"], name: "index_channel_groups_channels_on_channel_group_id"
+    t.index ["channel_id"], name: "index_channel_groups_channels_on_channel_id"
   end
 
   create_table "channel_package_channel_groups", force: :cascade do |t|
@@ -69,8 +66,8 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.integer  "channel_group_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.index ["channel_group_id"], name: "index_channel_package_channel_groups_on_channel_group_id", using: :btree
-    t.index ["channel_package_id"], name: "index_channel_package_channel_groups_on_channel_package_id", using: :btree
+    t.index ["channel_group_id"], name: "index_channel_package_channel_groups_on_channel_group_id"
+    t.index ["channel_package_id"], name: "index_channel_package_channel_groups_on_channel_package_id"
   end
 
   create_table "channel_package_prices", force: :cascade do |t|
@@ -78,8 +75,8 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.integer  "price_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
-    t.index ["channel_package_id"], name: "index_channel_package_prices_on_channel_package_id", using: :btree
-    t.index ["price_id"], name: "index_channel_package_prices_on_price_id", using: :btree
+    t.index ["channel_package_id"], name: "index_channel_package_prices_on_channel_package_id"
+    t.index ["price_id"], name: "index_channel_package_prices_on_price_id"
   end
 
   create_table "channel_packages", force: :cascade do |t|
@@ -88,8 +85,8 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.text     "description"
-    t.index ["channel_cities_type_id"], name: "index_channel_packages_on_channel_cities_type_id", using: :btree
-    t.index ["package_id"], name: "index_channel_packages_on_package_id", using: :btree
+    t.index ["channel_cities_type_id"], name: "index_channel_packages_on_channel_cities_type_id"
+    t.index ["package_id"], name: "index_channel_packages_on_package_id"
   end
 
   create_table "channel_types", force: :cascade do |t|
@@ -166,6 +163,7 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.text     "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "attachment"
   end
 
   create_table "vacancies", force: :cascade do |t|
@@ -176,19 +174,7 @@ ActiveRecord::Schema.define(version: 20170721160944) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "slug"
-    t.index ["slug"], name: "index_vacancies_on_slug", using: :btree
+    t.index ["slug"], name: "index_vacancies_on_slug"
   end
 
-  add_foreign_key "channel_cities_channels", "channel_cities"
-  add_foreign_key "channel_cities_channels", "channels"
-  add_foreign_key "channel_cities_types", "channel_cities", on_delete: :cascade
-  add_foreign_key "channel_cities_types", "channel_types", on_delete: :cascade
-  add_foreign_key "channel_groups_channels", "channel_groups"
-  add_foreign_key "channel_groups_channels", "channels"
-  add_foreign_key "channel_package_channel_groups", "channel_groups"
-  add_foreign_key "channel_package_channel_groups", "channel_packages", on_delete: :cascade
-  add_foreign_key "channel_package_prices", "channel_packages", on_delete: :cascade
-  add_foreign_key "channel_package_prices", "prices"
-  add_foreign_key "channel_packages", "channel_cities_types", on_delete: :cascade
-  add_foreign_key "channel_packages", "packages"
 end

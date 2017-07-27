@@ -28,6 +28,16 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <%= f.label :attachment, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.file_field :attachment %>
+              <% if question.attachment.present? %>
+                <p class="text-warning">NOTE: This question has attachment uploaded, changing this will replace the old one.</p>
+              <% end %>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-6 text-right">
               <%= link_to admins_questions_path, :class => 'btn btn-warning' do %>
