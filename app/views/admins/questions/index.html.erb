@@ -23,6 +23,7 @@
           <thead>
             <tr>
               <th>Question</th>
+              <th>Attachment</th>
               <th>Posted</th>
               <th>Control</th>
             </tr>
@@ -37,6 +38,7 @@
               <% @questions.each do |question| %>
                 <tr>
                   <td><%= question.question %></td>
+                  <td><%= question.attachment.present? ? 'Yes' : 'No' %></td>
                   <td><%= question.created_at.to_s %></td>
                   <td>
                     <%= link_to 'Show', admins_question_path(question) %>&nbsp;|

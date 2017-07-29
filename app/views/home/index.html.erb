@@ -149,7 +149,12 @@
               </h4>
             </div>
             <div id="question<%= index %>" class="panel-collapse collapse">
-              <div class="panel-body white no-border"><%= question.answer %></div>
+              <div class="panel-body white no-border">
+                <%= question.answer %>
+                <% if question.attachment.present? %>
+                  <p><%= link_to 'Download Attachment', question.attachment_url %></p>
+                <% end %>
+              </div>
             </div>
           </div>
         <% end %>

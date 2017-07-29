@@ -10,5 +10,7 @@
 #
 
 class Question < ApplicationRecord
+  mount_uploader :attachment, DocumentUploader
+
   validates_presence_of :question, :answer
 end
