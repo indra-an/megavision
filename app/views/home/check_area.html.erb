@@ -40,6 +40,10 @@
               success: function( data ) {
                 $("#available").hide();
                 $("#unavailable").hide();
+
+                if(data.length== 0)
+                  $("#unavailable").show();
+
                 response( $.map( data, function( item ) {
                   return $.extend(item, ({label: item.area, value: item.id, id: item.id}));
                 }));
