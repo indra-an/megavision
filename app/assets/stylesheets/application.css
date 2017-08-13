@@ -3,6 +3,7 @@
  *= require shared/font-awesome.min
  *= require shared/public
  *= require shared/public-responsive
+ *= require jquery-ui
  *= require_self
  */
 

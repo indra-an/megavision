@@ -26,6 +26,8 @@ class ChannelCity < ApplicationRecord
 
   has_and_belongs_to_many :channels
 
+  has_many :area_coverages
+
   validates_presence_of :city, :panel_name
 
   before_save :update_slug
@@ -36,4 +38,5 @@ class ChannelCity < ApplicationRecord
     slug = self.city.truncate(48).parameterize
     self.slug = slug
   end
+
 end

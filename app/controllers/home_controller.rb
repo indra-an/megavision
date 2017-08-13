@@ -31,6 +31,13 @@ class HomeController < ApplicationController
     redirect_to root_path, notice: verify_recaptcha && contact.save ? 'success' : 'danger'
   end
 
+  def autocomplete_area
+    @area = AreaCoverage.joins(:channel_city).where(["lower(area) like :value or lower(channel_cities.city) like :value", {value: "%#{params['q'].downcase}%"}]).map(&:to_api)
+    respond_to do |format|
+      format.json { render :json => @area }
+    end
+  end
+
   private
 
   def fetch_preferences

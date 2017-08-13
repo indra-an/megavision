@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Area Coverages', admins_area_coverages_path %>
+    <%= breadcrumb_item 'Edit Area Coverage' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Edit <%= @area_coverage.area %></h1>
+  </div>
+</div>
+
+<%= render 'form', area_coverage: @area_coverage %>

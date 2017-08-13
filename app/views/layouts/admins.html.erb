@@ -165,5 +165,11 @@
         <strong>Congratulations!</strong>&nbsp;<%= notice %>
       </div>
     <% end %>
+
+    <% if flash[:error] %>
+      <div class="alert alert-danger notification" role="alert">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
   </body>
 </html>
