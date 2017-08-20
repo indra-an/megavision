@@ -1,5 +1,5 @@
 class Admins::AreaCoveragesController < Admins::BaseController
-  before_action :load_cities, except: [:index, :show, :destroy]
+  before_action :load_resources, except: [:index, :show, :destroy]
   before_action :set_coverage, only: [:edit, :update, :destroy]
 
   def index
@@ -61,8 +61,9 @@ class Admins::AreaCoveragesController < Admins::BaseController
   end
 
   private
-    def load_cities
+    def load_resources
       @channel_cities = ChannelCity.select(:id, :city).collect { |tag| [tag.city, tag.id] }
+      @area_codes = AreaCode.select(:id, :code).collect { |tag| [tag.code, tag.id] }
     end
 
     # Use callbacks to share common setup or constraints between actions.
@@ -72,6 +73,6 @@ class Admins::AreaCoveragesController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def area_coverage_params
-      params.require(:area_coverage).permit(:channel_city_id, :area)
+      params.require(:area_coverage).permit(:channel_city_id, :area, :area_code_id)
     end
 end

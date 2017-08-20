@@ -975,7 +975,6 @@ section.channel-list-all .container-fluid {
     overflow: hidden;
 }
 
-/** delete ketika full fitur selesai **/
 .channel-list-page {
     min-height: 50vh;
 }
@@ -983,4 +982,185 @@ section.channel-list-all .container-fluid {
 .channel-list-box {
     padding-top: 30px;
 }
-/** sampai sini delete **/
+
+
+/** baru **/
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-top: 35px;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 4px 0 7px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+
+.ket-search {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.bg-white {
+    background: white;
+}
+
+.harga-paket a {
+    width: 200px;
+    padding: 15px;
+    display: inline-block;
+     float: none;
+    font-weight: 700;
+    margin: 0 15px 15px;
+    text-align: center;
+}
+
+.harga-paket {
+    text-align: center;
+    display: block;
+    margin: 0px auto;
+    width: 100%;
+}
+
+/** subscrie **/
+.subscribe {
+    padding-top: 150px;
+}
+
+.input-tittle {
+    margin-bottom: 30px;
+}
+
+.pilihan-package {
+    padding: 50px 0 75px;
+}
+
+.select-package {
+    text-align: center;
+    color: white;
+    float: left;
+    margin: 34px 0 0;
+}
+
+.border-1px {
+    border: 1px solid white;
+}
+
+div.cs-skin-rotate {
+    width: 100%;
+}
+
+.cs-select.cs-skin-rotate {
+    padding: 45px 15px;
+}
+
+.cs-skin-rotate > span {
+    border: none;
+}
+
+.select-label {
+    background: white;
+    padding: 10px;
+    width: 100%;
+    color: #0072bc;
+}
+
+.cs-skin-rotate li span {
+    opacity: 0.7;
+    background: transparent;
+}
+
+.cs-skin-rotate .cs-selected span {
+    opacity: 1 !important;
+    background: transparent;
+}
+
+.cs-options {
+    margin: 0 -15px;
+}
+
+.cs-select.cs-active .cs-options {
+    visibility: visible;
+    background: #0072bc;
+    border-radius: 10px;
+}
+
+.cs-select ul {
+    padding: 0 30px;
+}
+
+.input-tittle {
+    padding-left: 15px;
+}
+
+.agreement .checkbox input[type="checkbox"] {
+    margin-top: 23px;
+}
+
+.agreement {
+    padding-left: 20px;
+}
+
+.subscribe .form-group {
+    margin-bottom: 35px;
+}
+
+.subscribe-btn-act div a {
+    background: #0072bc;
+    color: white;
+    padding: 10px 30px;
+}
+
+.subscribe-btn-act div a:hover {
+    text-decoration: none;
+    background: #07598e;
+}
+
+.subscribe-btn-act {
+    margin-bottom: 100px;
+    clear: both;
+    padding-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .subscribe-btn-act div a {
+    background: #0072bc;
+    color: white;
+    padding: 10px 30px;
+    display: block;
+}
+}
+
+.subscribe-modal {
+    margin-top: 15em;
+}
+
+.product.input-tittle {
+    margin-bottom: 10px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #0072bc;
+}

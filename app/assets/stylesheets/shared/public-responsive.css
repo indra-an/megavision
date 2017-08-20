@@ -170,4 +170,53 @@ a.btn-vacan.col-xs-12.border-1px-white.no-padding {
     margin-top: 33px;
 }
 
+.harga-paket {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: auto;
+    padding: 35px 30px;
+}
+
+.harga-paket a {
+    margin: 0px 0 15px;
+    width: 100%;
+}
+
+.channel-paket {
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+}
+
+.channel-paket li {
+    margin: 0px 15px 0;
+}
+
+.channel-paket li a {
+    padding: 20px 5px;
+    width: 95px;
+    font-size: 12px;
+}
+
+}
+
+@-moz-document url-prefix() {
+.citibank_btn {
+background:url('../images/citi.jpg');
+text-indent: -9999px;
+width: 75px;
+}
+}
+
+.col-md-3.col-md-offset-4.col-sm-6.col-sm-offset-3.well {
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+    float: none;
+}
+
+/** responsive style active storage **/
+.panel-heading.single .row div div .col-sm-3 {
+    margin: 10px 0;
 }

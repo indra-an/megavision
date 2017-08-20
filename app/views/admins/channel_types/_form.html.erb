@@ -24,7 +24,7 @@
            <div class="form-group">
             <%= f.label :channel_cities, :class => 'col-sm-2 control-label' %>
             <div class="col-sm-10">
-              <%= f.select :channel_city_ids, @channel_cities, {}, :multiple => true, :class => 'chosen' %>
+              <%= f.select :channel_city_ids, @channel_cities, {}, disabled: true, :multiple => true, :class => 'chosen' %>
             </div>
           </div>
 

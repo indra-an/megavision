@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'jobs/:slug_id' => 'home#job_detail', :as => :public_job_vacancy_detail
   get 'channels/:slug_id' => 'home#channel_detail', :as => :public_channel_detail
+  get 'channels/:slug_id/:area_slug_id' => 'home#channel_detail', :as => :public_channel_detail_list
   get 'check_area' => 'home#check_area', :as => :public_check_area
   get 'autocomplete_area' => 'home#autocomplete_area', :as => :public_autocomplete_area
   post 'submit_contact' => 'home#submit_contact', :as => :public_submit_contact
@@ -46,5 +47,6 @@ Rails.application.routes.draw do
       get 'make_draft'
       get 'make_published'
     end
+    resources :area_codes
   end
 end

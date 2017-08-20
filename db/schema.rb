@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170811064956) do
+ActiveRecord::Schema.define(version: 20170820132944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,27 @@ ActiveRecord::Schema.define(version: 20170811064956) do
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
   end
 
+  create_table "area_codes", force: :cascade do |t|
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "area_codes_channel_types", force: :cascade do |t|
+    t.integer "area_code_id"
+    t.integer "channel_type_id"
+    t.index ["area_code_id"], name: "index_area_codes_channel_types_on_area_code_id", using: :btree
+    t.index ["channel_type_id"], name: "index_area_codes_channel_types_on_channel_type_id", using: :btree
+  end
+
   create_table "area_coverages", force: :cascade do |t|
     t.integer  "channel_city_id"
     t.string   "area"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "area_code_id"
+    t.string   "slug"
+    t.index ["area_code_id"], name: "index_area_coverages_on_area_code_id", using: :btree
     t.index ["channel_city_id"], name: "index_area_coverages_on_channel_city_id", using: :btree
   end
 
@@ -188,6 +204,9 @@ ActiveRecord::Schema.define(version: 20170811064956) do
     t.index ["slug"], name: "index_vacancies_on_slug", using: :btree
   end
 
+  add_foreign_key "area_codes_channel_types", "area_codes"
+  add_foreign_key "area_codes_channel_types", "channel_types"
+  add_foreign_key "area_coverages", "area_codes"
   add_foreign_key "channel_cities_channels", "channel_cities"
   add_foreign_key "channel_cities_channels", "channels"
   add_foreign_key "channel_cities_types", "channel_cities", on_delete: :cascade

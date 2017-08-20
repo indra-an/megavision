@@ -12,6 +12,7 @@ class ChannelType < ApplicationRecord
    has_many :channel_cities_types
    has_many :channel_cities, through: :channel_cities_types
    has_many :channel_packages, through: :channel_cities_types
+   has_and_belongs_to_many :area_codes, dependent: :destroy
 
    validates_presence_of :name
 end

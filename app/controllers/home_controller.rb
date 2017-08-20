@@ -18,6 +18,16 @@ class HomeController < ApplicationController
   def channel_detail
     @channel_city = ChannelCity.includes(:channel_types, :channel_groups, :packages, :prices).find_by_slug(params[:slug_id])
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
+
+    unless params[:area_slug_id].blank?
+      @channel_type = AreaCoverage.find_by_slug(params[:area_slug_id]).area_code.channel_types.first
+      @channel_cities_type = ChannelCitiesType.where(channel_city_id: @channel_city.id, channel_type_id: @channel_type.id).first
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def check_area
@@ -32,7 +42,14 @@ class HomeController < ApplicationController
   end
 
   def autocomplete_area
-    @area = AreaCoverage.joins(:channel_city).where(["lower(area) like :value or lower(channel_cities.city) like :value", {value: "%#{params['q'].downcase}%"}]).map(&:to_api)
+    @area = AreaCoverage.join_table.by_slug(params['slug']).by_area(params['q'])
+
+    if(params['with_city'])
+      @area = @area.map(&:to_check_api)
+    else
+      @area = @area.map(&:to_api)
+    end
+
     respond_to do |format|
       format.json { render :json => @area }
     end

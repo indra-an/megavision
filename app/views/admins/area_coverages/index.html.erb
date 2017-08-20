@@ -25,7 +25,9 @@
           <thead>
             <tr>
               <th>City</th>
+              <th>Code</th>
               <th>Area</th>
+              <th>Control</th>
             </tr>
           </thead>
 
@@ -38,6 +40,7 @@
               <% @area_coverages.each do |coverage| %>
                 <tr>
                   <td><%= coverage.channel_city.try(:city) %></td>
+                  <td><%= coverage.area_code.try(:code) %></td>
                   <td><%= coverage.area %></td>
                   <td>
                     <%= link_to 'Edit', edit_admins_area_coverage_path(coverage) %>&nbsp;|

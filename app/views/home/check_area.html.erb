@@ -35,7 +35,8 @@
               url: "<%=public_autocomplete_area_path%>",
               dataType: "json",
               data: {
-                q: request.term
+                q: request.term,
+                with_city: true
               },
               success: function( data ) {
                 $("#available").hide();
