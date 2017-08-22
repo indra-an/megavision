@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require shared/bootstrap.min
 //= require shared/chosen.jquery.min
+//= require shared/jquery.dataTables
 //= require turbolinks
 //= require_self
 

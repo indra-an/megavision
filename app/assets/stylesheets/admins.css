@@ -1,6 +1,7 @@
 /*
  *= require shared/bootstrap.min
  *= require shared/chosen.min
+ *= require shared/jquery.dataTables
  *= require_self
 Lumino Admin Bootstrap Template
 Version 1.0
@@ -955,4 +956,12 @@ h1.page-header {
 
 .table-coverage tbody tr:hover {
   cursor: default;
+}
+
+.mg-btn-area {
+  margin-bottom: 10px;
+}
+
+.mg-btn-area a {
+  margin-right: 10px;
 }
