@@ -41,6 +41,10 @@ class HomeController < ApplicationController
     redirect_to root_path, notice: verify_recaptcha && contact.save ? 'success' : 'danger'
   end
 
+  def subscribe
+
+  end
+
   def autocomplete_area
     @area = AreaCoverage.join_table.by_slug(params['slug']).by_area(params['q'])
 

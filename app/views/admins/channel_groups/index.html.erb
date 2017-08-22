@@ -23,6 +23,7 @@
           <thead>
             <tr>
               <th>Group Name</th>
+              <th>Title</th>
               <th>Channel Count</th>
               <th>Control</th>
             </tr>
@@ -37,6 +38,7 @@
               <% @channel_groups.each do |channel_group| %>
                 <tr>
                   <td><%= channel_group.name %></td>
+                  <td><%= channel_group.title %></td>
                   <td><%= channel_group.channels.count %></td>
                   <td>
                     <%= link_to 'Edit', edit_admins_channel_group_path(channel_group) %>&nbsp;|

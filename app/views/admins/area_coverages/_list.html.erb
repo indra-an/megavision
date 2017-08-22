@@ -1,0 +1,31 @@
+<table class="table table-striped table-hover areaData">
+
+  <thead>
+    <tr>
+      <th>City</th>
+      <th>Code</th>
+      <th>Area</th>
+      <th>Control</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if area_coverages.empty? %>
+      <tr>
+        <td colspan="3">You have no area_coverages. <%= link_to 'Create a new one!', new_admins_area_coverage_path %>.</td>
+      </tr>
+    <% else %>
+      <% area_coverages.each do |coverage| %>
+        <tr>
+          <td><%= coverage.channel_city.try(:city) %></td>
+          <td><%= coverage.area_code.try(:code) %></td>
+          <td><%= coverage.area %></td>
+          <td>
+            <%= link_to 'Edit', edit_admins_area_coverage_path(coverage) %>&nbsp;|
+            <%= link_to 'Destroy', admins_area_coverage_path(coverage), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

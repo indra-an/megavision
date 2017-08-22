@@ -54,6 +54,6 @@ class Admins::ChannelGroupsController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def channel_group_params
-      params.require(:channel_group).permit(:name, :channel_ids => [])
+      params.require(:channel_group).permit(:name, :title, :channel_ids => [])
     end
 end

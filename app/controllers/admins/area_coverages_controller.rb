@@ -4,6 +4,7 @@ class Admins::AreaCoveragesController < Admins::BaseController
 
   def index
     @area_coverages = AreaCoverage.all
+    @channel_cities = ChannelCity.all
   end
 
   def new

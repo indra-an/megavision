@@ -18,7 +18,7 @@
                     <div class="list-channel col-md-6 col-sm-12">
                       <div class="list-body lot-channel border-1px outer-border">
                         <div class="list-kategori <%=class_package%>">
-                          <h5 class="white text-center"><%=channel_group.name %></h5>
+                          <h5 class="white text-center"><%=channel_group.title %></h5>
                         </div>
                         <div class="kategori-channel">
                           <% channel_group.channels.each do |channel| %>
@@ -39,7 +39,7 @@
                     <% amount = number_with_delimiter(price.amount.to_i, delimiter: " ")
                           amount_split = amount.split(" ")
                     %>
-                      <a href="" class="<%=class_package%>">
+                      <a href="<%=public_subscribe_path(slug_id: params['slug_id'], package_id: channel_package.package.slug, price_id: price.id) %>" class="<%=class_package%>">
                         <div class="wrap-price">
                           <p class="no-margin harganya text-center white font-24"><sup>RP</sup><%=amount_split[0] %><sup><%=amount_split[1] %></sup></p>
                           <p class="perbulan no-margin white">/BLN</p>
