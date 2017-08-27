@@ -31,6 +31,29 @@ class HomeController < ApplicationController
     redirect_to root_path, notice: verify_recaptcha && contact.save ? 'success' : 'danger'
   end
 
+  def subscribe
+    @package = Package.find_by_slug(params[:package_id])
+    channel_packages = ChannelCity.find_by_slug(params["slug_id"]).channel_packages
+
+    @package_lists = channel_packages.map{|c| [c.package.name, c.package.id]}
+    @price_lists = channel_packages.find_by(package: @package).prices
+    raise ActiveRecord::RecordNotFound if @package.nil? || channel_packages.nil? || @price_lists.nil?
+  end
+
+  def autocomplete_area
+    @area = AreaCoverage.join_table.by_slug(params['slug']).by_area(params['q'])
+
+    if(params['with_city'])
+      @area = @area.map(&:to_check_api)
+    else
+      @area = @area.map(&:to_api)
+    end
+
+    respond_to do |format|
+      format.json { render :json => @area }
+    end
+  end
+
   private
 
   def fetch_preferences

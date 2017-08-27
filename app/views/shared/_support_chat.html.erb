@@ -1,0 +1,121 @@
+<section class="floating-contact">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+          <a class="contact-float" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <h5>Ada yang bisa kami bantu?</h5>
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapse1" class="collapse in floating" role="tabpanel" aria-labelledby="headingOne">
+
+        <div class="white-form-group">
+          <div class="chat-view">
+       <!--      <div class="talk-bubble user tri-right left-top">
+              <div class="user-chat max-80 clearfix">Hello lorem ipsum dolor sit amet</div>
+              <p class="time-chat">15.00 am</p>
+            </div>
+
+            <div class="talk-bubble admin tri-right left-top">
+              <div class="user-chat max-80 clearfix">Hello lorem ipsum dolor sit amet</div>
+              <p class="time-chat">15.00 am</p>
+            </div> -->
+          </div>
+
+          <div class="chat-input">
+            <textarea class="full-input" rows="4" id="chat-message"></textarea>
+             <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--       <div class="floating-contact">
+        <div id="contact-accordion" role="tablist" aria-multiselectable="true">
+          <div class="card">
+            <div class="card-header" role="tab" id="contact-heading">
+              <a class="contact-float" data-parent="#contact-accordion" href="#" aria-expanded="true" aria-controls="contact-collapse">
+                <h5>Ada yang bisa kami bantu?</h5>
+                <h5 class="fa fa-minus pull-right minimize-icon" aria-hidden="true"></h5>
+              </a>
+            </div>
+
+            <div id="contact-collapse" class="collapse floating" role="tabpanel" aria-labelledby="contact-heading">
+              <div class="white-form-group">
+                  <ul id="chat-message">
+                  </ul>
+                  <div class="row">
+                    <div class="form-group col-sm-6"><%= text_field_tag :chat_name, '', :placeholder => 'Nama', :class => 'form-control', :required => true %></div>
+                    <div class="col-sm-6"><%= email_field_tag :chat_email, '', :placeholder => 'Email', :class => 'form-control', :required => true %></div>
+                  </div>
+                  <div class="form-group">
+                    <%= text_area :chat_message, '', :placeholder => 'Pertanyaan kamu', :class => 'form-control', :required => true, :rows => 2 %>
+                  </div>
+                  <button type="button" class="btn btn-primary send-message">Kirim </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+ -->
+<%= content_for :javascript do %>
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Initialize Firebase
+      var config = {
+        apiKey: "<%=Rails.application.secrets.firebase_apiKey %>",
+        authDomain: "<%=Rails.application.secrets.firebase_authDomain %>",
+        databaseURL: "<%=Rails.application.secrets.firebase_databaseURL %>",
+        projectId: "<%=Rails.application.secrets.firebase_projectId %>",
+        storageBucket: "<%=Rails.application.secrets.firebase_storageBucket %>",
+        messagingSenderId: "<%=Rails.application.secrets.firebase_messagingSenderId %>"
+      };
+      firebase.initializeApp(config);
+      var newPostKey = firebase.database().ref().child('chats').push().key;
+      localStorage.removeItem("roomID");
+
+      localStorage.getItem('roomID')
+      $("#btn-chat").click(function(){
+        var message = $("#chat-message").val()
+
+        if(localStorage.getItem('roomID') == null){
+          firebase.database().ref('chats/' + newPostKey).set({
+            username: 'anonymous',
+            new: true,
+            datetime: String(new Date())
+          });
+        }else{
+          firebase.database().ref('chats/' + newPostKey).set({
+            username: 'anonymous',
+            new: true,
+            datetime: String(new Date())
+          });
+        }
+        localStorage.setItem('roomID', newPostKey);
+        var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
+        firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
+          username: 'anonymous',
+          message: message,
+          type: 'user',
+          time: formatAMPM(new Date())
+        });
+
+        $("#chat-message").val('')
+
+      })
+
+      var messageRef = firebase.database().ref('/chats/' + newPostKey + '/message');
+      messageRef.on('child_added', function(snapshot) {
+        var val = snapshot.val();
+        $(".chat-view").append('<div class="talk-bubble '+val.type+' tri-right left-top"> <div class="user-chat max-80 clearfix">'+ val.message+'</div> <p class="time-chat">'+ val.time+'</p> </div> ')
+      });
+    })
+  </script>
+<% end %>

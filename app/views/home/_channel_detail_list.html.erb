@@ -1,0 +1,53 @@
+
+        <div class="container-fluid">
+          <div class="row">
+                <% channel_cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
+                   <%
+                        if package_idx%2 == 0
+                           bg_package = "background: rgba(0,114,188,1)"
+                           class_package = "bg-silver"
+                        else
+                            bg_package = "background: rgba(0,84,166,1)"
+                            class_package = "bg-gold"
+                        end %>
+                <div class="col-md-6 col-sm-12 no-padding" style="<%=bg_package%>;padding-top: 15px;">
+
+                  <div class="width-100 row chan-area same-height">
+                    <h3 class="white text-center paket-title">Paket <%=channel_package.package.name%></h3>
+                    <% channel_package.channel_groups.each_with_index do |channel_group, idx| %>
+                    <div class="list-channel col-md-6 col-sm-12">
+                      <div class="list-body lot-channel border-1px outer-border">
+                        <div class="list-kategori <%=class_package%>">
+                          <h5 class="white text-center"><%=channel_group.title %></h5>
+                        </div>
+                        <div class="kategori-channel">
+                          <% channel_group.channels.each do |channel| %>
+                            <p class="white"><%=channel.name %></p>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                      <% if idx != 0 && (idx%2) == 1 %>
+                        <br />
+                      <% end %>
+                    <% end %>
+                  </div>
+
+                  <div class="harga-paket row bg-white same-height">
+                    <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
+                    <% channel_package.prices.each do | price | %>
+
+                      <a href="<%=public_subscribe_path(slug_id: params['slug_id'], package_id: channel_package.package.slug, price_id: price.id) %>" class="<%=class_package%>">
+                        <div class="wrap-price">
+                          <%=format_number_to_price_tag(price.amount.to_i) %>
+                          <p class="speednya italic white"><i><%=[price.up_to_speed, price.unit].join(" ") %></i></p>
+                        </div>
+                      </a>
+                    <% end %>
+                    <br />
+                    <p class="font-12 ket-paket"><%=channel_package.description %></p>
+                  </div>
+                </div>
+                  <% end %>
+          </div>
+        </div>
