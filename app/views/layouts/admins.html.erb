@@ -128,6 +128,11 @@
             <span class="glyphicon glyphicon-cloud"></span>&nbsp;Area Codes
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:dashboard, :chats) %>">
+          <%= link_to admins_chats_path do %>
+            <span class="glyphicon glyphicon-cloud"></span>&nbsp;Support Chat
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:dashboard, :preferences) %>">
           <%= link_to admins_preferences_path do %>
             <span class="glyphicon glyphicon-wrench"></span>&nbsp;Preferences
