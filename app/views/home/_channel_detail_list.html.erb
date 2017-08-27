@@ -36,13 +36,9 @@
                   <div class="harga-paket row bg-white same-height">
                     <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
                     <% channel_package.prices.each do | price | %>
-                    <% amount = number_with_delimiter(price.amount.to_i, delimiter: " ")
-                          amount_split = amount.split(" ")
-                    %>
                       <a href="<%=public_subscribe_path(slug_id: params['slug_id'], package_id: channel_package.package.slug, price_id: price.id) %>" class="<%=class_package%>">
                         <div class="wrap-price">
-                          <p class="no-margin harganya text-center white font-24"><sup>RP</sup><%=amount_split[0] %><sup><%=amount_split[1] %></sup></p>
-                          <p class="perbulan no-margin white">/BLN</p>
+                          <%=format_number_to_price_tag(price.amount.to_i) %>
                           <p class="speednya italic white"><i><%=[price.up_to_speed, price.unit].join(" ") %></i></p>
                         </div>
                       </a>

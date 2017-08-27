@@ -1,0 +1,116 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Chats' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Support Chat</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-8 col-md-8 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="tab-content msg-body">
+        </div>
+        <div class="add-content-wrapper">
+            <textarea class="full-input" rows="4" id="chat-message"></textarea>
+             <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center uppercase bold"> User </div>
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked" id="user-list">
+        </ul>
+        </div>
+      </div>
+    </div>
+</div>
+
+<%= content_for :javascript do %>
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script>
+    $(document).ready(function(){
+      // Initialize Firebase
+      var config = {
+        apiKey: "<%=Rails.application.secrets.firebase_apiKey %>",
+        authDomain: "<%=Rails.application.secrets.firebase_authDomain %>",
+        databaseURL: "<%=Rails.application.secrets.firebase_databaseURL %>",
+        projectId: "<%=Rails.application.secrets.firebase_projectId %>",
+        storageBucket: "<%=Rails.application.secrets.firebase_storageBucket %>",
+        messagingSenderId: "<%=Rails.application.secrets.firebase_messagingSenderId %>"
+      };
+      firebase.initializeApp(config);
+
+      $("#btn-chat").click(function(){
+        var message = $("#chat-message").val()
+        var newPostKey = $(".chat-key").val()
+
+        var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
+        firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
+          username: "<%=current_admin.email[0, current_admin.email.index('@')]%>",
+          message: message,
+          type: 'admin',
+          time: formatAMPM(new Date())
+        });
+
+        $("#chat-message").val('')
+
+      })
+
+      var messageRef = firebase.database().ref('/chats').limitToLast(20);
+      messageRef.on('child_added', function(snapshot) {
+          var key = snapshot.key
+          var val = snapshot.val()
+          var label = '';
+          $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> </ul> <input type="hidden" name= "key" class="chat-key" value="'+key+'"/></div>')
+
+          if( val.username != "undefined"){
+            $("#user-list").prepend('<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'">'+val.username+ ' <span class="label label-default"></span></a> </li>')
+          }
+
+          firebase.database().ref('/chats/'+ key + '/message').on('child_added', function(snap) {
+            message = message_list(snap.val())
+            $(".tab-content").children("div#"+key).children("ul.message-list").append(message)
+            if(snap.val().type == 'admin'){
+              $("#user-list").find("a#pill-"+key).children("span").html("")
+            }else{
+              $("#user-list").find("a#pill-"+key).children("span").html("New")
+            }
+          });
+      });
+
+      // $("#user-list").html("")
+      // $(".tab-content").html("")
+
+      // firebase.database().ref('/chats/').limitToLast(20).once('value').then(function(snapshot) {
+      //   snapshot.forEach(function(item) {
+      //     var key = item.key
+      //     var val = item.val()
+      //     $("#user-list").prepend('<li><a data-toggle="pill" href="#'+key+'">'+val.username+'</a></li>')
+      //     var message = '';
+      //     $.each(val.message, function(k, v) {
+      //       message = message + message_list(v)
+      //     });
+      //     $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> '+message+' </ul> <input type="hidden" name= "key" class="chat-key" value="'+key+'"/></div>')
+      //   });
+      // });
+    })
+
+
+    function message_list(value){
+      return "<li class='message-content'> <div class='message-header'> <p class='display-name'>"+value.username+"</p> <span class='timestamp'>" +value.time +"</span></div><div class='message-body'>"+ value.message + "</div></li>"
+    }
+    // function parameterize(value){
+    //   return value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    // }
+  </script>
+<% end %>

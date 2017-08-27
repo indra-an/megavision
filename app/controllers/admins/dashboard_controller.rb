@@ -54,6 +54,10 @@ class Admins::DashboardController < Admins::BaseController
     redirect_to admins_area_coverages_path, notice: 'Area coverage coordinates saved.'
   end
 
+  def chats
+
+  end
+
   def destroy_area_coverage
     coverage = Coverage.find(params[:id])
     coverage.destroy

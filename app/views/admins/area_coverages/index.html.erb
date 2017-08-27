@@ -43,7 +43,7 @@
 
 <%= content_for :javascript do %>
   <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).on('turbolinks:load', function() {
       $(".areaData").DataTable({
         "sScrollX": true,
         "sScrollXInner": "110%",

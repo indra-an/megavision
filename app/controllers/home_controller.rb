@@ -42,7 +42,12 @@ class HomeController < ApplicationController
   end
 
   def subscribe
+    @package = Package.find_by_slug(params[:package_id])
+    channel_packages = ChannelCity.find_by_slug(params["slug_id"]).channel_packages
 
+    @package_lists = channel_packages.map{|c| [c.package.name, c.package.id]}
+    @price_lists = channel_packages.find_by(package: @package).prices
+    raise ActiveRecord::RecordNotFound if @package.nil? || channel_packages.nil? || @price_lists.nil?
   end
 
   def autocomplete_area

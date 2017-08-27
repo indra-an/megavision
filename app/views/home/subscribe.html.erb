@@ -1,0 +1,187 @@
+ <section class="subscribe">
+        <div class="row"></div>
+        <h2 class="uppercase bold text-center">SUBSCRIBE</h2>
+        <P class="sub-tagline text-center">Masukan informasi anda di bawah ini</P>
+
+      <%= form_tag public_submit_contact_path, id: 'subscribe' do %>
+        <!-- input personal -->
+        <div class="container check-input-grp">
+          <div class="row">
+          <h4 class="bold input-tittle">Personal Detail</h4>
+            <div class="col-md- col-sm-6 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Nama Lengkap</label>
+                <%= text_field_tag "sub[name]", '', :class => 'form-control', :required => true %>
+              </div>
+
+              <div class="form-group">
+                <label for="">No KTP/Passport</label>
+                <%= text_field_tag "sub[ktp]", '', :class => 'form-control', :required => true %>
+              </div>
+
+              <div class="form-group">
+                <label for="">Mobile Phone</label>
+                <%= text_field_tag "sub[mobile]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md- col-sm-6 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Email</label>
+                <%= email_field_tag "sub[email]", '', :class => 'form-control', :required => true %>
+              </div>
+
+              <div class="form-group">
+                <label for="">Date Of Birth</label>
+                  <div class='input-group date' id='datetimepicker1'>
+                      <input type='text' class="form-control" />
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="">Home Phone (optional)</label>
+                <%= text_field_tag "sub[phone]", '', :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- pilih package -->
+        <div class="pilihan-package blue-bg">
+          <div class="container">
+            <div class="row">
+              <h4 class="bold input-tittle white product">Product Detail</h4>
+              <%= render 'product_detail', label: 'Speed', options: @price_lists.map{|p| [['Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: params['price_id'] %>
+              <%= render 'product_detail', label: 'Price', options: @price_lists.map{|p| [format_number_to_price_tag(p.amount).html_safe, p.id]}, selected: params['price_id']  %>
+              <%= render 'product_detail', label: 'Channel', options: @package_lists, selected: @package.id %>
+            </div>
+          </div>
+        </div>
+        <!-- servis address -->
+        <div class="container check-input-grp">
+          <div class="row">
+            <h4 class="bold input-tittle">Service Address</h4>
+            <div class="col-md- col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Alamat Utama</label>
+                <%= text_field_tag "sub[address]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Nomor Rumah</label>
+                <%= text_field_tag "sub[home-number]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">RT</label>
+                <%= text_field_tag "sub[rt]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">RW</label>
+                <%= text_field_tag "sub[rw]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Kelurahan</label>
+                <%= text_field_tag "sub[kelurahan]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Kecamatan</label>
+                <%= text_field_tag "sub[kecamatan]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Kota</label>
+                <%= text_field_tag "sub[city]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Provinsi</label>
+                <%= text_field_tag "sub[province]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group">
+                <label for="">Kode Pos</label>
+                <%= text_field_tag "sub[postal_code]", '', :class => 'form-control', :required => true %>
+              </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 input-personal">
+              <div class="form-group col-md-6 col-sm-12">
+                <%= recaptcha_tags %>
+              </div>
+
+              <div class="agreement col-md-6 col-sm-12">
+                <div class="checkbox form-group">
+                  <label><input type="checkbox" value="">Saya setuju untuk mengambil penawaran ini sesuai dengan kebutuhan dan persyaratan yang (<a href="#" class="bold">Legal Disclaimer, Privacy Policy, Fair Usage Policy</a>)yang berlaku.</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="subscribe-btn-act col-md-12">
+              <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                <a href="#" class="back-btn uppercase text-center">Back</a>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                <a href="#" class="back-btn uppercase text-center" data-toggle="modal" data-target="#myModal">Subscribe</a>
+              </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <% end %>
+      </section>
+
+      <!-- modal setelah subscribe -->
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content subscribe-modal">
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div> -->
+            <div class="modal-body">
+              <p class="text-center">Terima kasih telah melakukan subscribe, kami akan kembali menghubungi anda dalam waktu dekat.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<%= content_for :javascript do %>
+ <script>
+        (function() {
+          [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+            new SelectFx(el);
+          } );
+        })();
+      </script>
+<% end %>

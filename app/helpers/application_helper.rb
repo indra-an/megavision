@@ -9,8 +9,9 @@ module ApplicationHelper
     thousands = number.to_i / 1000
     hundreds = number.to_i - (thousands * 1000)
     hundreds = hundreds == 0 ? '000' : hundreds.to_s
-    raw '<sup class="font-18">Rp</sup>' + number_with_delimiter(thousands, :delimiter => '.') +
-        '.<sup class="font-18">' + hundreds + '</sup><sub class="font-12">/BLN</sub>'
+
+    raw '<p class="no-margin harganya text-center white font-24"> <sup>RP</sup>'+ number_with_delimiter(thousands, :delimiter => ' ') +
+        '<sup>' + hundreds + '</sup></p> <p class="perbulan no-margin white">/BLN</p>'
   end
 
   def is_landing_page?
