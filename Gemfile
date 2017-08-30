@@ -25,6 +25,8 @@ gem "recaptcha", require: 'recaptcha/rails'
 gem "roo"
 gem "roo-xls"
 gem "writeexcel"
+gem 'prawn'
+gem 'prawn-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri

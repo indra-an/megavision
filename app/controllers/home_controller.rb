@@ -41,6 +41,17 @@ class HomeController < ApplicationController
     redirect_to root_path, notice: verify_recaptcha && contact.save ? 'success' : 'danger'
   end
 
+  def submit_subscribe
+    data = {}
+    params['sub'].map {|k, v| data[k] = v }
+    price = Price.find(data['product'])
+    data['product_speed'] = ["Up to", price.up_to_speed, price.unit].join(" ")
+    data['product_price'] = ["Rp.", number_with_delimiter(price.amount)].join(" ")
+
+    @verify = (verify_recaptcha && params['sub']['cek'].present?)
+    ApplicationMailer.send_subscriber(data).deliver if @verify
+  end
+
   def subscribe
     @package = Package.find_by_slug(params[:package_id])
     channel_packages = ChannelCity.find_by_slug(params["slug_id"]).channel_packages

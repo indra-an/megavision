@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'subscribe/:slug_id/:package_id/:price_id' => 'home#subscribe', :as => :public_subscribe
   get 'autocomplete_area' => 'home#autocomplete_area', :as => :public_autocomplete_area
   post 'submit_contact' => 'home#submit_contact', :as => :public_submit_contact
+  post 'submit_subscribe' => 'home#submit_subscribe', :as => :public_submit_subscribe
 
   namespace :admins do
     get 'dashboard' => 'dashboard#index'

@@ -1137,6 +1137,20 @@ div.cs-skin-rotate {
     background: #07598e;
 }
 
+
+.subscribe-btn-act div input[type='submit'] {
+    background: #0072bc;
+    color: white;
+    padding: 8px 30px;
+    border: none;
+    margin-top: -10px;
+}
+
+.subscribe-btn-act div input[type='submit']:hover {
+    text-decoration: none;
+    background: #07598e;
+}
+
 .subscribe-btn-act {
     margin-bottom: 100px;
     clear: both;
@@ -1163,6 +1177,7 @@ div.cs-skin-rotate {
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #0072bc;
 }
+
 /** floating **/
 
 .floating-contact {
@@ -1331,4 +1346,316 @@ box-shadow: 6px -4px 24px -10px rgba(0,0,0,0.35);
     margin: 0;
     height: 60px;
     margin-left: -5px;
+}
+
+
+/** subscrie **/
+.subscribe {
+    padding-top: 150px;
+}
+
+.input-tittle {
+    margin-bottom: 30px;
+}
+
+.pilihan-package {
+    padding: 50px 0 75px;
+}
+
+.select-package {
+    text-align: center;
+    color: white;
+    float: left;
+    margin: 34px 0 0;
+}
+
+.border-1px {
+    border: 1px solid white;
+}
+
+div.cs-skin-rotate {
+    width: 100%;
+}
+
+.cs-select.cs-skin-rotate {
+    padding: 45px 15px;
+}
+
+.cs-skin-rotate > span {
+    border: none;
+}
+
+.select-label {
+    background: white;
+    padding: 10px;
+    width: 100%;
+    color: #0072bc;
+}
+
+.cs-skin-rotate li span {
+    opacity: 0.7;
+    background: transparent;
+}
+
+.cs-skin-rotate .cs-selected span {
+    opacity: 1 !important;
+    background: transparent;
+}
+
+.cs-options {
+    margin: 0 -15px;
+}
+
+.cs-select.cs-active .cs-options {
+    visibility: visible;
+    background: #0072bc;
+    border-radius: 10px;
+}
+
+.cs-select ul {
+    padding: 0 30px;
+}
+
+.input-tittle {
+    padding-left: 15px;
+}
+
+.agreement .checkbox input[type="checkbox"] {
+    margin-top: 23px;
+}
+
+.agreement {
+    padding-left: 20px;
+}
+
+.subscribe .form-group {
+    margin-bottom: 35px;
+}
+
+.subscribe-btn-act div a {
+    background: #0072bc;
+    color: white;
+    padding: 10px 30px;
+}
+
+.subscribe-btn-act div a:hover {
+    text-decoration: none;
+    background: #07598e;
+}
+
+.subscribe-btn-act {
+    margin-bottom: 100px;
+    clear: both;
+    padding-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .subscribe-btn-act div a {
+    background: #0072bc;
+    color: white;
+    padding: 10px 30px;
+    display: block;
+}
+}
+
+.subscribe-modal {
+    margin-top: 15em;
+}
+
+.product.input-tittle {
+    margin-bottom: 10px;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #0072bc;
+}
+
+
+/** floating **/
+
+.floating-contact {
+    position: fixed;
+    bottom: -2px;
+    right: 20px;
+    width: 300px;
+    z-index: 10000;
+    -webkit-box-shadow: 6px -4px 24px -10px rgba(0,0,0,0.35);
+-moz-box-shadow: 6px -4px 24px -10px rgba(0,0,0,0.35);
+box-shadow: 6px -4px 24px -10px rgba(0,0,0,0.35);
+}
+
+.contact-float h5 {
+    float: left;
+    font-size: 13px;
+    color: white;
+    margin: 3px 0;
+    font-weight: 700;
+}
+
+.contact-float img {
+    width: 87px;
+    float: left;
+    margin-top: -39px;
+    margin-left: -39px;
+}
+
+.floating-contact div .card div#headingOne {
+    height: 40px;
+    display: block;
+    clear: both;
+    background: #1a567d;
+}
+
+.white-form-group {
+    background: #e1e1e1;
+    padding: 15px;
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.user-chat {
+    background: white;
+    padding:5px 10px 5px 13px;
+    float: left;
+}
+
+.tri-right.border.left-top:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+  left: -40px;
+    right: auto;
+  top: -8px;
+    bottom: auto;
+    border: 32px solid;
+    border-color: #666 transparent transparent transparent;
+}
+
+.talk-bubble {
+  display: inline-block;
+  position: relative;
+    max-width: 80%;
+    height: auto;
+    background-color: lightyellow;
+}
+.border{
+  border: 8px solid #666;
+}
+.round{
+  border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+}
+
+.tri-right.left-top.user:after {
+    left: auto;
+    right: -17px;
+}
+
+.talk-bubble.user {
+    float: right;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    margin-top: 5px;
+    position: relative;
+    font-size: 13px;
+    clear: both;
+}
+
+.talk-bubble.admin {
+    float: left;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    position: relative;
+    font-size: 13px;
+    clear: both;
+}
+
+.tri-right.left-top.admin:after {
+    left: -17px;
+    right: auto;
+        border-color: #76b8e2 transparent transparent transparent;
+}
+
+.tri-right.left-top:after{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+  top: 0px;
+    bottom: auto;
+    border: 18px solid;
+    border-color: lightyellow transparent transparent transparent;
+}
+
+.time-chat {
+    position: absolute;
+    bottom: -26px;
+    font-size: 10px;
+    color: #8c8b8b;
+}
+
+.user .time-chat {
+    right: 0;
+}
+
+.admin .time-chat {
+    left: 0
+}
+
+.talk-bubble.admin.tri-right.left-top .user-chat {
+    background: #76b8e2;
+    color: white;
+}
+
+.white-form-group {
+    padding: 0;
+}
+
+.chat-view {
+    height: 269px;
+    overflow-y: scroll;
+    padding-top: 10px;
+}
+
+.chat-input input {
+    width: 78%;
+    height: 30px;
+    padding: 5px;
+}
+
+.floating-contact div .card div#headingOne a.contact-float h5 {
+    padding: 9px;
+    width: 100%;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    width: 22%;
+    margin: 0;
+    height: 30px;
+    margin-left: -5px;
+}
+
+div.cs-select {
+    max-width: 650px;
+}
+
+
+*, *:before, *:after {box-sizing:  border-box !important;}
+
+.chan-area br {
+    clear: both;
+    display: none;
+}
+
+body {
+    width: 100% !important;
+    overflow-x: hidden;
 }

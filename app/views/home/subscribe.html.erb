@@ -3,7 +3,7 @@
         <h2 class="uppercase bold text-center">SUBSCRIBE</h2>
         <P class="sub-tagline text-center">Masukan informasi anda di bawah ini</P>
 
-      <%= form_tag public_submit_contact_path, id: 'subscribe' do %>
+      <%= form_tag public_submit_subscribe_path, remote: true, id: 'subscribe' do %>
         <!-- input personal -->
         <div class="container check-input-grp">
           <div class="row">
@@ -33,8 +33,8 @@
 
               <div class="form-group">
                 <label for="">Date Of Birth</label>
-                  <div class='input-group date' id='datetimepicker1'>
-                      <input type='text' class="form-control" />
+                  <div class='input-group date' id='datetimepicker1' >
+                      <input type='text' name="sub[date]" id="sub_date" class="form-control datepicker"/>
                       <span class="input-group-addon">
                           <span class="glyphicon glyphicon-calendar"></span>
                       </span>
@@ -54,9 +54,9 @@
           <div class="container">
             <div class="row">
               <h4 class="bold input-tittle white product">Product Detail</h4>
-              <%= render 'product_detail', label: 'Speed', options: @price_lists.map{|p| [['Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: params['price_id'] %>
-              <%= render 'product_detail', label: 'Price', options: @price_lists.map{|p| [format_number_to_price_tag(p.amount).html_safe, p.id]}, selected: params['price_id']  %>
-              <%= render 'product_detail', label: 'Channel', options: @package_lists, selected: @package.id %>
+              <%= render 'product_detail', label: 'Product', options: @price_lists.map{|p| [["Rp.", number_with_delimiter(p.amount), "/Bln", ' Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: params['price_id'] %>
+              <%#= render 'product_detail', label: 'Price', options: @price_lists.map{|p| [format_number_to_price_tag(p.amount).html_safe, p.id]}, selected: params['price_id']  %>
+              <%#= render 'product_detail', label: 'Channel', options: @package_lists, selected: @package.id %>
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
             <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">Kota</label>
-                <%= text_field_tag "sub[city]", '', :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[city]", params['slug_id'].titleize, :class => 'form-control', :required => true %>
               </div>
             </div>
 
@@ -134,7 +134,8 @@
 
               <div class="agreement col-md-6 col-sm-12">
                 <div class="checkbox form-group">
-                  <label><input type="checkbox" value="">Saya setuju untuk mengambil penawaran ini sesuai dengan kebutuhan dan persyaratan yang (<a href="#" class="bold">Legal Disclaimer, Privacy Policy, Fair Usage Policy</a>)yang berlaku.</label>
+                  <label>
+                  <%= check_box_tag "sub[cek]" %>Saya setuju untuk mengambil penawaran ini sesuai dengan kebutuhan dan persyaratan yang (<a href="#" class="bold">Legal Disclaimer, Privacy Policy, Fair Usage Policy</a>)yang berlaku.</label>
                 </div>
               </div>
             </div>
@@ -145,7 +146,9 @@
                 <a href="#" class="back-btn uppercase text-center">Back</a>
               </div>
               <div class="col-md-6 col-sm-6 col-xs-6 text-center">
-                <a href="#" class="back-btn uppercase text-center" data-toggle="modal" data-target="#myModal">Subscribe</a>
+                <%= hidden_field_tag "sub[package]", params["package_id"].titleize, :class => 'form-control', :required => true %>
+                <!-- <a href="#" class="back-btn uppercase text-center" data-toggle="modal" data-target="#myModal">Subscribe</a> -->
+                <%= submit_tag 'Subscribe', :class => 'back-btn uppercase text-center' %>
               </div>
               </div>
             </div>
@@ -167,7 +170,7 @@
               <h4 class="modal-title">Modal Header</h4>
             </div> -->
             <div class="modal-body">
-              <p class="text-center">Terima kasih telah melakukan subscribe, kami akan kembali menghubungi anda dalam waktu dekat.</p>
+              <p class="text-center" id="modal-text">Terima kasih telah melakukan subscribe, kami akan kembali menghubungi anda dalam waktu dekat.</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

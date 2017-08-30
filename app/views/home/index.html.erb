@@ -91,7 +91,7 @@
 </section>
 
 <!-- area channel -->
-<section class="area-channel-sect text-center" style="background: url(<%= (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg') %>);">
+<section class="area-channel-sect text-center" id="sec-product" style="background: url(<%= (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg') %>);">
   <div class="container">
     <div class="row">
         <% @channel_cities.each do |channel_city| %>
