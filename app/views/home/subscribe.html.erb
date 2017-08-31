@@ -54,9 +54,11 @@
           <div class="container">
             <div class="row">
               <h4 class="bold input-tittle white product">Product Detail</h4>
-              <%= render 'product_detail', label: 'Product', options: @price_lists.map{|p| [["Rp.", number_with_delimiter(p.amount), "/Bln", ' Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: params['price_id'] %>
+              <%= render 'product_detail', label: 'Product', options: @price_lists.map{|p| [["Rp.", number_with_delimiter(p.amount), "/Bln", ' Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: params['price_id'], classes: "#{params[:package_id]} price-list" %>
+
+              <%= render 'product_detail', label: 'Product', options: @other_price_lists.map{|p| [["Rp.", number_with_delimiter(p.amount), "/Bln", ' Up to', p.up_to_speed, p.unit].join(" "), p.id]}, selected: @other_price_lists.first.id, classes: "other price-list" %>
               <%#= render 'product_detail', label: 'Price', options: @price_lists.map{|p| [format_number_to_price_tag(p.amount).html_safe, p.id]}, selected: params['price_id']  %>
-              <%#= render 'product_detail', label: 'Channel', options: @package_lists, selected: @package.id %>
+              <%= render 'product_detail', label: 'Package', options: @package_lists, selected: @package.name, classes: 'package' %>
             </div>
           </div>
         </div>
@@ -81,35 +83,35 @@
             <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">RT</label>
-                <%= text_field_tag "sub[rt]", '', :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[rt]", '', :class => 'form-control' %>
               </div>
             </div>
 
             <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">RW</label>
-                <%= text_field_tag "sub[rw]", '', :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[rw]", '', :class => 'form-control' %>
               </div>
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">Kelurahan</label>
-                <%= text_field_tag "sub[kelurahan]", '', :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[kelurahan]", '', :class => 'form-control' %>
               </div>
             </div>
 
             <div class="col-md-6 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">Kecamatan</label>
-                <%= text_field_tag "sub[kecamatan]", '', :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[kecamatan]", '', :class => 'form-control' %>
               </div>
             </div>
 
             <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">Kota</label>
-                <%= text_field_tag "sub[city]", params['slug_id'].titleize, :class => 'form-control', :required => true %>
+                <%= text_field_tag "sub[city]", params['slug_id'].titleize, :class => 'form-control', :required => true, readonly: true %>
               </div>
             </div>
 
@@ -183,8 +185,23 @@
  <script>
         (function() {
           [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
-            new SelectFx(el);
+            new SelectFx(el, {
+              onChange: function(val) {
+                change_select(val)
+              }
+            });
           } );
         })();
+        function change_select(package){
+          var class_name = '.'+package.toLowerCase()+'.price-list'
+          var check_count = $(class_name).length
+          $('.price-list').hide()
+
+          if(check_count == 0){
+            $('.other.price-list').show()
+          }else{
+            $(class_name).show()
+          }
+        }
       </script>
 <% end %>

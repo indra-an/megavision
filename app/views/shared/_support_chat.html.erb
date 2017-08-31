@@ -60,8 +60,23 @@
       var newPostKey = firebase.database().ref().child('chats').push().key;
       localStorage.removeItem("roomID");
 
-      localStorage.getItem('roomID')
       $("#btn-chat").click(function(){
+          send_message()
+      })
+
+      $("#chat-message").keypress(function(e) {
+          if($(this).val != "" && e.which == 13){
+              send_message()
+          }
+      });
+
+      var messageRef = firebase.database().ref('/chats/' + newPostKey + '/message');
+      messageRef.on('child_added', function(snapshot) {
+        var val = snapshot.val();
+        $(".chat-view").append('<div class="talk-bubble '+val.type+' tri-right left-top"> <div class="user-chat max-80 clearfix">'+ val.message+'</div> <p class="time-chat">'+ val.time+'</p> </div> ')
+      });
+
+      function send_message(){
         var message = $("#chat-message").val()
 
         if(localStorage.getItem('roomID') == null){
@@ -87,14 +102,7 @@
         });
 
         $("#chat-message").val('')
-
-      })
-
-      var messageRef = firebase.database().ref('/chats/' + newPostKey + '/message');
-      messageRef.on('child_added', function(snapshot) {
-        var val = snapshot.val();
-        $(".chat-view").append('<div class="talk-bubble '+val.type+' tri-right left-top"> <div class="user-chat max-80 clearfix">'+ val.message+'</div> <p class="time-chat">'+ val.time+'</p> </div> ')
-      });
+      }
     })
   </script>
 <% end %>

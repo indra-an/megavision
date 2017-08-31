@@ -7,6 +7,6 @@
 $("#myModal").modal('show')
 
 <% if @verify %>
-    setTimeout(location.reload.bind(location.origin), 3000); //reload after 3second
+  setTimeout(function(){location.href=location.origin} , 5000);
 <% end %>
 

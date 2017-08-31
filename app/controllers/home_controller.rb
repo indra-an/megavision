@@ -56,8 +56,9 @@ class HomeController < ApplicationController
     @package = Package.find_by_slug(params[:package_id])
     channel_packages = ChannelCity.find_by_slug(params["slug_id"]).channel_packages
 
-    @package_lists = channel_packages.map{|c| [c.package.name, c.package.id]}
+    @package_lists = channel_packages.map{|c| [c.package.name]}
     @price_lists = channel_packages.find_by(package: @package).prices
+    @other_price_lists = channel_packages.where.not(package: @package).first.prices
     raise ActiveRecord::RecordNotFound if @package.nil? || channel_packages.nil? || @price_lists.nil?
   end
 
