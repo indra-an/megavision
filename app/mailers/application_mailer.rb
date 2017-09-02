@@ -16,6 +16,6 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(:reply_to => data['email'],
          :to => Rails.application.secrets.subscription_email,
-         :subject => '[New Subscriber] ' + data['email'])
+         :subject => '[New Subscriber] [' + data['city'] + '] '+ data['email'])
   end
 end
