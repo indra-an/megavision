@@ -11,6 +11,7 @@
                 <div class="input-group col-md-12">
                     <input type="text" class="form-control input-lg" id="check-area" placeholder="Masukan lokasi anda" />
                     <input type="hidden" class="form-control input-lg" id="slug" />
+                    <input type="hidden" class="form-control input-lg" id="temp_area" />
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button" id="btn-check-area">
                             <i class="glyphicon glyphicon-search"></i>
@@ -54,9 +55,15 @@
 <%= content_for :javascript do %>
     <script>
         $("#btn-check-area").click(function(){
-          if($("#slug").val() == "")
-            $("#myModal").modal('show')
+          if($("#check-area").val() != "")
+            showResultOnClicked($("#slug").val())
         })
+
+        $("#check-area").keypress(function(e) {
+            if($(this).val != "" && e.which == 13){
+              showResultOnClicked($("#slug").val())
+            }
+        });
 
         $( "#check-area" ).autocomplete({
           source: function( request, response ) {
@@ -71,6 +78,8 @@
                 $("#slug").val("")
                 $("#detail-list").html("")
                 response( $.map( data, function( item ) {
+                  $("#temp_area").val(item.area)
+                  $("#slug").val(item.slug)
                   return $.extend(item, ({label: item.area, value: item.id, id: item.id}));
                 }));
               }
@@ -147,6 +156,15 @@
                 // console.log('test')
               }
             });
+        }
+
+        function showResultOnClicked(val){
+          if($("#slug").val() == ""){
+            $("#myModal").modal('show')
+          }else{
+            showResult(val)
+            $("#check-area").val($("#temp_area").val())
+          }
         }
 
         </script>
