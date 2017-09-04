@@ -63,7 +63,7 @@ class HomeController < ApplicationController
   end
 
   def autocomplete_area
-    @area = AreaCoverage.join_table.by_slug(params['slug']).by_area(params['q'])
+    @area = AreaCoverage.join_table.by_slug(params['slug']).by_area(params['q']).limit(10)
 
     if(params['with_city'])
       @area = @area.map(&:to_check_api)
