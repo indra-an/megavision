@@ -76,7 +76,7 @@
               },
               success: function( data ) {
                 $("#slug").val("")
-                $("#temp_area").html("")
+                $("#temp_area").val("")
                 $("#detail-list").html("")
                 response( $.map( data, function( item ) {
                   $("#temp_area").val(item.area)
