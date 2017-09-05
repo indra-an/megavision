@@ -20,7 +20,8 @@ class HomeController < ApplicationController
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
 
     unless params[:area_slug_id].blank?
-      @channel_type = AreaCoverage.find_by_slug(params[:area_slug_id]).area_code.channel_types.first
+      @area = AreaCoverage.find_by_slug(params[:area_slug_id])
+      @channel_type = @area.area_code.channel_types.first
       @channel_cities_type = ChannelCitiesType.where(channel_city_id: @channel_city.id, channel_type_id: @channel_type.id).first
     end
 

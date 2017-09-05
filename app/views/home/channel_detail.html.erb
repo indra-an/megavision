@@ -9,9 +9,9 @@
 
               <div id="custom-search-input">
                 <div class="input-group col-md-12">
-                    <input type="text" class="form-control input-lg" id="check-area" placeholder="Masukan lokasi anda" />
-                    <input type="hidden" class="form-control input-lg" id="slug" />
-                    <input type="hidden" class="form-control input-lg" id="temp_area" />
+                    <input type="text" class="form-control input-lg" id="check-area" placeholder="Masukan lokasi anda" value="<%=@area.try(:area)%>" />
+                    <input type="hidden" class="form-control input-lg" id="slug" value="<%=params[:area_slug_id] %>" />
+                    <input type="hidden" class="form-control input-lg" id="temp_area" value="<%=@area.try(:area)%>"/>
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button" id="btn-check-area">
                             <i class="glyphicon glyphicon-search"></i>
@@ -54,6 +54,9 @@
       </div>
 <%= content_for :javascript do %>
     <script>
+        if($("#slug").val() != "")
+          showResultOnClicked($("#slug").val())
+
         $("#btn-check-area").click(function(){
           if($("#check-area").val() != "")
             showResultOnClicked($("#slug").val())
@@ -104,47 +107,6 @@
             $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
           }
         });
-
-        equalheight = function(container){
-
-        var currentTallest = 0,
-             currentRowStart = 0,
-             rowDivs = new Array(),
-             $el,
-             topPosition = 0;
-         $(container).each(function() {
-
-           $el = $(this);
-           $($el).height('auto')
-           topPostion = $el.position().top;
-
-           if (currentRowStart != topPostion) {
-             for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-               rowDivs[currentDiv].height(currentTallest);
-             }
-             rowDivs.length = 0; // empty the array
-             currentRowStart = topPostion;
-             currentTallest = $el.height();
-             rowDivs.push($el);
-           } else {
-             rowDivs.push($el);
-             currentTallest = (currentTallest < $el.height()) ? ($el.height()) : (currentTallest);
-          }
-           for (currentDiv = 0 ; currentDiv < rowDivs.length ; currentDiv++) {
-             rowDivs[currentDiv].height(currentTallest);
-           }
-         });
-        }
-
-        $(window).load(function() {
-          equalheight('.same-height');
-        });
-
-
-        $(window).resize(function(){
-          equalheight('.same-height');
-        });
-
 
         function showResult(val){
           $.ajax({

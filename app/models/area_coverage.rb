@@ -107,7 +107,9 @@ class AreaCoverage < ApplicationRecord
   def to_check_api
     {
       id: id,
-      area: [area, channel_city.city].join(", ")
+      area: [area, channel_city.city].join(", "),
+      slug: slug,
+      city_slug: channel_city.slug
     }
   end
 

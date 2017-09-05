@@ -7,6 +7,7 @@
 //= require shared/classie
 //= require shared/selectFx
 //= require shared/jquery.dataTables
+//= require shared/jquery.matchHeight
 //= require turbolinks
 
 $(document).on('turbolinks:load', function() {

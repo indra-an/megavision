@@ -735,7 +735,7 @@ div#myCarousel {
     margin-left: 12px;
     padding: 4px;
     text-overflow: ellipsis;
-    width: 75%;
+    /*width: 75%;*/
     margin: 10px;
 }
 
@@ -1662,4 +1662,8 @@ body {
 
 .other.price-list {
   display: none;
+}
+
+.wrap-price {
+    width: 150px;
 }
