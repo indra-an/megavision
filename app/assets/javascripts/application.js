@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', function() {
 
     var hash = this.hash;
 
-    if(!hash.includes("collapse")){
+    if(!hash.includes("collapse") && !hash.includes("question")){
       $('html, body').animate({
         scrollTop: $(hash).offset().top
       }, 500, function() {
