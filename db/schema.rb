@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827191805) do
+ActiveRecord::Schema.define(version: 20170912071522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,6 +177,9 @@ ActiveRecord::Schema.define(version: 20170827191805) do
     t.string "background_vision_mission"
     t.string "background_vacancy"
     t.string "background_contact"
+    t.string "check_area"
+    t.text   "subscribe_emails"
+    t.text   "contact_emails"
   end
 
   create_table "prices", force: :cascade do |t|

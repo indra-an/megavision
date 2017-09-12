@@ -55,11 +55,14 @@ class HomeController < ApplicationController
 
   def subscribe
     @package = Package.find_by_slug(params[:package_id])
-    channel_packages = ChannelCity.find_by_slug(params["slug_id"]).channel_packages
 
-    @package_lists = channel_packages.map{|c| [c.package.name]}.uniq
-    @price_lists = channel_packages.find_by(package: @package).prices
-    @other_price_lists = channel_packages.where.not(package: @package).first.prices
+    channel_packages = AreaCoverage.find_by_slug(params["slug_id"]).area_code.channel_types.first.channel_packages rescue nil
+    if channel_packages.present?
+      @package_lists = channel_packages.map{|c| [c.package.name]}.uniq
+      @price_lists = channel_packages.find_by(package: @package).prices
+      @other_price_lists = channel_packages.where.not(package: @package).first.prices
+    end
+
     raise ActiveRecord::RecordNotFound if @package.nil? || channel_packages.nil? || @price_lists.nil?
   end
 

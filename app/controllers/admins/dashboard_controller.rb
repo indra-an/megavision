@@ -30,6 +30,9 @@ class Admins::DashboardController < Admins::BaseController
     @preference.background_vision_mission = params[:background_vision_mission] if params[:background_vision_mission].present?
     @preference.background_vacancy = params[:background_vacancy] if params[:background_vacancy].present?
     @preference.background_contact = params[:background_contact] if params[:background_contact].present?
+    @preference.check_area = params[:check_area] if params[:check_area].present?
+    @preference.subscribe_emails = params[:subscribe_emails] if params[:subscribe_emails].present?
+    @preference.contact_emails = params[:contact_emails] if params[:contact_emails].present?
 
     if @preference.save
       redirect_to admins_preferences_path, notice: 'Website preferences saved.'

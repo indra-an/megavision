@@ -77,6 +77,13 @@
           </div>
 
           <div class="form-group">
+            <%= label_tag :check_area, 'Check Area Title', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :check_area, @preference.check_area, :class => 'form-control', :rows => 5 %>
+            </div>
+          </div>
+
+          <div class="form-group">
             <%= label_tag :company_vision_missions, 'Company vision and mission', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9 req-field" data-offset-class="col-sm-offset-3">
               <% if @preference.company_vision_missions.any? %>
@@ -117,6 +124,56 @@
               <% else %>
                 <div class="input-group">
                   <%= text_field_tag 'addresses[]', '', :class => 'form-control', :placeholder => 'Format: Address Name|Address Location|Phone' %>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :subscribe_emails, 'Subscribe Email', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9 req-field" data-offset-class="col-sm-offset-3">
+              <% if @preference.subscribe_emails.any? %>
+                <% @preference.subscribe_emails.each do |vm| %>
+                  <div class="input-group">
+                    <%= text_field_tag 'subscribe_emails[]', vm, :class => 'form-control' %>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="input-group">
+                  <%= text_field_tag 'subscribe_emails[]', '', :class => 'form-control' %>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                    <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :contact_emails, 'Contact Email', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9 req-field" data-offset-class="col-sm-offset-3">
+              <% if @preference.contact_emails.any? %>
+                <% @preference.contact_emails.each do |vm| %>
+                  <div class="input-group">
+                    <%= text_field_tag 'contact_emails[]', vm, :class => 'form-control' %>
+                    <span class="input-group-btn">
+                      <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
+                      <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                    </span>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="input-group">
+                  <%= text_field_tag 'contact_emails[]', '', :class => 'form-control' %>
                   <span class="input-group-btn">
                     <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
                     <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
