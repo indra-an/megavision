@@ -118,6 +118,11 @@
             <span class="glyphicon glyphicon-user"></span>&nbsp;Admin Accounts
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:dashboard, :admin_logs) %>">
+          <%= link_to admins_admin_logs_path do %>
+            <span class="glyphicon glyphicon-user"></span>&nbsp;Admin Logs
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:area_coverages) %>">
           <%= link_to admins_area_coverages_path do %>
             <span class="glyphicon glyphicon-cloud"></span>&nbsp;Area Coverages

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912071522) do
+ActiveRecord::Schema.define(version: 20170917151627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_logs", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.string   "type"
+    t.text     "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_admin_logs_on_admin_id", using: :btree
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",               default: "", null: false
@@ -209,6 +218,7 @@ ActiveRecord::Schema.define(version: 20170912071522) do
     t.index ["slug"], name: "index_vacancies_on_slug", using: :btree
   end
 
+  add_foreign_key "admin_logs", "admins"
   add_foreign_key "area_codes_channel_types", "area_codes"
   add_foreign_key "area_codes_channel_types", "channel_types"
   add_foreign_key "area_coverages", "area_codes"

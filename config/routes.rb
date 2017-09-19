@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'dashboard' => 'dashboard#index'
     get 'preferences' => 'dashboard#preferences'
     get 'chats' => 'dashboard#chats'
+    get 'admin_logs' => 'dashboard#admin_logs'
 
     put 'update_password' => 'dashboard#update_password'
 

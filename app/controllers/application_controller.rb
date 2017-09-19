@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include ActionView::Helpers::NumberHelper
 
   def after_sign_in_path_for(resource)
+    SignedIn.create({admin: resource, data: SignedIn.to_json_api(resource)})
     admins_dashboard_path
   end
 

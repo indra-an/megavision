@@ -24,6 +24,7 @@ module Megavision
 
     config.autoload_paths += %W(
       #{config.root}/app/pdfs
+      #{config.root}/app/models/admin_log
     )
     config.time_zone = 'Jakarta'
   end

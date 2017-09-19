@@ -61,6 +61,10 @@ class Admins::DashboardController < Admins::BaseController
 
   end
 
+  def admin_logs
+    @logs = SignedIn.all
+  end
+
   def destroy_area_coverage
     coverage = Coverage.find(params[:id])
     coverage.destroy
