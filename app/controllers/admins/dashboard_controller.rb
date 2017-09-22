@@ -62,7 +62,7 @@ class Admins::DashboardController < Admins::BaseController
   end
 
   def admin_logs
-    @logs = SignedIn.all
+    @logs = SignedIn.includes(:admin).all
   end
 
   def destroy_area_coverage
