@@ -17,7 +17,7 @@ class ApplicationMailer < ActionMailer::Base
 
     # @admin_email = Preference.fetch.subscribe_emails.reject(&:empty?).join(",")
     #hack admin subscriber
-    if data['city'] == 'Bandung'
+    if data['city'].downcase == 'bandung'
       @admin_email = "megavisionmail27@gmail.com"
     else
       @admin_email = "marketing2@megavision.net.id"
