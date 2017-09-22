@@ -111,7 +111,7 @@
             <div class="col-md-4 col-sm-12 col-xs-12 input-personal">
               <div class="form-group">
                 <label for="">Kota</label>
-                <%= text_field_tag "sub[city]", params['slug_id'].titleize, :class => 'form-control', :required => true, readonly: true %>
+                <%= text_field_tag "sub[city]", @channel_city.try(:city).titleize, :class => 'form-control', :required => true, readonly: true %>
               </div>
             </div>
 

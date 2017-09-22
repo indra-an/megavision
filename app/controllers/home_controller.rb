@@ -55,8 +55,10 @@ class HomeController < ApplicationController
 
   def subscribe
     @package = Package.find_by_slug(params[:package_id])
+    area_coverage = AreaCoverage.find_by_slug(params["slug_id"])
+    @channel_city = area_coverage.channel_city
 
-    channel_packages = AreaCoverage.find_by_slug(params["slug_id"]).area_code.channel_types.first.channel_packages rescue nil
+    channel_packages = area_coverage.area_code.channel_types.first.channel_packages rescue nil
     if channel_packages.present?
       @package_lists = channel_packages.map{|c| [c.package.name]}.uniq
       @price_lists = channel_packages.find_by(package: @package).prices

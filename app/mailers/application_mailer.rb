@@ -14,7 +14,14 @@ class ApplicationMailer < ActionMailer::Base
   def send_subscriber(data)
     time = Time.zone.now.strftime("%Y%m%d%H%I%S")
     attachments["subscriber_#{time}.pdf"] = SubscribePdf.new(data).render
-    @admin_email = Preference.fetch.subscribe_emails.reject(&:empty?).join(",")
+
+    # @admin_email = Preference.fetch.subscribe_emails.reject(&:empty?).join(",")
+    #hack admin subscriber
+    if data['city'] == 'Bandung'
+      @admin_email = "megavisionmail27@gmail.com"
+    else
+      @admin_email = "marketing2@megavision.net.id"
+    end
     mail(:reply_to => data['email'],
          :to => @admin_email,
          :subject => '[New Subscriber] [' + data['city'] + '] '+ data['email'])
