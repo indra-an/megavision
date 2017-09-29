@@ -19,6 +19,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
 gem 'devise'
+gem 'devise_lastseenable'
 gem 'carrierwave'
 gem "recaptcha", require: 'recaptcha/rails'
 

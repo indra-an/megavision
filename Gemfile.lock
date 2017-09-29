@@ -105,6 +105,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise_lastseenable (0.0.6)
+      devise
+      rails (>= 3.0.4)
     erubi (1.6.1)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -273,6 +276,7 @@ DEPENDENCIES
   closure-compiler
   coffee-rails (~> 4.2)
   devise
+  devise_lastseenable
   jquery-rails
   jquery-ui-rails
   listen (~> 3.0.5)

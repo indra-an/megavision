@@ -16,7 +16,7 @@
 #
 
 class Admin < ApplicationRecord
-  devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable
+  devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lastseenable
 
   has_many :admin_logs
 end
