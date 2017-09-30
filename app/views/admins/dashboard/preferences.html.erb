@@ -193,8 +193,8 @@
           <div class="form-group">
             <%= label_tag :chat_off_message, 'Chat Status', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
-              <%= radio_button_tag :chat_status, 1, (@preference.chat_status == "t")  %> On
-              <%= radio_button_tag :chat_status, 0, (@preference.chat_status == "f")  %> Off
+              <%= radio_button_tag :chat_status, 1, (@preference.chat_status == true)  %> On
+              <%= radio_button_tag :chat_status, 0, (@preference.chat_status == false)  %> Off
             </div>
           </div>
 

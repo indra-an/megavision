@@ -12,7 +12,7 @@
 
         <div class="white-form-group">
           <div class="chat-view">
-              <% if @preference.chat_status == "f" %>
+              <% if @preference.chat_status == false %>
                 <p class="text-center"><%=@preference.chat_off_message %></p>
               <% end %>
        <!--      <div class="talk-bubble user tri-right left-top">
