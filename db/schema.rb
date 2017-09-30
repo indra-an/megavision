@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926035013) do
+ActiveRecord::Schema.define(version: 20170929172510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,24 +172,27 @@ ActiveRecord::Schema.define(version: 20170926035013) do
   end
 
   create_table "preferences", force: :cascade do |t|
-    t.text   "about_megavision"
-    t.text   "about_starnet"
-    t.text   "company_history"
-    t.text   "company_vision_missions"
-    t.text   "addresses"
-    t.string "copyright_text"
-    t.string "linked_in_url"
-    t.string "facebook_url"
-    t.string "twitter_url"
-    t.string "background_area_channel"
-    t.string "background_question_answer"
-    t.string "background_history"
-    t.string "background_vision_mission"
-    t.string "background_vacancy"
-    t.string "background_contact"
-    t.string "check_area"
-    t.text   "subscribe_emails"
-    t.text   "contact_emails"
+    t.text    "about_megavision"
+    t.text    "about_starnet"
+    t.text    "company_history"
+    t.text    "company_vision_missions"
+    t.text    "addresses"
+    t.string  "copyright_text"
+    t.string  "linked_in_url"
+    t.string  "facebook_url"
+    t.string  "twitter_url"
+    t.string  "background_area_channel"
+    t.string  "background_question_answer"
+    t.string  "background_history"
+    t.string  "background_vision_mission"
+    t.string  "background_vacancy"
+    t.string  "background_contact"
+    t.string  "check_area"
+    t.text    "subscribe_emails"
+    t.text    "contact_emails"
+    t.string  "chat_title"
+    t.boolean "chat_status"
+    t.string  "chat_off_message"
   end
 
   create_table "prices", force: :cascade do |t|

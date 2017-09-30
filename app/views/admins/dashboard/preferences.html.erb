@@ -139,7 +139,7 @@
               <% if @preference.subscribe_emails.any? %>
                 <% @preference.subscribe_emails.each do |vm| %>
                   <div class="input-group">
-                    <%= text_field_tag 'subscribe_emails[]', vm, :class => 'form-control' %>
+                    <%= text_field_tag 'subscribe_emails[]', vm, :class => 'form-control', :placeholder => 'Email|City' %>
                     <span class="input-group-btn">
                       <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
                       <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
@@ -148,7 +148,7 @@
                 <% end %>
               <% else %>
                 <div class="input-group">
-                  <%= text_field_tag 'subscribe_emails[]', '', :class => 'form-control' %>
+                  <%= text_field_tag 'subscribe_emails[]', '', :class => 'form-control', :placeholder => 'Email|City' %>
                   <span class="input-group-btn">
                     <button class="btn btn-default req-remove" type="button"><span class="glyphicon glyphicon-minus"></span></button>
                     <button class="btn btn-default req-add" type="button"><span class="glyphicon glyphicon-plus"></span></button>
@@ -180,6 +180,28 @@
                   </span>
                 </div>
               <% end %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :chat_title, 'Chat Title', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :chat_title, @preference.chat_title, :class => 'form-control', :rows => 5 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :chat_off_message, 'Chat Status', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= radio_button_tag :chat_status, 1, (@preference.chat_status == "t")  %> On
+              <%= radio_button_tag :chat_status, 0, (@preference.chat_status == "f")  %> Off
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :chat_off_message, 'Chat Off Message', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :chat_off_message, @preference.chat_off_message, :class => 'form-control', :rows => 5 %>
             </div>
           </div>
 
