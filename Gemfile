@@ -15,12 +15,14 @@ gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'ckeditor'
 
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
 gem 'devise'
 gem 'devise_lastseenable'
 gem 'carrierwave'
+gem 'mini_magick'
 gem "recaptcha", require: 'recaptcha/rails'
 
 gem "roo"

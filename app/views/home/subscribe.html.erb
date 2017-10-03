@@ -137,7 +137,7 @@
               <div class="agreement col-md-6 col-sm-12">
                 <div class="checkbox form-group">
                   <label>
-                  <%= check_box_tag "sub[cek]" %>Saya setuju untuk mengambil penawaran ini sesuai dengan kebutuhan dan persyaratan yang (<a href="#" class="bold">Legal Disclaimer, Privacy Policy, Fair Usage Policy</a>)yang berlaku.</label>
+                  <%= check_box_tag "sub[cek]" %>Saya setuju untuk mengambil penawaran ini sesuai dengan kebutuhan dan persyaratan (<a href="#" class="bold" data-toggle="modal" data-target="#legalDis">Legal Disclaimer, Privacy Policy, Fair Usage Policy</a>) yang berlaku.</label>
                 </div>
               </div>
             </div>
@@ -180,6 +180,26 @@
         </div>
       </div>
 
+      <!-- Modal Legal Dis -->
+        <div id="legalDis" class="modal fade" role="dialog">
+          <div class="modal-dialog" style="width: 90%;">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><%=@preference.disclaimer_title%></h4>
+              </div>
+              <div class="modal-body">
+                <%=@preference.disclaimer_content.try(:html_safe)%>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
 <%= content_for :javascript do %>
  <script>
         (function() {

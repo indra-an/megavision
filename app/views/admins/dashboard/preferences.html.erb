@@ -70,6 +70,20 @@
           </div>
 
           <div class="form-group">
+            <%= label_tag :disclaimer_title, 'Disclaimer Title', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :disclaimer_title, @preference.disclaimer_title, :class => 'form-control', :rows => 5 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :disclaimer_content, 'Disclaimer Content', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= cktext_area :disclaimer_content, :content, value: @preference.disclaimer_content, id: "ckeditor" %>
+            </div>
+          </div>
+
+          <div class="form-group">
             <%= label_tag :company_history, 'Company history content', :class => 'col-sm-3 control-label' %>
             <div class="col-sm-9">
               <%= text_area_tag :company_history, @preference.company_history, :class => 'form-control', :rows => 5 %>

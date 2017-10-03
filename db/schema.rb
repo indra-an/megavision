@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170929172510) do
+ActiveRecord::Schema.define(version: 20171003222411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,18 @@ ActiveRecord::Schema.define(version: 20170929172510) do
     t.string "name"
   end
 
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -193,6 +205,8 @@ ActiveRecord::Schema.define(version: 20170929172510) do
     t.string  "chat_title"
     t.boolean "chat_status"
     t.string  "chat_off_message"
+    t.string  "disclaimer_title"
+    t.text    "disclaimer_content"
   end
 
   create_table "prices", force: :cascade do |t|

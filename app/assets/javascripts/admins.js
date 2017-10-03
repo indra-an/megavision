@@ -4,6 +4,7 @@
 //= require shared/chosen.jquery.min
 //= require shared/jquery.dataTables
 //= require turbolinks
+//= require ckeditor/init
 //= require_self
 
 $(document).on('turbolinks:load', function() {

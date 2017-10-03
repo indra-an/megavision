@@ -36,6 +36,8 @@ class Admins::DashboardController < Admins::BaseController
     @preference.chat_title = params[:chat_title]
     @preference.chat_status = params[:chat_status]
     @preference.chat_off_message = params[:chat_off_message]
+    @preference.disclaimer_title = params[:disclaimer_title]
+    @preference.disclaimer_content = params[:disclaimer_content][:content]
 
     if @preference.save
       redirect_to admins_preferences_path, notice: 'Website preferences saved.'
