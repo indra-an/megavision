@@ -4,88 +4,132 @@
           <div class="channel-list-box col-md-12 col-xs-12 absolute-parent">
             <div class="title-channel-area-new text-center">
               <h2 class="bold white uppercase"><%= @channel_city.panel_name %></h2>
-            </div>
 
-           <!--  <div id="exTab1" class="container">
-              <ul  class="nav nav-pills channel-paket">
-                <% @channel_city.channel_types.each_with_index do |type, index| %>
-                  <% active = (index == 0) ? "active" : "" %>
-                  <li class="<%=active%> text-center border-1px outer-border">
-                    <a  href="#<%=type.id%>a" data-toggle="tab"><%=type.name %></a>
-                  </li>
-                <% end %>
-              </ul>
-            </div> -->
+              <p class="white ket-search">Masukan lokasi anda di bawah</p>
+
+              <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" class="form-control input-lg" id="check-area" placeholder="Masukan lokasi anda" value="<%=@area.try(:area)%>" />
+                    <input type="hidden" class="form-control input-lg" id="slug" value="<%=params[:area_slug_id] %>" />
+                    <input type="hidden" class="form-control input-lg" id="temp_area" value="<%=@area.try(:area)%>"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button" id="btn-check-area">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+                </div>
+              </div>
+
+            </div>
 
           </div>
         </div>
       </section>
 
       <section class="channel-list-all">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="tab-content clearfix no-padding">
-              <% @channel_city.channel_cities_types.each_with_index do |cities_type, index| %>
-                <% active = (index == 0) ? "active" : "" %>
-
-              <div class="tab-pane no-padding <%=active %>" id="<%=cities_type.channel_type.id%>a">
-                <% cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
-                   <%
-                        if package_idx%2 == 0
-                           bg_package = "background: rgba(0,114,188,1)"
-                           class_package = "bg-silver"
-                        else
-                            bg_package = "background: rgba(0,84,166,1)"
-                            class_package = "bg-gold"
-                        end %>
-                <div class="col-md-6 col-sm-12 no-padding">
-
-                  <div class="width-100 row chan-area" style="<%=bg_package%>;padding-top: 15px; padding-bottom: 35px;">
-                    <h3 class="white text-center paket-title">Paket <%=channel_package.package.name%></h3>
-                    <% channel_package.channel_groups.each_with_index do |channel_group, idx| %>
-                    <div class="list-channel col-md-6 col-sm-12">
-                      <div class="list-body little-channel border-1px outer-border">
-                        <div class="list-kategori <%=class_package%>">
-                          <h5 class="white text-center"><%=channel_group.name %></h5>
-                        </div>
-                        <div class="kategori-channel">
-                          <% channel_group.channels.each do |channel| %>
-                            <p class="white"><%=channel.name %></p>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                      <% if idx != 0 && (idx%2) == 1 %>
-                        <br />
-                      <% end %>
-                    <% end %>
-                  </div>
-
-                <!--   <div class="harga-paket row">
-                    <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
-                    <% channel_package.prices.each do | price | %>
-                    <% amount = number_with_delimiter(price.amount.to_i, delimiter: " ")
-                          amount_split = amount.split(" ")
-                    %>
-                      <a href="" class="<%=class_package%>">
-                        <div class="wrap-price">
-                          <p class="no-margin harganya text-center white font-24"><sup>RP</sup><%=amount_split[0] %><sup><%=amount_split[1] %></sup></p>
-                          <p class="perbulan no-margin white">/BLN</p>
-                          <p class="speednya italic white"><i><%=[price.up_to_speed, price.unit].join(" ") %></i></p>
-                        </div>
-                      </a>
-                    <% end %>
-                    <br />
-                    <p class="font-12 ket-paket"><%=channel_package.description %></p>
-                  </div> -->
-                </div>
-                  <% end %>
-              </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <div id="detail-list"></div>
       </section>
 
 <!-- contact-us -->
-<%=render "contact_us", preference: @preference %>
+<%#=render "contact_us", preference: @preference %>
+
+<!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content subscribe-modal">
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div> -->
+            <div class="modal-body">
+              <p class="text-center">Area tidak terjangkau</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<%= content_for :javascript do %>
+    <script>
+        if($("#slug").val() != "")
+          showResultOnClicked($("#slug").val())
+
+        $("#btn-check-area").click(function(){
+          if($("#check-area").val() != "")
+            showResultOnClicked($("#slug").val())
+        })
+
+        $("#check-area").keypress(function(e) {
+            if($(this).val != "" && e.which == 13){
+              showResultOnClicked($("#slug").val())
+            }
+        });
+
+        $( "#check-area" ).autocomplete({
+          source: function( request, response ) {
+            $.ajax({
+              url: "<%=public_autocomplete_area_path%>",
+              dataType: "json",
+              data: {
+                q: request.term,
+                slug: "<%=params[:slug_id]%>"
+              },
+              success: function( data ) {
+                $("#slug").val("")
+                $("#temp_area").val("")
+                $("#detail-list").html("")
+                response( $.map( data, function( item ) {
+                  $("#temp_area").val(item.area)
+                  $("#slug").val(item.slug)
+                  return $.extend(item, ({label: item.area, value: item.id, id: item.id}));
+                }));
+              }
+            });
+          },
+          select: function( event, ui ) {
+            event.preventDefault();
+            if(ui.item.id == undefined){
+                $("#slug").val("")
+                $("#detail-list").html("")
+            }else{
+              showResult(ui.item.slug)
+              $("#slug").val(ui.item.slug)
+              $("#check-area").val(ui.item.label)
+            }
+          },
+          open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+          },
+          close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+          }
+        });
+
+        function showResult(val){
+          $.ajax({
+              url: "<%=public_channel_detail_path(slug_id: params['slug_id']) %>",
+              dataType: "script",
+              data: {
+                area_slug_id: val
+              },
+              success: function( data ) {
+                // console.log('test')
+              }
+            });
+        }
+
+        function showResultOnClicked(val){
+          if($("#slug").val() == ""){
+            $("#myModal").modal('show')
+          }else{
+            showResult(val)
+            $("#check-area").val($("#temp_area").val())
+          }
+        }
+
+        </script>
+
+<% end %>

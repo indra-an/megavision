@@ -1,6 +1,7 @@
 /*
  *= require shared/bootstrap.min
  *= require shared/chosen.min
+ *= require shared/jquery.dataTables
  *= require_self
 Lumino Admin Bootstrap Template
 Version 1.0
@@ -955,4 +956,106 @@ h1.page-header {
 
 .table-coverage tbody tr:hover {
   cursor: default;
+}
+
+.mg-btn-area {
+  margin-bottom: 10px;
+}
+
+.mg-btn-area a {
+  margin-right: 10px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.chat-header {
+  height: 10%;
+}
+
+.chat-name {
+      margin-top: 10px;
+    height: 20px;
+    font-size: 2.5rem;
+    display: inline-block;
+    color: #555459;
+    font-weight: 900;
+    margin-left: 20px;
+}
+
+.message-list {
+  overflow-y: scroll;
+    list-style-type: none;
+    margin: 0px;
+    padding-left: 0px;
+    bottom: 45px;
+    width: 100%;
+    height: 300px;
+}
+
+#user-list {
+  overflow-y: scroll;
+    list-style-type: none;
+    margin: 0px;
+    padding-left: 0px;
+    bottom: 45px;
+    width: 100%;
+    height: 300px;
+}
+
+.message-list li {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  min-height: 40px;
+  width: 100%;
+}
+
+.message-content {
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+}
+
+.message-header {
+    color: black;
+    font-weight: 900;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.display-name {
+  display: inline;
+}
+
+.timestamp {
+  color: #babbbf;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.message-body {
+      color: #3D3C40;
+    width: 100%;
+    word-wrap: break-word;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.add-content-wrapper .full-input {
+    margin: 0px;
+    width: 617px;
+    height: 30px;
+}
+
+.add-content-wrapper button {
+    float: right;
+}
+
+.msg-body {
+  min-height: 350px;
 }

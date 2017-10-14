@@ -2,7 +2,9 @@
 //= require jquery_ujs
 //= require shared/bootstrap.min
 //= require shared/chosen.jquery.min
+//= require shared/jquery.dataTables
 //= require turbolinks
+//= require ckeditor/init
 //= require_self
 
 $(document).on('turbolinks:load', function() {
@@ -51,4 +53,15 @@ function initDynamicFields() {
       $(first_parent_child).find(".req-field:first").removeClass(offset);
     });
   }
+}
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
 }

@@ -19,8 +19,8 @@ class LandingImage < ApplicationRecord
   enum :status => [:draft, :published]
 
   HUMANIZED_ATTRIBUTES = {
-    addon_image: "Desktop Image",
-    background: "Mobile Image"
+    addon_image: "Mobile Image",
+    background: "Desktop Image"
   }
 
   class << self

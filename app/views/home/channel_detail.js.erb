@@ -1,0 +1,10 @@
+<% unless @channel_cities_type.blank? %>
+  $("#detail-list").html("<%= escape_javascript(render 'channel_detail_list', channel_cities_type: @channel_cities_type) %>")
+
+<% end %>
+
+$(function() {
+  $('.same-height-movie').matchHeight();
+  $('.same-height-price').matchHeight();
+});
+

@@ -1,8 +1,14 @@
 /*
+ *= require shared/cs-select
+ *= require shared/cs-skin-rotate
+ *= require shared/normalize
  *= require shared/bootstrap.min
+ *= require shared/bootstrap-datepicker3
  *= require shared/font-awesome.min
  *= require shared/public
  *= require shared/public-responsive
+ *= require shared/jquery.dataTables
+ *= require shared/jquery-ui
  *= require_self
  */
 

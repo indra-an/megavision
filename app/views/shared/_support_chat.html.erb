@@ -1,0 +1,111 @@
+<section class="floating-contact">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+          <a class="contact-float" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+            <h5><%=@preference.chat_title%><span class="pull-right"><i class="fa fa-window-minimize" aria-hidden="true" style="font-size: 14px;"></i></span></h5>
+          </a>
+        </h5>
+      </div>
+
+      <div id="collapse1" class="collapse floating" role="tabpanel" aria-labelledby="headingOne">
+
+        <div class="white-form-group">
+          <div class="chat-view">
+              <% if @preference.chat_status == false %>
+                <p class="text-center"><%=@preference.chat_off_message %></p>
+              <% end %>
+       <!--      <div class="talk-bubble user tri-right left-top">
+              <div class="user-chat max-80 clearfix">Hello lorem ipsum dolor sit amet</div>
+              <p class="time-chat">15.00 am</p>
+            </div>
+
+            <div class="talk-bubble admin tri-right left-top">
+              <div class="user-chat max-80 clearfix">Hello lorem ipsum dolor sit amet</div>
+              <p class="time-chat">15.00 am</p>
+            </div> -->
+          </div>
+
+          <div class="chat-input">
+            <input class="full-input" rows="4" id="chat-message" type="text"  />
+             <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= content_for :javascript do %>
+  <script>
+    $(function() {
+      // Initialize Firebase
+      var config = {
+        apiKey: "<%=Rails.application.secrets.firebase_apiKey %>",
+        authDomain: "<%=Rails.application.secrets.firebase_authDomain %>",
+        databaseURL: "<%=Rails.application.secrets.firebase_databaseURL %>",
+        projectId: "<%=Rails.application.secrets.firebase_projectId %>",
+        storageBucket: "<%=Rails.application.secrets.firebase_storageBucket %>",
+        messagingSenderId: "<%=Rails.application.secrets.firebase_messagingSenderId %>"
+      };
+
+      var app;
+      try {
+        app = firebase.app();
+      }
+      catch(e) {
+        app = firebase.initializeApp(config);
+      }
+
+      var newPostKey = firebase.database().ref().child('chats').push().key;
+      localStorage.removeItem("roomID");
+
+      $("#btn-chat").click(function(){
+          send_message()
+      })
+
+      $("#chat-message").keypress(function(e) {
+          if($(this).val != "" && e.which == 13){
+              send_message()
+          }
+      });
+
+      var messageRef = firebase.database().ref('/chats/' + newPostKey + '/message');
+      messageRef.on('child_added', function(snapshot) {
+        var val = snapshot.val();
+        $(".chat-view").append('<div class="talk-bubble '+val.type+' tri-right left-top"> <div class="user-chat max-80 clearfix">'+ val.message+'</div> <p class="time-chat">'+ val.time+'</p> </div> ')
+      });
+
+      function send_message(){
+        var message = $("#chat-message").val()
+
+        if(localStorage.getItem('roomID') == null){
+          firebase.database().ref('chats/' + newPostKey).set({
+            username: 'anonymous',
+            new: true,
+            datetime: String(new Date())
+          });
+        }else{
+          firebase.database().ref('chats/' + newPostKey).set({
+            username: 'anonymous',
+            new: true,
+            datetime: String(new Date())
+          });
+        }
+        localStorage.setItem('roomID', newPostKey);
+        var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
+        firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
+          username: 'anonymous',
+          message: message,
+          type: 'user',
+          time: formatAMPM(new Date())
+        });
+
+        $("#chat-message").val('')
+      }
+    })
+  </script>
+<% end %>

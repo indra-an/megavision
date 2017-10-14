@@ -14,11 +14,22 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'ckeditor'
+
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'
 gem 'devise'
+gem 'devise_lastseenable'
 gem 'carrierwave'
+gem 'mini_magick'
 gem "recaptcha", require: 'recaptcha/rails'
+
+gem "roo"
+gem "roo-xls"
+gem "writeexcel"
+gem 'prawn'
+gem 'prawn-rails'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -34,7 +45,11 @@ group :development do
   gem 'capistrano-rails-console'
   gem 'capistrano-upload-config'
   gem 'sshkit-sudo'
+
+  gem "better_errors"
+  gem "binding_of_caller"
   gem "annotate"
+  gem "bullet"
 
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.0.5'

@@ -1,0 +1,12 @@
+<% if @verify %>
+  $("#modal-text").html("Terima kasih telah melakukan subscribe, kami akan kembali menghubungi anda dalam waktu dekat.")
+<% else %>
+  $("#modal-text").html("Form isian belum lengkap")
+<% end %>
+
+$("#myModal").modal('show')
+
+<% if @verify %>
+  setTimeout(function(){location.href=location.origin} , 5000);
+<% end %>
+

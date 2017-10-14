@@ -7,8 +7,8 @@
 
     <title>Megavision Dashboard</title>
 
-    <%= stylesheet_link_tag 'admins', :media => 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'admins', 'data-turbolinks-track' => 'reload' %>
+    <%= stylesheet_link_tag 'admins', :media => 'all', 'data-turbolinks-track' => 'false' %>
+    <%= javascript_include_tag 'admins', 'data-turbolinks-track' => 'false' %>
     <%= yield :javascript %>
   </head>
 
@@ -118,9 +118,24 @@
             <span class="glyphicon glyphicon-user"></span>&nbsp;Admin Accounts
           <% end %>
         </li>
-        <li class="<%= class_for_content_indicator(:dashboard, :area_coverages) %>">
+        <li class="<%= class_for_content_indicator(:dashboard, :admin_logs) %>">
+          <%= link_to admins_admin_logs_path do %>
+            <span class="glyphicon glyphicon-user"></span>&nbsp;Admin Logs
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:area_coverages) %>">
           <%= link_to admins_area_coverages_path do %>
             <span class="glyphicon glyphicon-cloud"></span>&nbsp;Area Coverages
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:area_codes) %>">
+          <%= link_to admins_area_codes_path do %>
+            <span class="glyphicon glyphicon-cloud"></span>&nbsp;Area Codes
+          <% end %>
+        </li>
+        <li class="<%= class_for_content_indicator(:dashboard, :chats) %>">
+          <%= link_to admins_chats_path do %>
+            <span class="glyphicon glyphicon-cloud"></span>&nbsp;Support Chat
           <% end %>
         </li>
         <li class="<%= class_for_content_indicator(:dashboard, :preferences) %>">
@@ -163,6 +178,12 @@
     <% if notice %>
       <div class="alert alert-success notification" role="alert">
         <strong>Congratulations!</strong>&nbsp;<%= notice %>
+      </div>
+    <% end %>
+
+    <% if flash[:error] %>
+      <div class="alert alert-danger notification" role="alert">
+        <%= flash[:error] %>
       </div>
     <% end %>
   </body>

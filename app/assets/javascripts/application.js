@@ -1,6 +1,13 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require shared/bootstrap.min
+//= require shared/bootstrap-datepicker
+//= require shared/jquery.backstretch
+//= require shared/classie
+//= require shared/selectFx
+//= require shared/jquery.dataTables
+//= require shared/jquery.matchHeight
 //= require turbolinks
 
 $(document).on('turbolinks:load', function() {
@@ -15,10 +22,26 @@ $(document).on('turbolinks:load', function() {
 
     var hash = this.hash;
 
-    $('html, body').animate({
-      scrollTop: $(hash).offset().top
-    }, 500, function() {
-      window.location.hash = hash;
-    });
+    if(!hash.includes("collapse") && !hash.includes("question") && !hash.includes("main-carousel")){
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 500, function() {
+        window.location.hash = hash;
+      });
+    }
+
   });
+
+  $(".datepicker").datepicker();
 });
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
