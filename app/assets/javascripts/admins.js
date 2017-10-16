@@ -25,15 +25,13 @@ $(document).on('turbolinks:load', function() {
 
 // for dynamic job vacancy requirement
 function initDynamicFields() {
-  var offset = $(".req-field").data("offset-class");
   var field_sample = $(".req-field").html();
   if(field_sample !== undefined) {
     $(".req-field .req-add").off("click");
     $(".req-field .req-add").on("click", function(e) {
-      var insertAfter = $(".req-field").has($(this));
+      var insertAfter = $(".req-field .input-group").has($(this));
       $(insertAfter).clone()
                     .insertAfter(insertAfter)
-                    .addClass(offset)
                     .find("input")
                     .val("");
       initDynamicFields();
@@ -41,16 +39,14 @@ function initDynamicFields() {
 
     $(".req-field .req-remove").off("click");
     $(".req-field .req-remove").on("click", function(e) {
-      var parent_field = $(".req-field").has($(this));
-      var parent_children_count = $(parent_field).parent().children().length - 1;
+      var parent_field = $(".req-field .input-group").has($(this));
+      var parent_children_count = $(parent_field).parent().children().length;
       var first_parent_child = $(".form-group").has($(parent_field));
 
       if(parent_children_count > 1) {
         $(parent_field).remove();
         initDynamicFields();
       }
-
-      $(first_parent_child).find(".req-field:first").removeClass(offset);
     });
   }
 }
