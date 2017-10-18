@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.5.0'
 
-set :repo_url, 'git@github.com:thefi669/megavision.git'
+set :repo_url, 'git@github.com:indra2341/megavision.git'
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 set :user, 'devweb'
