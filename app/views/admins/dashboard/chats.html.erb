@@ -18,6 +18,7 @@
         <div class="tab-content msg-body">
         </div>
         <div class="add-content-wrapper">
+             <input type="hidden" name= "key" id="key" />
             <textarea class="full-input" rows="4" id="chat-message"></textarea>
              <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
         </div>
@@ -51,30 +52,24 @@
       firebase.initializeApp(config);
 
       $("#btn-chat").click(function(){
-        var message = $("#chat-message").val()
-        var newPostKey = $(".chat-key").val()
-
-        var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
-        firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
-          username: "<%=current_admin.email[0, current_admin.email.index('@')]%>",
-          message: message,
-          type: 'admin',
-          time: formatAMPM(new Date())
-        });
-
-        $("#chat-message").val('')
-
+        sendMessage()
       })
+
+      $("#chat-message").keypress(function(e) {
+          if($(this).val != "" && e.which == 13){
+              sendMessage()
+          }
+      });
 
       var messageRef = firebase.database().ref('/chats').limitToLast(20);
       messageRef.on('child_added', function(snapshot) {
           var key = snapshot.key
           var val = snapshot.val()
           var label = '';
-          $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> </ul> <input type="hidden" name= "key" class="chat-key" value="'+key+'"/></div>')
+          $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> </ul> </div>')
 
           if( val.username != "undefined"){
-            $("#user-list").prepend('<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'">'+val.username+ ' <span class="label label-default"></span></a> </li>')
+            $("#user-list").prepend('<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'" onclick=setKey("'+key+'")>'+val.username+ ' <span class="label label-default"></span></a> </li>')
           }
 
           firebase.database().ref('/chats/'+ key + '/message').on('child_added', function(snap) {
@@ -86,6 +81,7 @@
               $("#user-list").find("a#pill-"+key).children("span").html("New")
             }
           });
+
       });
 
       // $("#user-list").html("")
@@ -103,11 +99,31 @@
       //     $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> '+message+' </ul> <input type="hidden" name= "key" class="chat-key" value="'+key+'"/></div>')
       //   });
       // });
-    })
 
+    })
+    function setKey(key){
+      $("#key").val(key)
+    }
 
     function message_list(value){
       return "<li class='message-content'> <div class='message-header'> <p class='display-name'>"+value.username+"</p> <span class='timestamp'>" +value.time +"</span></div><div class='message-body'>"+ value.message + "</div></li>"
+    }
+
+    function sendMessage(){
+        if($("#chat-message").val() !== ""){
+          var message = $("#chat-message").val()
+          var newPostKey = $("#key").val()
+
+          var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
+          firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
+            username: "<%=current_admin.email[0, current_admin.email.index('@')]%>",
+            message: message,
+            type: 'admin',
+            time: formatAMPM(new Date())
+          });
+
+          $("#chat-message").val('')
+        }
     }
     // function parameterize(value){
     //   return value.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');

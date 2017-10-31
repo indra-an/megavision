@@ -3,11 +3,10 @@
 //= require shared/bootstrap.min
 //= require shared/chosen.jquery.min
 //= require shared/jquery.dataTables
-//= require turbolinks
 //= require ckeditor/init
 //= require_self
 
-$(document).on('turbolinks:load', function() {
+$(document).ready(function() {
   // reattach callback
   $(".notification").fadeTo(3000, 500).slideUp(500, function() {
     $(".notification").slideUp(500);
