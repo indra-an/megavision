@@ -70,6 +70,7 @@
           }
       });
 
+
       var cities = "<%=@channel_cities %>".replace(/&quot;/g, "")
 
       var messageRef = firebase.database().ref('/chats').limitToLast(100);
@@ -77,26 +78,26 @@
       messageRef.on('child_added', function(snapshot) {
           var key = snapshot.key
           var val = snapshot.val()
+          if(typeof val.datetime != "undefined") {
+            var date_split = val.datetime.split(" ")
+            var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
+            var temp_date = new Date(date);
+            var message_date = temp_date.setDate(temp_date.getDate() + 3)
+            var current_date = new Date();
 
-          var date_split = val.datetime.split(" ")
-          var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
-          var temp_date = new Date(date);
-          var message_date = temp_date.setDate(temp_date.getDate() + 3)
-          var current_date = new Date();
+            if(cities.indexOf(val.location) > -1){
+              $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+' ( ' + val.email + ' ) </span></div> <ul class="message-list"> </ul> </div>')
 
-          if(cities.indexOf(val.location) > -1){
-            $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+' ( ' + val.email + ' ) </span></div> <ul class="message-list"> </ul> </div>')
+              if( val.username != "undefined"){
+                var html = '<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'" onclick=setKey("'+key+'")>'+val.username+ ' <span class="label label-default"></span></a> </li>'
 
-            if( val.username != "undefined"){
-              var html = '<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'" onclick=setKey("'+key+'")>'+val.username+ ' <span class="label label-default"></span></a> </li>'
-
-              if(new Date(message_date) >= new Date() ){
-                $("#list-answered").prepend(html)
-                $("#list-unanswer").prepend(html)
+                if(new Date(message_date) >= new Date() ){
+                  $("#list-answered").prepend(html)
+                  $("#list-unanswer").prepend(html)
+                }
               }
             }
           }
-
           firebase.database().ref('/chats/'+ key + '/message').on('child_added', function(snap) {
             var value = snap.val()
             message = message_list(value)
@@ -131,6 +132,8 @@
     })
     function setKey(key){
       $("#key").val(key)
+      $("ul#list-answered").find("li.active").removeClass('active')
+      $("ul#list-unanswer").find("li.active").removeClass('active')
     }
 
     function message_list(value){
