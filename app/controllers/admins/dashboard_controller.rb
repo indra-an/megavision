@@ -63,7 +63,11 @@ class Admins::DashboardController < Admins::BaseController
   end
 
   def chats
-
+    if current_admin.email == "admin@megavision.com"
+      @channel_cities = ChannelCity.all.collect(&:slug)
+    else
+      @channel_cities = current_admin.channel_cities.collect(&:slug)
+    end
   end
 
   def admin_logs

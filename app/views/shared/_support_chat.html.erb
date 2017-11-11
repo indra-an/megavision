@@ -9,7 +9,26 @@
       </div>
 
       <div id="collapse1" class="collapse floating" role="tabpanel" aria-labelledby="headingOne">
-
+        <div class="start-chat">
+          <p>Tolong isi data terlebih dahulu</p>
+          <div class="form-group contact-input">
+            <label>Nama</label>
+            <input type="text" name="name" class="form-control" placeholder="Nama" id="chat-name">
+          </div>
+          <div class="form-group contact-input">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Email" id="chat-email">
+          </div>
+          <div class="form-group contact-input">
+            <label>Lokasi</label>
+            <select name="location" class="form-control" id="chat-location">
+                <% @channel_cities.each do |city| %>
+                  <option value="<%=city['slug']%>"><%=city['city']%></option>
+               <% end %>
+                </select>
+          </div>
+          <button class="submit-chat" id="submit-chat-info">Selesai</button>
+        </div>
         <div class="white-form-group">
           <div class="chat-view">
               <% if @preference.chat_status == false %>
@@ -26,11 +45,12 @@
             </div> -->
           </div>
 
-          <div class="chat-input">
-            <input class="full-input" rows="4" id="chat-message" type="text"  />
-             <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
-          </div>
-
+          <% if @preference.chat_status %>
+            <div class="chat-input">
+              <input class="full-input" rows="4" id="chat-message" type="text"  />
+               <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+            </div>
+          <% end %>
 
         </div>
 
@@ -61,7 +81,18 @@
       }
 
       var newPostKey = firebase.database().ref().child('chats').push().key;
-      localStorage.removeItem("roomID");
+
+      var date_split = localStorage.getItem("chat-date").split(" ")
+      var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
+      var temp_date = new Date(date);
+      var message_date = temp_date.setDate(temp_date.getDate() + 3)
+      var current_date = new Date();
+
+      if(new Date(message_date) >= new Date() && localStorage.getItem('roomID') ){
+        $(".start-chat").hide()
+      }else{
+        localStorage.removeItem('roomID');
+      }
 
       $("#btn-chat").click(function(){
           send_message()
@@ -73,7 +104,8 @@
           }
       });
 
-      var messageRef = firebase.database().ref('/chats/' + newPostKey + '/message');
+      var key = (localStorage.getItem('roomID')) ? localStorage.getItem('roomID') : newPostKey;
+      var messageRef = firebase.database().ref('/chats/' + key + '/message');
       messageRef.on('child_added', function(snapshot) {
         var val = snapshot.val();
         $(".chat-view").append('<div class="talk-bubble '+val.type+' tri-right left-top"> <div class="user-chat max-80 clearfix">'+ val.message+'</div> <p class="time-chat">'+ val.time+'</p> </div> ')
@@ -82,30 +114,46 @@
       function send_message(){
         var message = $("#chat-message").val()
 
-        if(localStorage.getItem('roomID') == null){
-          firebase.database().ref('chats/' + newPostKey).set({
-            username: 'anonymous',
-            new: true,
-            datetime: String(new Date())
-          });
-        }else{
-          firebase.database().ref('chats/' + newPostKey).set({
-            username: 'anonymous',
-            new: true,
-            datetime: String(new Date())
-          });
-        }
-        localStorage.setItem('roomID', newPostKey);
-        var messageKey = firebase.database().ref().child('chats/' + newPostKey +'/message').push().key;
-        firebase.database().ref('chats/' + newPostKey +'/message/' + messageKey).set({
-          username: 'anonymous',
-          message: message,
-          type: 'user',
-          time: formatAMPM(new Date())
-        });
+        if(message !== ""){
+          if(localStorage.getItem('roomID') == null){
+            firebase.database().ref('chats/' + newPostKey).set({
+              username: localStorage.getItem('chat-name'),
+              email: localStorage.getItem('chat-email'),
+              location: localStorage.getItem('chat-location'),
+              new: true,
+              datetime: String(new Date())
+            });
 
-        $("#chat-message").val('')
+            localStorage.setItem('roomID', newPostKey);
+          }
+
+          var messageKey = firebase.database().ref().child('chats/' + localStorage.getItem('roomID') +'/message').push().key;
+          firebase.database().ref('chats/' +  localStorage.getItem('roomID') +'/message/' + messageKey).set({
+            username: localStorage.getItem('chat-name'),
+            email: localStorage.getItem('chat-email'),
+            location: localStorage.getItem('chat-location'),
+            message: message,
+            type: 'user',
+            time: formatAMPM(new Date())
+          });
+
+          $("#chat-message").val('')
+        }
       }
+
+      $("#submit-chat-info").click(function(){
+          var name = $("#chat-name").val()
+          var email = $("#chat-email").val()
+          var location = $("#chat-location").val()
+
+          if(name !== '' && email !== '' && location !== ''){
+            localStorage.setItem("chat-name", name);
+            localStorage.setItem("chat-email", email);
+            localStorage.setItem("chat-location", location);
+            localStorage.setItem("chat-date", new Date());
+            $(".start-chat").hide()
+          }
+      });
     })
   </script>
 <% end %>

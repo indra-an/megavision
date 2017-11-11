@@ -7,7 +7,7 @@
 
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Support Chat</h1>
+    <h1 class="page-header">Support Chat </h1>
   </div>
 </div>
 
@@ -27,9 +27,18 @@
   </div>
   <div class="col-lg-3 col-md-3 col-sm-12">
     <div class="panel panel-primary">
-      <div class="panel-heading text-center uppercase bold"> User </div>
+      <div class="panel-heading text-center uppercase bold"> Unanswer </div>
       <div class="panel-body">
-        <ul class="nav nav-pills nav-stacked" id="user-list">
+        <ul class="nav nav-pills nav-stacked user-list" id="list-unanswer">
+        </ul>
+        </div>
+      </div>
+    </div>
+  <div class="col-lg-3 col-md-3 col-sm-12">
+    <div class="panel panel-primary">
+      <div class="panel-heading text-center uppercase bold"> Answered </div>
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked user-list" id="list-answered">
         </ul>
         </div>
       </div>
@@ -61,27 +70,46 @@
           }
       });
 
-      var messageRef = firebase.database().ref('/chats').limitToLast(20);
+      var cities = "<%=@channel_cities %>".replace(/&quot;/g, "")
+
+      var messageRef = firebase.database().ref('/chats').limitToLast(100);
+      var number = 1;
       messageRef.on('child_added', function(snapshot) {
           var key = snapshot.key
           var val = snapshot.val()
-          var label = '';
-          $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+'</span></div> <ul class="message-list"> </ul> </div>')
 
-          if( val.username != "undefined"){
-            $("#user-list").prepend('<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'" onclick=setKey("'+key+'")>'+val.username+ ' <span class="label label-default"></span></a> </li>')
+          var date_split = val.datetime.split(" ")
+          var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
+          var temp_date = new Date(date);
+          var message_date = temp_date.setDate(temp_date.getDate() + 3)
+          var current_date = new Date();
+
+          if(cities.indexOf(val.location) > -1){
+            $(".tab-content").prepend(' <div id="'+key+'" class="tab-pane fade"> <div class="chat-header"><span class="chat-name">#'+val.username+' ( ' + val.email + ' ) </span></div> <ul class="message-list"> </ul> </div>')
+
+            if( val.username != "undefined"){
+              var html = '<li><a data-toggle="pill" href="#'+key+'" id="pill-'+key+'" onclick=setKey("'+key+'")>'+val.username+ ' <span class="label label-default"></span></a> </li>'
+
+              if(new Date(message_date) >= new Date() ){
+                $("#list-answered").prepend(html)
+                $("#list-unanswer").prepend(html)
+              }
+            }
           }
 
           firebase.database().ref('/chats/'+ key + '/message').on('child_added', function(snap) {
-            message = message_list(snap.val())
+            var value = snap.val()
+            message = message_list(value)
+
             $(".tab-content").children("div#"+key).children("ul.message-list").append(message)
-            if(snap.val().type == 'admin'){
-              $("#user-list").find("a#pill-"+key).children("span").html("")
+            if(value.type == 'admin'){
+              $("#list-answered").find("a#pill-"+key).show()
+              $("#list-unanswer").find("a#pill-"+key).hide()
             }else{
-              $("#user-list").find("a#pill-"+key).children("span").html("New")
+              $("#list-answered").find("a#pill-"+key).hide()
+              $("#list-unanswer").find("a#pill-"+key).show()
             }
           });
-
       });
 
       // $("#user-list").html("")

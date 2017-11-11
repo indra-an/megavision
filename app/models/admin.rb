@@ -19,4 +19,6 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :rememberable, :trackable, :validatable, :timeoutable, :lastseenable
 
   has_many :admin_logs
+  has_many :admins_channel_cities
+  has_many :channel_cities, through: :admins_channel_cities
 end

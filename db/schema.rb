@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003222411) do
+ActiveRecord::Schema.define(version: 20171111143202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,15 @@ ActiveRecord::Schema.define(version: 20171003222411) do
     t.datetime "updated_at",                       null: false
     t.datetime "last_seen"
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  end
+
+  create_table "admins_channel_cities", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.integer  "channel_city_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["admin_id"], name: "index_admins_channel_cities_on_admin_id", using: :btree
+    t.index ["channel_city_id"], name: "index_admins_channel_cities_on_channel_city_id", using: :btree
   end
 
   create_table "area_codes", force: :cascade do |t|

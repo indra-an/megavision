@@ -1667,3 +1667,42 @@ body {
 .wrap-price {
     width: 150px;
 }
+
+
+
+@media (min-width: 1024px) {
+section#sec-package {
+    height: auto;
+}
+
+section#sec-product .container, section#sec-package .container {
+    position: relative;
+    min-height: 100vh !important;
+}
+
+section#sec-product .row, section#sec-package .row {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-56%);
+    width: 100% !important;
+}
+}
+
+.start-chat {
+  padding: 15px;
+  position: absolute;
+  z-index: 1000;
+  background: #e1e1e1;
+  width: 100%;
+  height: 100%;
+}
+
+.start-chat .form-control {
+    color: black !important;
+    background: white !important;
+
+}
+
+.start-chat .form-control:before {
+    color: #777 !important;
+}

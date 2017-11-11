@@ -998,14 +998,14 @@ h1.page-header {
     height: 300px;
 }
 
-#user-list {
+.user-list {
   overflow-y: scroll;
     list-style-type: none;
     margin: 0px;
     padding-left: 0px;
     bottom: 45px;
     width: 100%;
-    height: 300px;
+    max-height: 150px;
 }
 
 .message-list li {
@@ -1057,5 +1057,5 @@ h1.page-header {
 }
 
 .msg-body {
-  min-height: 350px;
+  min-height: 450px;
 }

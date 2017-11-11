@@ -23,6 +23,7 @@
           <thead>
             <tr>
               <th>Email</th>
+              <th>City</th>
               <th>Created At</th>
               <th>Control</th>
             </tr>
@@ -37,6 +38,7 @@
               <% @admins.each do |admin| %>
                 <tr>
                   <td><%= admin.email %></td>
+                  <td><%= admin.channel_cities.collect(&:city).join(", ") %></td>
                   <td><%= admin.created_at.to_s %></td>
                   <td>
                     <% if admin.id.eql?(current_admin.id) %>

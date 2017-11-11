@@ -1,9 +1,10 @@
 class Admins::AdminsController < Admins::BaseController
   before_action :set_admin, only: [:destroy]
+  before_action :load_channel_cities, only: [:new]
 
   # GET /admins
   def index
-    @admins = Admin.all
+    @admins = Admin.includes(:channel_cities)
   end
 
   # GET /admins/new
@@ -16,6 +17,9 @@ class Admins::AdminsController < Admins::BaseController
     @admin = Admin.new(admin_params)
 
     if @admin.save
+      if  admin_params['channel_city_ids'].present?
+        admin_params['channel_city_ids'].each{|x| @admin.admins_channel_cities.find_or_create_by(channel_city_id: x) if x.present?}
+      end
       redirect_to admins_admins_path, notice: 'Admin was successfully created.'
     else
       render :new
@@ -36,6 +40,10 @@ class Admins::AdminsController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def admin_params
-      params.require(:admin).permit(:email, :password, :password_confirmation)
+      params.require(:admin).permit(:email, :password, :password_confirmation, :channel_city_ids => [])
+    end
+
+    def load_channel_cities
+      @channel_cities = ChannelCity.select(:id, :city).collect { |tag| [tag.city, tag.id] }
     end
 end
