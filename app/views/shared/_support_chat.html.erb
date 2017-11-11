@@ -82,16 +82,18 @@
 
       var newPostKey = firebase.database().ref().child('chats').push().key;
 
-      var date_split = localStorage.getItem("chat-date").split(" ")
-      var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
-      var temp_date = new Date(date);
-      var message_date = temp_date.setDate(temp_date.getDate() + 3)
-      var current_date = new Date();
+      if(localStorage.getItem("chat-date")){
+        var date_split = localStorage.getItem("chat-date").split(" ")
+        var date = date_split[1] + ", " + date_split[2] + " " + date_split[3];
+        var temp_date = new Date(date);
+        var message_date = temp_date.setDate(temp_date.getDate() + 3)
+        var current_date = new Date();
 
-      if(new Date(message_date) >= new Date() && localStorage.getItem('roomID') ){
-        $(".start-chat").hide()
-      }else{
-        localStorage.removeItem('roomID');
+        if(new Date(message_date) >= new Date() && localStorage.getItem('roomID') ){
+          $(".start-chat").hide()
+        }else{
+          localStorage.removeItem('roomID');
+        }
       }
 
       $("#btn-chat").click(function(){
