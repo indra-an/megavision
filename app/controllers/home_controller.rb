@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :get_channel_cities, :except => [:submit_contact]
   before_action :fetch_preferences, :except => [:submit_contact]
 
   def index
@@ -6,7 +7,6 @@ class HomeController < ApplicationController
     @questions = Question.order(:question => :asc)
     @prices = Price.order(:amount => :asc)
     @landing_images = LandingImage.published.order(:created_at => :desc)
-    @channel_cities = ChannelCity.order(:city => :asc)
   end
 
   def job_detail
@@ -84,6 +84,9 @@ class HomeController < ApplicationController
 
   private
 
+  def get_channel_cities
+    @channel_cities = ChannelCity.order(:city => :asc)
+  end
   def fetch_preferences
     @preference = Preference.fetch || Preference.new
   end
