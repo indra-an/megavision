@@ -36,7 +36,17 @@ class Preference < ApplicationRecord
   validates_format_of :facebook_url, :twitter_url, :linked_in_url,
                       :with => URI::regexp, :allow_blank => true
 
+  HUMANIZED_ATTRIBUTES = {
+    linked_in_url: "Instagram URL"
+  }
+
   def self.fetch
     first
+  end
+
+  class << self
+    def human_attribute_name(attr, options = {})
+      HUMANIZED_ATTRIBUTES[attr.to_sym] || super
+    end
   end
 end
