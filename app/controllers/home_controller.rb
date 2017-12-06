@@ -61,8 +61,8 @@ class HomeController < ApplicationController
     channel_packages = area_coverage.area_code.channel_types.first.channel_packages rescue nil
     if channel_packages.present?
       @package_lists = channel_packages.map{|c| [c.package.name]}.uniq
-      @price_lists = channel_packages.find_by(package: @package).prices
-      @other_price_lists = channel_packages.where.not(package: @package).first.prices
+      @price_lists = channel_packages.find_by(package: @package).prices.order(amount: :asc)
+      @other_price_lists = channel_packages.where.not(package: @package).first.prices.order(amount: :asc)
     end
 
     raise ActiveRecord::RecordNotFound if @package.nil? || channel_packages.nil? || @price_lists.nil?

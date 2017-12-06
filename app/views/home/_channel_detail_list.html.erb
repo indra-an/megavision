@@ -35,7 +35,7 @@
 
                   <div class="harga-paket row bg-white same-height-price">
                     <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
-                    <% channel_package.prices.each do | price | %>
+                    <% channel_package.prices.order(amount: :asc).each do | price | %>
                       <a href="<%=public_subscribe_path(slug_id: params['area_slug_id'], package_id: channel_package.package.slug, price_id: price.id) %>" class="<%=class_package%>">
                         <div class="wrap-price">
                           <%=format_number_to_price_tag(price.amount.to_i) %>
