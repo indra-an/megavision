@@ -35,13 +35,24 @@
             <% end %>
           </div>
           <ul class="nav navbar-nav navbar-right margin-0">
-            <li><%= link_to 'Home', is_landing_page? ? '#sec-home' : root_path + '#sec-home' %></li>
-            <li><%= link_to 'Product', is_landing_page? ? '#sec-product' : root_path + '#sec-product' %></li>
-            <li><%= link_to 'Package', is_landing_page? ? '#sec-package' : root_path + '#sec-package' %></li>
-            <li><%= link_to 'About', is_landing_page? ? '#sec-about' : root_path + '#sec-about' %></li>
-            <li><%= link_to 'Q & A', is_landing_page? ? '#sec-qa' : root_path + '#sec-qa' %></li>
-            <li><%= link_to 'Job Vacancy', is_landing_page? ? '#sec-vacancy' : root_path + '#sec-vacancy' %></li>
-            <li><%= link_to 'Contact', is_landing_page? ? '#sec-contact' : root_path + '#sec-contact' %></li>
+            <li><%= link_to 'Beranda', is_landing_page? ? '#sec-home' : root_path + '#sec-home' %></li>
+            <!--<li><%= link_to 'Product', is_landing_page? ? '#sec-product' : root_path + '#sec-product' %></li>-->
+            <li><%= link_to 'Paket', is_landing_page? ? '#sec-package' : root_path + '#sec-package' %></li>
+            <li class="dropdown">
+              <a class="dropbtn">Tentang Kami</a>
+              <div class="dropdown-content">
+                <%= link_to 'Sejarah', is_landing_page? ? '#sec-about' : root_path + '#sec-about' %>
+              </div>
+            </li>
+            <li class="dropdown">
+              <a class="dropbtn">Bantuan</a>
+              <div class="dropdown-content">
+                <%= link_to 'FAQ', is_landing_page? ? '#sec-qa' : root_path + '#sec-qa' %>
+                <%= link_to 'Coverage Area', public_check_area_path %>
+                <%= link_to 'Kontak Kami', is_landing_page? ? '#sec-contact' : root_path + '#sec-contact' %>
+              </div>
+            </li>
+            <li><%= link_to 'Karir', is_landing_page? ? '#sec-vacancy' : root_path + '#sec-vacancy' %></li>
           </ul>
         </div>
       </div>
