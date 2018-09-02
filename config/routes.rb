@@ -53,5 +53,6 @@ Rails.application.routes.draw do
       get 'make_published'
     end
     resources :area_codes
+    resources :menu_settings
   end
 end

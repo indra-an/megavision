@@ -35,24 +35,31 @@
             <% end %>
           </div>
           <ul class="nav navbar-nav navbar-right margin-0">
-            <li><%= link_to 'Beranda', is_landing_page? ? '#sec-home' : root_path + '#sec-home' %></li>
-            <!--<li><%= link_to 'Product', is_landing_page? ? '#sec-product' : root_path + '#sec-product' %></li>-->
-            <li><%= link_to 'Paket', is_landing_page? ? '#sec-package' : root_path + '#sec-package' %></li>
-            <li class="dropdown">
-              <a class="dropbtn">Tentang Kami</a>
-              <div class="dropdown-content">
-                <%= link_to 'Sejarah', is_landing_page? ? '#sec-about' : root_path + '#sec-about' %>
-              </div>
-            </li>
-            <li class="dropdown">
-              <a class="dropbtn">Bantuan</a>
-              <div class="dropdown-content">
-                <%= link_to 'FAQ', is_landing_page? ? '#sec-qa' : root_path + '#sec-qa' %>
-                <%= link_to 'Coverage Area', public_check_area_path %>
-                <%= link_to 'Kontak Kami', is_landing_page? ? '#sec-contact' : root_path + '#sec-contact' %>
-              </div>
-            </li>
-            <li><%= link_to 'Karir', is_landing_page? ? '#sec-vacancy' : root_path + '#sec-vacancy' %></li>
+            <% @menus.each do |menu| %>
+
+              <% if menu.menu_childs.count == 0 %>
+                <% if menu.link_type == "scroll" %>
+                  <li><%= link_to menu.menu, is_landing_page? ? "##{menu.slug}" : root_path + "##{menu.slug}" %></li>
+                <%else%>
+                  <li><%= link_to menu.menu, root_path + "##{menu.slug}" %></li>
+                <% end %>
+              <% else %>
+                  <li class="dropdown">
+                    <a class="dropbtn"><%=menu.menu%></a>
+                    <div class="dropdown-content">
+                      <% menu.menu_childs.each do |child| %>
+                        <% if child.link_type == "scroll" %>
+                         <%= link_to child.menu, is_landing_page? ? "##{child.slug}" : root_path + "##{child.slug}" %>
+                        <% else %>
+                          <%= link_to child.menu, public_check_area_path %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </li>
+
+              <% end %>
+
+            <% end %>
           </ul>
         </div>
       </div>
@@ -63,7 +70,7 @@
     <%=render "shared/support_chat" %>
 
     <footer class="footer bg-grey text-center">
-      <a href="#sec-home" class="bg-grey to-top white"><i class="fa fa-angle-double-up font-18" aria-hidden="true"></i></a>
+      <a href="#beranda" class="bg-grey to-top white"><i class="fa fa-angle-double-up font-18" aria-hidden="true"></i></a>
       <p class="font-12 white"><%= @preference.copyright_text %></p>
       <%= link_to @preference.linked_in_url, :class => 'white social' do %>
         <i class="fa fa-instagram font-24" aria-hidden="true"></i>

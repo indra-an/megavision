@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Menu Settings', admins_menu_settings_path %>
+    <%= breadcrumb_item 'Edit Menu Setting' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Edit <%= @menu_setting.menu %></h1>
+  </div>
+</div>
+
+<%= render 'form', menu_setting: @menu_setting %>

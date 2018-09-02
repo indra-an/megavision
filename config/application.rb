@@ -26,6 +26,7 @@ module Megavision
       #{config.root}/app/pdfs
       #{config.root}/app/models/admin_log
       #{config.root}/app/models/ckeditor
+      #{config.root}/app/models/menu_setting
     )
     config.time_zone = 'Jakarta'
   end

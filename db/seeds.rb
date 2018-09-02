@@ -3,6 +3,32 @@ unless Admin.find_by_email('admin@megavision.com').present?
    Admin.create({ :email => 'admin@megavision.com', :password => 'megavision2017' })
 end
 
+#menu
+unless MenuSetting.exists?
+  menu = [
+          {menu: 'Beranda', type: 'MenuParent', position: 1, link_type: :scroll },
+          {menu: 'Paket', type: 'MenuParent', position: 2, link_type: :scroll },
+          {menu: 'Tentang Kami', type: 'MenuParent', position: 3, link_type: :scroll },
+          {menu: 'Bantuan', type: 'MenuParent', position: 4, link_type: :scroll },
+          {menu: 'Karir', type: 'MenuParent', position: 5, link_type: :scroll }
+        ]
+
+  MenuSetting.create(menu)
+
+  child_tentang = MenuSetting.find_by_slug('tentang-kami')
+  child_menu = [ {menu: 'Sejarah', type: 'MenuChild', position: 6, parent_id: child_tentang.id, link_type: :scroll}]
+  MenuSetting.create(child_menu)
+
+  child_bantuan = MenuSetting.find_by_slug('bantuan')
+  child_menu = [
+        {menu: 'FAQ', type: 'MenuChild', position: 7, parent_id: child_bantuan.id, link_type: :scroll},
+        {menu: 'Coverage Area', type: 'MenuChild', position: 8, parent_id: child_bantuan.id, link_type: :redirect},
+        {menu: 'Kontak Kami', type: 'MenuChild', position: 9, parent_id: child_bantuan.id, link_type: :scroll}
+      ]
+  MenuSetting.create(child_menu)
+
+end
+
 #channel cities
 unless ChannelCity.exists?
    city = [{city: "BANDUNG"},

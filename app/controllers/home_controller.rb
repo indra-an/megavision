@@ -7,6 +7,14 @@ class HomeController < ApplicationController
     @questions = Question.order(:question => :asc)
     @prices = Price.order(:amount => :asc)
     @landing_images = LandingImage.published.order(:created_at => :desc)
+
+    #menu
+    @beranda = MenuSetting.find_by_slug("beranda")
+    @paket = MenuSetting.find_by_slug("paket")
+    @karir = MenuSetting.find_by_slug("karir")
+    @kontak_kami = MenuSetting.find_by_slug("kontak-kami")
+    @sejarah = MenuSetting.find_by_slug("sejarah")
+    @faq = MenuSetting.find_by_slug("faq")
   end
 
   def job_detail

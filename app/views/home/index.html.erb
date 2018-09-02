@@ -1,52 +1,54 @@
 <!-- main carousel -->
-<section id="sec-home" class="caro-sect">
-  <div class="container-fluid">
-    <div class="row">
-      <div id="main-carousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <% @landing_images.count.times do |i| %>
-            <li data-target="#main-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active' : '' %>"></li>
-          <% end %>
-        </ol>
-        <div class="carousel-inner caro-mega1" role="listbox">
-          <% if @landing_images.present? %>
-            <% @landing_images.each_with_index do |landing_image, index| %>
-             <div class="item <%= index == 0 ? 'active' : '' %>"">
+<% unless @beranda.hidden_content %>
+  <section id="beranda" class="caro-sect">
+    <div class="container-fluid">
+      <div class="row">
+        <div id="main-carousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <% @landing_images.count.times do |i| %>
+              <li data-target="#main-carousel" data-slide-to="<%= i %>" class="<%= i == 0 ? 'active' : '' %>"></li>
+            <% end %>
+          </ol>
+          <div class="carousel-inner caro-mega1" role="listbox">
+            <% if @landing_images.present? %>
+              <% @landing_images.each_with_index do |landing_image, index| %>
+              <div class="item <%= index == 0 ? 'active' : '' %>"">
+                  <div class="caro-cover mob"> <!-- cover buat mobile -->
+                    <%= image_tag landing_image.background_url %>
+                  </div>
+
+                  <div class="caro-cover desk"> <!-- cover buat desktop -->
+                    <%= image_tag landing_image.addon_image_url %>
+                  </div>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="item active"">
                 <div class="caro-cover mob"> <!-- cover buat mobile -->
-                  <%= image_tag landing_image.background_url %>
+                  <%= image_tag "sample-carousel-mobile.jpg" %>
                 </div>
 
                 <div class="caro-cover desk"> <!-- cover buat desktop -->
-                  <%= image_tag landing_image.addon_image_url %>
+                  <%= image_tag "sample-carousel-desk.jpg" %>
                 </div>
               </div>
             <% end %>
-          <% else %>
-            <div class="item active"">
-              <div class="caro-cover mob"> <!-- cover buat mobile -->
-                <%= image_tag "sample-carousel-mobile.jpg" %>
-              </div>
+          </div>
 
-              <div class="caro-cover desk"> <!-- cover buat desktop -->
-                <%= image_tag "sample-carousel-desk.jpg" %>
-              </div>
-            </div>
-          <% end %>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
+                  <span class="glyphicon" aria-hidden="true"><i class="fa fa-angle-double-left font-32 white" aria-hidden="true"></i></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
+                  <span class="glyphicon" aria-hidden="true"><i class="fa fa-angle-double-right font-32 white" aria-hidden="true"></i></span>
+                  <span class="sr-only">Next</span>
+                </a>
         </div>
-
-              <!-- Left and right controls -->
-              <a class="left carousel-control" href="#main-carousel" role="button" data-slide="prev">
-                <span class="glyphicon" aria-hidden="true"><i class="fa fa-angle-double-left font-32 white" aria-hidden="true"></i></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#main-carousel" role="button" data-slide="next">
-                <span class="glyphicon" aria-hidden="true"><i class="fa fa-angle-double-right font-32 white" aria-hidden="true"></i></span>
-                <span class="sr-only">Next</span>
-              </a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
 <!-- product -->
 <!-- <section id="sec-product" class="product-sect">
@@ -101,23 +103,27 @@
 </section>
 
 <!-- area channel -->
-<section class="area-channel-sect text-center" id="sec-package" style="background: url(<%= (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg') %>);">
-  <div class="container">
-    <div class="row">
-        <% @channel_cities.each do |channel_city| %>
-          <div class="channel-sec">
-          <%= link_to public_channel_detail_path(channel_city.slug), :class => 'channel-btn' do %>
-            <div class="border-1px outer-border">
-              <div class="channel-btn-name">
-                <p class="font-18"><b class="font-24"><%= channel_city.city %></b><br>Channel List</p>
+<% unless @paket.hidden_content %>
+  <section class="area-channel-sect text-center sec-package" id="paket" style="background: url(<%= (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg') %>);">
+    <div class="container">
+      <div class="row">
+          <% @channel_cities.each do |channel_city| %>
+            <div class="channel-sec">
+            <% link_package = @paket.disable_content ? "#" : public_channel_detail_path(channel_city.slug) %>
+
+            <%= link_to link_package, :class => 'channel-btn' do %>
+              <div class="border-1px outer-border">
+                <div class="channel-btn-name">
+                  <p class="font-18"><b class="font-24"><%= channel_city.city %></b><br>Channel List</p>
+                </div>
               </div>
+            <% end %>
             </div>
           <% end %>
-          </div>
-        <% end %>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
 <!-- starnet -->
 <!-- <section class="starnet-sect">
@@ -144,87 +150,95 @@
 </section> -->
 
 <!-- questions and answers -->
-<section id="sec-qa" class="q-and-a-sect" style="background: url(<%= (@preference.background_question_answer.present?) ? @preference.background_question_answer : asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
-  <div class="container">
-    <div class="row">
-      <h2 class="uppercase text-center white bold">Questions and Answers</h2>
-      <div class="panel-group " id="accordion-question">
-        <% @questions.each_with_index do |question, index| %>
-          <div class="panel panel-default bg-transparent">
-            <div class="panel-heading bg-transparent question-title">
-              <h4 class="panel-title mega-yellow bold border-bot-1px">
-                <a data-toggle="collapse" data-parent="#accordion-question" href="#question<%= index %>">
-                  <%= question.question %><i class="fa fa-plus-circle pull-right font-18" aria-hidden="true"></i>
-                </a>
-              </h4>
-            </div>
-            <div id="question<%= index %>" class="panel-collapse collapse">
-              <div class="panel-body white no-border">
-                <%= question.answer %>
-                <% if question.attachment.present? %>
-                  <p><%= link_to 'Download Attachment', question.attachment_url %></p>
-                <% end %>
+<% unless @faq.hidden_content %>
+  <section id="faq" class="q-and-a-sect" style="background: url(<%= (@preference.background_question_answer.present?) ? @preference.background_question_answer : asset_url('sample-q-a.jpg') %>);background-size: cover;background-position: center;">
+    <div class="container">
+      <div class="row">
+        <h2 class="uppercase text-center white bold">Questions and Answers</h2>
+        <div class="panel-group " id="accordion-question">
+          <% @questions.each_with_index do |question, index| %>
+            <div class="panel panel-default bg-transparent">
+              <div class="panel-heading bg-transparent question-title">
+                <h4 class="panel-title mega-yellow bold border-bot-1px">
+                  <a data-toggle="collapse" data-parent="#accordion-question" href="#question<%= index %>">
+                    <%= question.question %><i class="fa fa-plus-circle pull-right font-18" aria-hidden="true"></i>
+                  </a>
+                </h4>
+              </div>
+              <div id="question<%= index %>" class="panel-collapse collapse">
+                <div class="panel-body white no-border">
+                  <%= question.answer %>
+                  <% if question.attachment.present? %>
+                    <p><%= link_to 'Download Attachment', question.attachment_url %></p>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
+<% end %>
 <!-- about us -->
-<section id="sec-about" class="about-us-sect">
-  <div class="container-fluid no-padding">
-    <h2 class="mega-blue uppercase text-center bold">About Us</h2>
-    <div class="short-history">
-      <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_history.present?) ? @preference.background_history : asset_url('sample-history.jpg') %>);background-size: cover;background-position: center;"></div>
-        <div class="col-md-7 col-xs-12">
-          <h3 class="white">Sejarah Singkat</h3>
-          <div class="white"><%= simple_format @preference.company_history %></div>
-          </p>
+<% unless @sejarah.hidden_content %>
+  <section id="sejarah" class="about-us-sect">
+    <div class="container-fluid no-padding">
+      <h2 class="mega-blue uppercase text-center bold">About Us</h2>
+      <div class="short-history">
+        <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
+          <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_history.present?) ? @preference.background_history : asset_url('sample-history.jpg') %>);background-size: cover;background-position: center;"></div>
+          <div class="col-md-7 col-xs-12">
+            <h3 class="white">Sejarah Singkat</h3>
+            <div class="white"><%= simple_format @preference.company_history %></div>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-white-1px">
+
+      <div class="short-history">
+        <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
+          <div class="col-md-7 col-xs-12">
+            <h3 class="white">Visi dan Misi</h3>
+            <ul>
+              <% @preference.company_vision_missions.each do |vm| %>
+                <li class="white"><%= vm %></li><br/>
+              <% end %>
+            </ul>
+          </div>
+          <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_vision_mission.present?) ? @preference.background_vision_mission : asset_url('sample-vision.jpg') %>);background-size: cover;background-position: center;"></div>
         </div>
       </div>
     </div>
-
-    <hr class="border-white-1px">
-
-    <div class="short-history">
-      <div class="singkatnya blue-bg col-xs-12 col-md-12 no-padding" >
-        <div class="col-md-7 col-xs-12">
-          <h3 class="white">Visi dan Misi</h3>
-          <ul>
-            <% @preference.company_vision_missions.each do |vm| %>
-              <li class="white"><%= vm %></li><br/>
-            <% end %>
-          </ul>
-        </div>
-        <div class="img-thumb col-md-5 col-xs-12 no-padding" style="background: url(<%= (@preference.background_vision_mission.present?) ? @preference.background_vision_mission : asset_url('sample-vision.jpg') %>);background-size: cover;background-position: center;"></div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
 <!-- job vacancy -->
-<section id="sec-vacancy" class="job-vacan-sect" style="background: url(<%= (@preference.background_vacancy.present?) ? @preference.background_vacancy : asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
-  <div class="container">
-    <h2 class="uppercase text-center white bold">Job Vacancy</h2>
-    <% @vacancies.each do |vacancy| %>
-      <div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
-        <%= link_to public_job_vacancy_detail_path(vacancy.slug), :class => 'btn-vacan col-xs-12 border-1px-white no-padding' do %>
-          <div class=" text-center">
-            <div class="border-bot-1px bg-white-opa"><h3><%= vacancy.position %></h3></div>
-            <div class="img-vacan">
-              <%= image_tag vacancy.icon_url %>
+<% unless @karir.hidden_content %>
+  <section id="karir" class="job-vacan-sect" style="background: url(<%= (@preference.background_vacancy.present?) ? @preference.background_vacancy : asset_url('sample-vacancy.jpg') %>);background-size: cover;background-position: center;">
+    <div class="container">
+      <h2 class="uppercase text-center white bold">Job Vacancy</h2>
+      <% @vacancies.each do |vacancy| %>
+        <div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
+          <% link_vacancy = @karir.disable_content ? "#" : public_job_vacancy_detail_path(vacancy.slug) %>
+          <%= link_to link_vacancy, :class => 'btn-vacan col-xs-12 border-1px-white no-padding' do %>
+            <div class=" text-center">
+              <div class="border-bot-1px bg-white-opa"><h3><%= vacancy.position %></h3></div>
+              <div class="img-vacan">
+                <%= image_tag vacancy.icon_url %>
+              </div>
+              <span class="border-1px-white pull-right">more-detail</span>
             </div>
-            <span class="border-1px-white pull-right">more-detail</span>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</section>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+<% end %>
 
 <!-- contact-us -->
-<%=render "contact_us", preference: @preference %>
+<% unless @kontak_kami.hidden_content %>
+  <%=render "contact_us", preference: @preference, kontak_kami: @kontak_kami %>
+<% end %>

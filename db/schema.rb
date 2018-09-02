@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171111143202) do
+ActiveRecord::Schema.define(version: 20180902130402) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "admin_id"
@@ -179,6 +179,20 @@ ActiveRecord::Schema.define(version: 20171111143202) do
     t.integer  "status",      default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "menu_settings", force: :cascade do |t|
+    t.string   "menu"
+    t.string   "slug"
+    t.string   "type"
+    t.boolean  "is_active",       default: true
+    t.boolean  "hidden_content",  default: false
+    t.boolean  "disable_content", default: false
+    t.integer  "parent_id"
+    t.integer  "position"
+    t.integer  "link_type",       default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "packages", force: :cascade do |t|

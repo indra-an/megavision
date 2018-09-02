@@ -18,6 +18,14 @@
 #  background_vision_mission  :string
 #  background_vacancy         :string
 #  background_contact         :string
+#  check_area                 :string
+#  subscribe_emails           :text
+#  contact_emails             :text
+#  chat_title                 :string
+#  chat_status                :boolean
+#  chat_off_message           :string
+#  disclaimer_title           :string
+#  disclaimer_content         :text
 #
 
 require 'test_helper'

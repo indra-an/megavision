@@ -222,16 +222,16 @@ width: 75px;
 }
 
 @media (min-width: 1024px) {
-section#sec-package {
+section.sec-package {
     height: auto;
 }
 
-section#sec-product .container, section#sec-package .container {
+section#sec-product .container, section.sec-package .container {
     position: relative;
     min-height: 100vh !important;
 }
 
-section#sec-product .row, section#sec-package .row {
+section#sec-product .row, section.sec-package .row {
     position: absolute;
     top: 50%;
     transform: translateY(-56%);
