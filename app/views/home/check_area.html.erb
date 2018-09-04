@@ -1,88 +1,91 @@
-<section class="check-area-page">
-  <div class="container-fluid blue-bg">
-    <div class="container">
-      <div class="check-opening">
-        <h1 class="white uppercase bold"><%=@preference.check_area || "Cek Area Anda" %></h1>
+
+<% unless @area_cakupan.hidden_content %>
+  <section class="check-area-page">
+    <div class="container-fluid blue-bg">
+      <div class="container">
+        <div class="check-opening">
+          <h1 class="white uppercase bold"><%=@preference.check_area || "Cek Area Anda" %></h1>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div id="available" class="container-fluid tersedia">
-    <div class="notif-area container">
-      <span class="ok-color bold"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Area terjangkau</span>
+    <div id="available" class="container-fluid tersedia">
+      <div class="notif-area container">
+        <span class="ok-color bold"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Area terjangkau</span>
+      </div>
     </div>
-  </div>
-  <div id="unavailable" class="container-fluid tdk-tersedia">
-    <div class="notif-area container">
-      <span class="no-color bold"><i class="fa fa-warning" aria-hidden="true"></i> Area tidak terjangkau</span>
-    </div>
-  </div>
-
-  <div class="container check-input-grp">
-    <div class="col-xs-12 input-check-area">
-      <div class="form-group" style="margin-bottom: 20px;">
-          <input type="text" class="form-control" id="check-area-search">
-        </div>
-        <a href="" id="btn-subscribe" class="btn-cek blue-bg" style="padding: 15px 50px;text-align: center; display: block;margin: 0 auto; font-size: 20px; font-weight: 700; max-width: 300px;">Subscribe</a>
+    <div id="unavailable" class="container-fluid tdk-tersedia">
+      <div class="notif-area container">
+        <span class="no-color bold"><i class="fa fa-warning" aria-hidden="true"></i> Area tidak terjangkau</span>
+      </div>
     </div>
 
+    <div class="container check-input-grp">
+      <div class="col-xs-12 input-check-area">
+        <div class="form-group" style="margin-bottom: 20px;">
+            <input type="text" class="form-control" id="check-area-search" <%=(@area_cakupan.disable_content) ? 'disabled' : nil %>>
+          </div>
+          <a href="" id="btn-subscribe" class="btn-cek blue-bg" style="padding: 15px 50px;text-align: center; display: block;margin: 0 auto; font-size: 20px; font-weight: 700; max-width: 300px;">Subscribe</a>
+      </div>
 
 
-  </div>
-  <!-- <div class="map">
-    <input id="check-area-search" class="controls" type="text" placeholder="Search for places...">
-    <!-- <div id="check-area-map"></div> -->
-   <!--  <br/>
-  </div>  -->
-    <br/>
-    <br/>
-    <br/>
-</section>
 
-<%= content_for :javascript do %>
-    <script>
-        $( "#check-area-search" ).autocomplete({
-          source: function( request, response ) {
-            $.ajax({
-              url: "<%=public_autocomplete_area_path%>",
-              dataType: "json",
-              data: {
-                q: request.term.split(", ")[0],
-                with_city: true
-              },
-              success: function( data ) {
+    </div>
+    <!-- <div class="map">
+      <input id="check-area-search" class="controls" type="text" placeholder="Search for places...">
+      <!-- <div id="check-area-map"></div> -->
+    <!--  <br/>
+    </div>  -->
+      <br/>
+      <br/>
+      <br/>
+  </section>
+
+  <%= content_for :javascript do %>
+      <script>
+          $( "#check-area-search" ).autocomplete({
+            source: function( request, response ) {
+              $.ajax({
+                url: "<%=public_autocomplete_area_path%>",
+                dataType: "json",
+                data: {
+                  q: request.term.split(", ")[0],
+                  with_city: true
+                },
+                success: function( data ) {
+                  $("#available").hide();
+                  $("#unavailable").hide();
+                  $("#btn-subscribe").attr("href", "")
+                  if(data.length== 0)
+                    $("#unavailable").show();
+
+                  response( $.map( data, function( item ) {
+                    return $.extend(item, ({label: item.area, value: item.id, id: item.id}));
+                  }));
+                }
+              });
+            },
+            select: function( event, ui ) {
+              event.preventDefault();
+              if(ui.item.id == undefined){
+
                 $("#available").hide();
+                $("#unavailable").show();
+              }else{
+                $("#available").show();
                 $("#unavailable").hide();
-                $("#btn-subscribe").attr("href", "")
-                if(data.length== 0)
-                  $("#unavailable").show();
-
-                response( $.map( data, function( item ) {
-                  return $.extend(item, ({label: item.area, value: item.id, id: item.id}));
-                }));
+                $( "#check-area-search" ).val(ui.item.label)
+                $("#btn-subscribe").attr('href', "/channels/"+ui.item.city_slug+"/"+ui.item.slug)
               }
-            });
-          },
-          select: function( event, ui ) {
-            event.preventDefault();
-            if(ui.item.id == undefined){
-
-              $("#available").hide();
-              $("#unavailable").show();
-            }else{
-              $("#available").show();
-              $("#unavailable").hide();
-              $( "#check-area-search" ).val(ui.item.label)
-              $("#btn-subscribe").attr('href', "/channels/"+ui.item.city_slug+"/"+ui.item.slug)
+            },
+            open: function() {
+              $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+              $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
             }
-          },
-          open: function() {
-            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-          },
-          close: function() {
-            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-          }
-        });
-        </script>
+          });
+          </script>
 
+  <% end %>
 <% end %>

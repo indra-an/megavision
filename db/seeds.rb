@@ -22,7 +22,7 @@ unless MenuSetting.exists?
   child_bantuan = MenuSetting.find_by_slug('bantuan')
   child_menu = [
         {menu: 'FAQ', type: 'MenuChild', position: 7, parent_id: child_bantuan.id, link_type: :scroll},
-        {menu: 'Coverage Area', type: 'MenuChild', position: 8, parent_id: child_bantuan.id, link_type: :redirect},
+        {menu: 'Area Cakupan', type: 'MenuChild', position: 8, parent_id: child_bantuan.id, link_type: :redirect},
         {menu: 'Kontak Kami', type: 'MenuChild', position: 9, parent_id: child_bantuan.id, link_type: :scroll}
       ]
   MenuSetting.create(child_menu)

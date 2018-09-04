@@ -40,6 +40,7 @@ class HomeController < ApplicationController
   end
 
   def check_area
+    @area_cakupan = MenuSetting.find_by_slug("area-cakupan")
     @coverages = Coverage.order(:name => :asc)
   end
 
