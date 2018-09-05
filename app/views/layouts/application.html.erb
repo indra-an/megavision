@@ -51,7 +51,8 @@
                         <% if child.link_type == "scroll" %>
                          <%= link_to child.menu, is_landing_page? ? "##{child.slug}" : root_path + "##{child.slug}" %>
                         <% else %>
-                          <%= link_to child.menu, public_check_area_path %>
+                          <% link_menu = (child.disable_content) ? "#" : public_check_area_path %>
+                          <%= link_to child.menu, link_menu%>
                         <% end %>
                       <% end %>
                     </div>
