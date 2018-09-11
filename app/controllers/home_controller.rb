@@ -7,6 +7,7 @@ class HomeController < ApplicationController
     @questions = Question.order(:question => :asc)
     @prices = Price.order(:amount => :asc)
     @landing_images = LandingImage.published.order(:created_at => :desc)
+    @products = Product.active.order(id: :asc)
 
     #menu
     @beranda = MenuSetting.find_by_slug("beranda")

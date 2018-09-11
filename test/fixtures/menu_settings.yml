@@ -11,6 +11,7 @@
 #  disable_content :boolean          default(FALSE)
 #  parent_id       :integer
 #  position        :integer
+#  link_type       :integer          default("scroll")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

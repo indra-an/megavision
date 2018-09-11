@@ -107,6 +107,11 @@
             <span class="glyphicon glyphicon-blackboard"></span>&nbsp;Landing Images
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:products) %>">
+          <%= link_to admins_products_path do %>
+            <span class="glyphicon glyphicon-blackboard"></span>&nbsp;Products
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:contacts) %>">
           <%= link_to admins_contacts_path do %>
             <span class="glyphicon glyphicon-envelope"></span>&nbsp;Contacts

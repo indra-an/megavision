@@ -78,25 +78,14 @@
       </div>
       <p><%= @preference.about_megavision %></p>
       <div class="mega-benefit">
-        <div class="benefit-det text-center">
-          <%= image_tag 'sample-tv-parallel.png', :class => 'benefit-img' %>
-          <h5 class="mega-blue">TV bisa paralel beda acara</h5>
-        </div>
-
-        <div class="benefit-det text-center">
-          <%= image_tag 'sample-money.png', :class => 'benefit-img' %>
-          <h5 class="mega-blue">Lebih hemat dan lebih stabil</h5>
-        </div>
-
-        <div class="benefit-det text-center">
-          <%= image_tag 'sample-free-modem.png', :class => 'benefit-img' %>
-          <h5 class="mega-blue">Gratis modem dan router wifi</h5>
-        </div>
-
-        <div class="benefit-det text-center">
-          <%= image_tag 'sample-unlimited-quota.png', :class => 'benefit-img' %>
-          <h5 class="mega-blue">Unlimited tanpa kuota dan batas pemakaian</h5>
-        </div>
+        <%if @products.present?%>
+          <% @products.each do |product|%>
+            <div class="benefit-det text-center">
+              <%= image_tag product.icon, :class => 'benefit-img', :title => product.title, :alt => product.title %>
+              <h5 class="mega-blue"><%=product.description%></h5>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
