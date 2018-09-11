@@ -1757,3 +1757,71 @@ section#sec-product .row, section.sec-package .row {
   margin: 0 10px !important;
   width: 190px !important;
 }
+
+.mov-schedule {
+  background: #0072bc;
+}
+
+.mov-schedule .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 50px;
+}
+
+.chan-mov {
+  max-width: 100%;
+  padding: 10px 20px;
+  flex: 30%;
+}
+
+.chan-mov a {
+  background: white;
+  border-radius: 7px;
+  width: 100%;
+  height: 120px;
+  padding: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.chan-mov a img {
+  height: 50%;
+  max-width: 100%;
+}
+
+.chan-mov a:hover, .chan-mov a:focus {
+  background: rgba(255,255,255,0.8);
+}
+
+@media (max-width: 768px) {
+  .chan-mov {
+  max-width: 100%;
+  padding: 10px 20px;
+  flex: 50%;
+}
+
+.chan-mov a img {
+  max-height: 50%;
+  max-width: 100%;
+}
+}
+
+@media (max-width: 640px) {
+  .chan-mov {
+  max-width: 100%;
+  padding: 10px 20px;
+  flex: 100%;
+}
+
+.chan-mov a img {
+  max-height: 50%;
+  max-width: 100%;
+}
+}
+
+.check-opening {
+  padding: 50px 0;
+}

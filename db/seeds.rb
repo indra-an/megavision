@@ -7,23 +7,24 @@ end
 unless MenuSetting.exists?
   menu = [
           {menu: 'Beranda', type: 'MenuParent', position: 1, link_type: :scroll },
-          {menu: 'Paket', type: 'MenuParent', position: 2, link_type: :scroll },
-          {menu: 'Tentang Kami', type: 'MenuParent', position: 3, link_type: :scroll },
-          {menu: 'Bantuan', type: 'MenuParent', position: 4, link_type: :scroll },
-          {menu: 'Karir', type: 'MenuParent', position: 5, link_type: :scroll }
+          {menu: 'Area Cakupan', type: 'MenuParent', position: 2, link_type: :redirect},
+          {menu: 'Paket', type: 'MenuParent', position: 3, link_type: :scroll },
+          {menu: 'Jadwal Acara', type: 'MenuParent', position: 4, link_type: :scroll },
+          {menu: 'Tentang Kami', type: 'MenuParent', position: 5, link_type: :scroll },
+          {menu: 'Bantuan', type: 'MenuParent', position: 6, link_type: :scroll },
+          {menu: 'Karir', type: 'MenuParent', position: 7, link_type: :scroll }
         ]
 
   MenuSetting.create(menu)
 
   child_tentang = MenuSetting.find_by_slug('tentang-kami')
-  child_menu = [ {menu: 'Sejarah', type: 'MenuChild', position: 6, parent_id: child_tentang.id, link_type: :scroll}]
+  child_menu = [ {menu: 'Sejarah', type: 'MenuChild', position: 8, parent_id: child_tentang.id, link_type: :scroll}]
   MenuSetting.create(child_menu)
 
   child_bantuan = MenuSetting.find_by_slug('bantuan')
   child_menu = [
-        {menu: 'FAQ', type: 'MenuChild', position: 7, parent_id: child_bantuan.id, link_type: :scroll},
-        {menu: 'Area Cakupan', type: 'MenuChild', position: 8, parent_id: child_bantuan.id, link_type: :redirect},
-        {menu: 'Kontak Kami', type: 'MenuChild', position: 9, parent_id: child_bantuan.id, link_type: :scroll}
+        {menu: 'FAQ', type: 'MenuChild', position: 9, parent_id: child_bantuan.id, link_type: :scroll},
+        {menu: 'Kontak Kami', type: 'MenuChild', position: 10, parent_id: child_bantuan.id, link_type: :scroll}
       ]
   MenuSetting.create(child_menu)
 

@@ -41,7 +41,15 @@
                 <% if menu.link_type == "scroll" %>
                   <li><%= link_to menu.menu, is_landing_page? ? "##{menu.slug}" : root_path + "##{menu.slug}" %></li>
                 <%else%>
-                  <li><%= link_to menu.menu, root_path + "##{menu.slug}" %></li>
+                  <li>
+                      <% link_menu = "#" %>
+                      <% unless menu.disable_content %>
+                        <% if menu.slug == 'area-cakupan'%>
+                          <% link_menu = public_check_area_path %>
+                        <% end %>
+                      <% end %>
+                      <%= link_to menu.menu, link_menu%>
+                  </li>
                 <% end %>
               <% else %>
                   <li class="dropdown">
@@ -51,7 +59,12 @@
                         <% if child.link_type == "scroll" %>
                          <%= link_to child.menu, is_landing_page? ? "##{child.slug}" : root_path + "##{child.slug}" %>
                         <% else %>
-                          <% link_menu = (child.disable_content) ? "#" : public_check_area_path %>
+                          <% link_menu = "#" %>
+                          <% unless child.disable_content %>
+                            <% if child.slug == 'area-cakupan'%>
+                              <% link_menu = public_check_area_path %>
+                            <% end %>
+                          <% end %>
                           <%= link_to child.menu, link_menu%>
                         <% end %>
                       <% end %>

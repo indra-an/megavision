@@ -114,6 +114,30 @@
   </section>
 <% end %>
 
+<!-- movie schedule -->
+<% unless @jadwal_acara.hidden_content %>
+  <section class="mov-schedule" id="jadwal-acara">
+    <div class="container">
+      <div class="title"><h2 class="uppercase text-center white bold">TV Guide</h2></div>
+      <div class="row">
+        <% if @movie_schedules.present? %>
+          <% @movie_schedules.each do |movie_schedule| %>
+            <div class="chan-mov">
+              <% link_movie = "#" %>
+              <% unless @jadwal_acara.disable_content %>
+                <% if movie_schedule.schedule_attachment %>
+                  <% link_movie = movie_schedule.schedule_attachment_url %>
+                <% end %>
+              <% end %>
+              <%= link_to image_tag(movie_schedule.logo, {alt: movie_schedule.title}), link_movie, class: "btn-schedule" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>
+
 <!-- starnet -->
 <!-- <section class="starnet-sect">
   <div class="container">

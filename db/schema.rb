@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911041402) do
+ActiveRecord::Schema.define(version: 20180911080342) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "admin_id"
@@ -193,6 +193,14 @@ ActiveRecord::Schema.define(version: 20180911041402) do
     t.integer  "link_type",       default: 0
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+  end
+
+  create_table "movie_schedules", force: :cascade do |t|
+    t.string   "title"
+    t.string   "logo"
+    t.string   "schedule_attachment"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "packages", force: :cascade do |t|

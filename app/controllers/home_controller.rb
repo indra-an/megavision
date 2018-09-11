@@ -8,10 +8,12 @@ class HomeController < ApplicationController
     @prices = Price.order(:amount => :asc)
     @landing_images = LandingImage.published.order(:created_at => :desc)
     @products = Product.active.order(id: :asc)
+    @movie_schedules = MovieSchedule.order(id: :asc)
 
     #menu
     @beranda = MenuSetting.find_by_slug("beranda")
     @paket = MenuSetting.find_by_slug("paket")
+    @jadwal_acara = MenuSetting.find_by_slug("jadwal-acara")
     @karir = MenuSetting.find_by_slug("karir")
     @kontak_kami = MenuSetting.find_by_slug("kontak-kami")
     @sejarah = MenuSetting.find_by_slug("sejarah")

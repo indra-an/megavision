@@ -1,0 +1,15 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Movie Schedules', admins_movie_schedules_path %>
+    <%= breadcrumb_item 'Create Movie Schedules' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Create a Movie Schedules</h1>
+  </div>
+</div>
+
+<%= render 'form', movie_schedule: @movie_schedule %>

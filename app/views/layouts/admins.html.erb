@@ -82,6 +82,11 @@
             <span class="glyphicon glyphicon-th-list"></span>&nbsp;Channel City List
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:movie_schedules) %>">
+          <%= link_to admins_movie_schedules_path do %>
+            <span class="glyphicon glyphicon-th-list"></span>&nbsp;Movie Schedule
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:prices) %>">
           <%= link_to admins_prices_path do %>
             <span class="glyphicon glyphicon-usd"></span>&nbsp;Price List
