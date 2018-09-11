@@ -1,5 +1,6 @@
 class Admins::MenuSettingsController < Admins::BaseController
-  before_action :load_resources, except: [:index, :show, :destroy]
+  before_action :load_types, except: [:index, :show, :destroy]
+  before_action :load_parents, except: [:index, :show, :destroy]
   before_action :set_menu_setting, only: [:show, :edit, :update, :destroy]
 
   # GET /menu_settings
@@ -47,8 +48,12 @@ class Admins::MenuSettingsController < Admins::BaseController
   end
 
   private
-    def load_resources
+    def load_types
       @menu_types = [['Parent', 'MenuParent'], ['Child', 'MenuChild']]
+    end
+
+    def load_parents
+      @menu_parents = MenuParent.active.select(:id, :menu).collect { |tag| [tag.menu, tag.id] }
     end
 
     # Use callbacks to share common setup or constraints between actions.

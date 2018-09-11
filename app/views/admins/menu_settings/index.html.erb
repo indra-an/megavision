@@ -40,7 +40,7 @@
                 <tr>
                   <td><%= menu.menu %></td>
                   <td><%= menu.position %></td>
-                  <td><%= (menu.parent_id) ? menu.menu_parent.menu : nil %></td>
+                  <td><%= (menu.parent_id && menu.model_name == "MenuChild") ? menu.menu_parent.menu : nil %></td>
                   <td>
                     <%= link_to 'Edit', edit_admins_menu_setting_path(menu) %>&nbsp;|
                     <%#= link_to 'Destroy', admins_menu_setting_path(menu), method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -29,6 +29,20 @@
           </div>
 
           <div class="form-group">
+            <%= f.label :type, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.select :type, @menu_types, {}, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group form-parrent">
+            <%= f.label :parent, :class => 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.select :parent_id, @menu_parents, {}, :multiple => false, :class => 'chosen' %>
+            </div>
+          </div>
+
+          <div class="form-group">
             <%= f.label :active, :class => 'col-sm-2 control-label' %>
             <div class="col-sm-10">
               <%= f.select :is_active, [['Yes', true], ['No', false]], {}, :class => 'form-control' %>
@@ -64,3 +78,23 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      showHideParentMenu($("#menu_setting_type").val())
+
+      $("#menu_setting_type").change(function(){
+        showHideParentMenu($(this).val())
+      })
+
+      function showHideParentMenu(val){
+        if(val == "MenuParent"){
+          $(".form-parrent").addClass("hidden")
+        }else{
+          $(".form-parrent").removeClass("hidden")
+        }
+      }
+    });
+  </script>
+<% end %>
