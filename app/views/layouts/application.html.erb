@@ -37,9 +37,13 @@
           <ul class="nav navbar-nav navbar-right margin-0">
             <% @menus.each do |menu| %>
 
-              <% if menu.menu_childs.count == 0 %>
+              <% if menu.menu_childs.active.count == 0 %>
                 <% if menu.link_type == "scroll" %>
-                  <li><%= link_to menu.menu, is_landing_page? ? "##{menu.slug}" : root_path + "##{menu.slug}" %></li>
+                  <% link_menu = "#" %>
+                  <% unless menu.disable_content %>
+                    <% link_menu = "##{menu.slug}" %>
+                  <% end %>
+                  <li><%= link_to menu.menu, is_landing_page? ? link_menu : root_path + link_menu %></li>
                 <%else%>
                   <li>
                       <% link_menu = "#" %>
@@ -55,9 +59,13 @@
                   <li class="dropdown">
                     <a class="dropbtn"><%=menu.menu%></a>
                     <div class="dropdown-content">
-                      <% menu.menu_childs.each do |child| %>
+                      <% menu.menu_childs.active.each do |child| %>
                         <% if child.link_type == "scroll" %>
-                         <%= link_to child.menu, is_landing_page? ? "##{child.slug}" : root_path + "##{child.slug}" %>
+                          <% link_menu = "#" %>
+                          <% unless child.disable_content %>
+                            <% link_menu = "##{child.slug}" %>
+                          <% end %>
+                         <%= link_to child.menu, is_landing_page? ? link_menu : root_path + link_menu %>
                         <% else %>
                           <% link_menu = "#" %>
                           <% unless child.disable_content %>
