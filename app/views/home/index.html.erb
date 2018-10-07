@@ -52,7 +52,7 @@
     <% channel_city_list += @paket_channel_city.render({"link_package" => link_package, "city_name" => channel_city.city}, { strict_variables: true }).html_safe %>
   <% end %>
 
-  <%=@paket_html.render({"channel_city" => channel_city_list, "background_area_channel_url" => (@preference.background_area_channel.present?) ? @preference.background_area_channel : asset_url('sample-area-channel.jpg'), "section_package" => 'paket'}, { strict_variables: true }).html_safe%>
+  <%=@paket_html.render({"channel_city" => channel_city_list, "background_area_channel_url" => (@preference.background_area_channel.present?) ? @preference.background_area_channel_url : asset_url('sample-area-channel.jpg'), "section_package" => 'paket'}, { strict_variables: true }).html_safe%>
 
 <% end %>
 
@@ -115,7 +115,7 @@
   <% end %>
 
   <%=@faq_html.render({"section_faq" => 'faq',
-  "background_question_answer" => (@preference.background_question_answer.present?) ? @preference.background_question_answer : asset_url('sample-q-a.jpg'),
+  "background_question_answer" => (@preference.background_question_answer.present?) ? @preference.background_question_answer_url : asset_url('sample-q-a.jpg'),
   "faq_list" => faq_list}, { strict_variables: true }).html_safe%>
 
 <% end %>
@@ -129,7 +129,7 @@
     <% visi_misi_list += @visi_misi_html.render({"vission_mission" => vm}, { strict_variables: true }).html_safe %>
   <% end %>
 
-  <%=@sejarah_html.render({"section_history" => 'sejarah', "background_history" => (@preference.background_history.present?) ? @preference.background_history : asset_url('sample-history.jpg'), "company_history" => (simple_format @preference.company_history), "background_vision_mision" => (@preference.background_vision_mission.present?) ? @preference.background_vision_mission : asset_url('sample-vision.jpg'), "vision_mission_list" => visi_misi_list}, { strict_variables: true }).html_safe%>
+  <%=@sejarah_html.render({"section_history" => 'sejarah', "background_history" => (@preference.background_history.present?) ? @preference.background_history_url : asset_url('sample-history.jpg'), "company_history" => (simple_format @preference.company_history), "background_vision_mision" => (@preference.background_vision_mission.present?) ? @preference.background_vision_mission_url : asset_url('sample-vision.jpg'), "vision_mission_list" => visi_misi_list}, { strict_variables: true }).html_safe%>
 
 <% end %>
 
@@ -142,7 +142,7 @@
     <% karir_list += @vacancy_html.render({"vacancy_link" => link_vacancy, "vacancy_position" => vacancy.position, "vacancy_icon" => vacancy.icon_url}, { strict_variables: true }).html_safe %>
   <% end %>
 
-  <%=@karir_html.render({"vacancy_list" => karir_list, "background_vacancy" => (@preference.background_vacancy.present?) ? @preference.background_vacancy : asset_url('sample-vacancy.jpg'), "section_vacancy" => 'karir'}, { strict_variables: true }).html_safe%>
+  <%=@karir_html.render({"vacancy_list" => karir_list, "background_vacancy" => (@preference.background_vacancy.present?) ? @preference.background_vacancy_url : asset_url('sample-vacancy.jpg'), "section_vacancy" => 'karir'}, { strict_variables: true }).html_safe%>
 
 <% end %>
 
@@ -182,7 +182,7 @@
     <%= submit_tag 'Send Message', :class => 'btn-send', disabled: disable_content %>
   <% end %>
 
-  <%=@kontak_html.render({"address_list" => address_list, "background_contact" => (@preference.background_contact.present?) ? @preference.background_contact : asset_url('sample-contact.jpg'), "section_contact" => 'kontak-kami', "form_contact" =>form_contact}, { strict_variables: true }).html_safe%>
+  <%=@kontak_html.render({"address_list" => address_list, "background_contact" => (@preference.background_contact.present?) ? @preference.background_contact_url : asset_url('sample-contact.jpg'), "section_contact" => 'kontak-kami', "form_contact" =>form_contact}, { strict_variables: true }).html_safe%>
 
   <%#=@kontak_html "contact_us", preference: @preference, kontak_kami: @kontak_kami %>
 
