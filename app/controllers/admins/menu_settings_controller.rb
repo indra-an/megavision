@@ -34,7 +34,7 @@ class Admins::MenuSettingsController < Admins::BaseController
 
   # PATCH/PUT /menu_settings/1
   def update
-    if @menu_setting.update(menu_setting_params)
+    if @menu_setting.update(menu_setting_params.merge({html_additional: params[:html_additional].to_hash}))
       redirect_to admins_menu_settings_path, notice: 'Menu was successfully updated.'
     else
       render :edit
@@ -63,7 +63,7 @@ class Admins::MenuSettingsController < Admins::BaseController
 
     # Only allow a trusted parameter "white list" through.
     def menu_setting_params
-      params.require(:menu_setting).permit(:menu, :type, :is_active,
-          :hidden_content, :disable_content, :parent_id, :position)
+      params.require(:menu_setting).permit(:menu, :type, :is_active, :html_content,
+          :hidden_content, :disable_content, :parent_id, :position, :html_additional)
     end
 end

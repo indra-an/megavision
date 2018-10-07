@@ -153,6 +153,11 @@
             <span class="glyphicon glyphicon-wrench"></span>&nbsp;Preferences
           <% end %>
         </li>
+        <li class="<%= class_for_content_indicator(:dashboard, :theme_settings) %>">
+          <%= link_to admins_theme_setting_path do %>
+            <span class="glyphicon glyphicon-wrench"></span>&nbsp;Theme Setting
+          <% end %>
+        </li>
         <li class="<%= class_for_content_indicator(:dashboard, :menu_settings) %>">
           <%= link_to admins_menu_settings_path do %>
             <span class="glyphicon glyphicon-wrench"></span>&nbsp;Menu Settings

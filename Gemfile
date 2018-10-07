@@ -16,6 +16,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'ckeditor'
+gem 'liquid', '~> 4.0'
 
 gem 'turbolinks', '~> 5'
 gem 'closure-compiler'

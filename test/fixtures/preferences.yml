@@ -26,6 +26,8 @@
 #  chat_off_message           :string
 #  disclaimer_title           :string
 #  disclaimer_content         :text
+#  about_megavision_html      :text
+#  about_product_html         :text
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

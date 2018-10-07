@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911080342) do
+ActiveRecord::Schema.define(version: 20181007090736) do
 
   create_table "admin_logs", force: :cascade do |t|
     t.integer  "admin_id"
@@ -193,6 +193,9 @@ ActiveRecord::Schema.define(version: 20180911080342) do
     t.integer  "link_type",       default: 0
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.text     "html_content"
+    t.text     "js"
+    t.         "html_additional"
   end
 
   create_table "movie_schedules", force: :cascade do |t|
@@ -235,6 +238,8 @@ ActiveRecord::Schema.define(version: 20180911080342) do
     t.string  "chat_off_message"
     t.string  "disclaimer_title"
     t.text    "disclaimer_content"
+    t.text    "about_megavision_html"
+    t.text    "about_product_html"
   end
 
   create_table "prices", force: :cascade do |t|
@@ -259,6 +264,19 @@ ActiveRecord::Schema.define(version: 20180911080342) do
     t.text     "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "theme_settings", force: :cascade do |t|
+    t.string   "title"
+    t.string   "body_class"
+    t.text     "css_tag"
+    t.text     "header"
+    t.text     "menu"
+    t.text     "dropdown_menu"
+    t.text     "footer"
+    t.text     "js_tag"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "vacancies", force: :cascade do |t|

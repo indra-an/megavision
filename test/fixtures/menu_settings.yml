@@ -14,6 +14,9 @@
 #  link_type       :integer          default("scroll")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  html_content    :text
+#  js              :text
+#  html_additional :json
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

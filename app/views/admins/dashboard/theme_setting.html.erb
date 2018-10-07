@@ -1,0 +1,98 @@
+<div class="row">
+  <%= breadcrumb do %>
+    <%= breadcrumb_item %>
+    <%= breadcrumb_item 'Theme Setting' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Theme Setting</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= form_tag admins_theme_setting_path, :class => 'form-horizontal', :multipart => true do %>
+          <% if @theme_setting.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <strong>Ops! <%= pluralize(@theme_setting.errors.count, "error") %> found:</strong><br/>
+              <ul>
+                <% @theme_setting.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= label_tag :title, "Title", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :title, @theme_setting.title, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :body_class, "Body class", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_field_tag :body_class, @theme_setting.body_class, :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :css_tag, 'CSS', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :css_tag, @theme_setting.css_tag, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :header, "Header", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :header, @theme_setting.header, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :menu, "Menu", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :menu, @theme_setting.menu, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :dropdown_menu, "Dropdown Menu", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :dropdown_menu, @theme_setting.dropdown_menu, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :footer, "Footer", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :footer, @theme_setting.footer, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :js_tag, "Javascript", :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :js_tag, @theme_setting.js_tag, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 text-right">
+              <%= link_to 'Discard', admins_theme_setting_path, :class => 'btn btn-warning' %>
+            </div>
+            <div class="col-md-6 text-left">
+              <%= submit_tag 'Save', :class => 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

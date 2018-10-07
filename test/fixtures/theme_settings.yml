@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: theme_settings
+#
+#  id            :integer          not null, primary key
+#  title         :string
+#  body_class    :string
+#  css_tag       :text
+#  header        :text
+#  menu          :text
+#  dropdown_menu :text
+#  footer        :text
+#  js_tag        :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  body_class: MyString
+  css_tag: MyText
+  header: MyText
+  menu: MyText
+  dropdown_menu: MyText
+  footer: MyText
+  js_tag: MyText
+
+two:
+  title: MyString
+  body_class: MyString
+  css_tag: MyText
+  header: MyText
+  menu: MyText
+  dropdown_menu: MyText
+  footer: MyText
+  js_tag: MyText

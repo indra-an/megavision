@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     put 'update_password' => 'dashboard#update_password'
 
     post 'preferences' => 'dashboard#save_preferences'
+    get 'theme_setting' => 'dashboard#theme_setting'
+    post 'theme_setting' => 'dashboard#save_theme_setting'
     # post 'area_coverages' => 'dashboard#save_area_coverages'
 
     # delete 'area_coverages/:id' => 'dashboard#destroy_area_coverage', :as => :destroy_area_coverage

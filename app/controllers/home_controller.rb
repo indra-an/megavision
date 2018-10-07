@@ -18,6 +18,43 @@ class HomeController < ApplicationController
     @kontak_kami = MenuSetting.find_by_slug("kontak-kami")
     @sejarah = MenuSetting.find_by_slug("sejarah")
     @faq = MenuSetting.find_by_slug("faq")
+
+    #html
+
+    ##beranda
+    @beranda_html = Liquid::Template.parse(@beranda.html_content.to_s, :error_mode => :strict)
+    @beranda_carousel_indicator = Liquid::Template.parse(@beranda.html_additional[:carousel_indicator].to_s, :error_mode => :strict)
+    @beranda_carousel_image = Liquid::Template.parse(@beranda.html_additional[:carousel_image].to_s, :error_mode => :strict)
+
+    ##about
+    @about_html = Liquid::Template.parse(@preference.about_megavision_html.to_s, :error_mode => :strict)
+    @about_product_html = Liquid::Template.parse(@preference.about_product_html.to_s, :error_mode => :strict)
+
+    ##paket
+    @paket_html = Liquid::Template.parse(@paket.html_content.to_s, :error_mode => :strict)
+    @paket_channel_city = Liquid::Template.parse(@paket.html_additional[:channel_city].to_s, :error_mode => :strict)
+
+    ##jadwal
+    @jadwal_html = Liquid::Template.parse(@jadwal_acara.html_content.to_s, :error_mode => :strict)
+    @jadwal_movie_html = Liquid::Template.parse(@jadwal_acara.html_additional[:movie_schedule].to_s, :error_mode => :strict)
+
+    ##sejarah
+    @sejarah_html = Liquid::Template.parse(@sejarah.html_content.to_s, :error_mode => :strict)
+    @visi_misi_html = Liquid::Template.parse(@sejarah.html_additional[:vision_mission].to_s, :error_mode => :strict)
+
+    ##karir
+    @karir_html = Liquid::Template.parse(@karir.html_content.to_s, :error_mode => :strict)
+    @vacancy_html = Liquid::Template.parse(@karir.html_additional[:vacancy].to_s, :error_mode => :strict)
+
+    ##karir
+    @faq_html = Liquid::Template.parse(@faq.html_content.to_s, :error_mode => :strict)
+    @faq_list_html = Liquid::Template.parse(@faq.html_additional[:faq].to_s, :error_mode => :strict)
+
+    ##kontak
+    @kontak_html = Liquid::Template.parse(@kontak_kami.html_content.to_s, :error_mode => :strict)
+    @addresslist_html = Liquid::Template.parse(@kontak_kami.html_additional[:address_list].to_s, :error_mode => :strict)
+
+    #end html
   end
 
   def job_detail

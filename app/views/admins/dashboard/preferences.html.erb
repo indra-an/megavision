@@ -219,6 +219,20 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <%= label_tag :about_megavision_html, 'About Product Megavision HTML', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :about_megavision_html, @preference.about_megavision_html, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label_tag :about_product_html, 'Product List Megavision HTML', :class => 'col-sm-3 control-label' %>
+            <div class="col-sm-9">
+              <%= text_area_tag :about_product_html, @preference.about_product_html, :class => 'form-control', :rows => 10 %>
+            </div>
+          </div>
+
           <a data-toggle="collapse" href="#background-images" aria-expanded="false" aria-controls="background-images">Change background images</a>
           <div class="collapse" id="background-images">
             <div class="well">
@@ -281,6 +295,7 @@
                   <%= file_field_tag :background_contact %>
                 </div>
               </div>
+
             </div>
           </div>
 

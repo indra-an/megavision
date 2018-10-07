@@ -38,11 +38,35 @@ class Admins::DashboardController < Admins::BaseController
     @preference.chat_off_message = params[:chat_off_message]
     @preference.disclaimer_title = params[:disclaimer_title]
     @preference.disclaimer_content = params[:disclaimer_content][:content]
+    @preference.about_megavision_html = params[:about_megavision_html]
+    @preference.about_product_html = params[:about_product_html]
 
     if @preference.save
       redirect_to admins_preferences_path, notice: 'Website preferences saved.'
     else
       render :preferences
+    end
+  end
+
+  def theme_setting
+    @theme_setting = ThemeSetting.last || ThemeSetting.new
+  end
+
+  def save_theme_setting
+    @theme_setting = ThemeSetting.last || ThemeSetting.new
+    @theme_setting.title = params[:title]
+    @theme_setting.body_class = params[:body_class]
+    @theme_setting.css_tag = params[:css_tag]
+    @theme_setting.header = params[:header]
+    @theme_setting.menu = params[:menu]
+    @theme_setting.dropdown_menu = params[:dropdown_menu]
+    @theme_setting.footer = params[:footer]
+    @theme_setting.js_tag = params[:js_tag]
+
+    if @theme_setting.save
+      redirect_to admins_theme_setting_path, notice: 'Theme Setting saved.'
+    else
+      render :theme_setting
     end
   end
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Megavision</title>
+    <title><%= @theme.title %></title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,111 +11,97 @@
     <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:400,100,300,500' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
     <%= stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Lato|Open+Sans' %>
+    <%= @css.render.html_safe%>
   </head>
 
-  <body class="landing-page">
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-megavision" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to root_path, :class => 'navbar-brand' do %>
-            <%= image_tag 'logo.png' %>
-          <% end %>
-        </div>
+  <body class="<%=@theme.body_class%>">
+    <% menu_content = '' %>
 
-        <div class="collapse navbar-collapse navbar-right" id="navbar-megavision">
-          <div class="check-area-par">
-            <!--<%= link_to public_check_area_path, :class => 'check-area-btn' do %>
-              <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Check Area
-            <% end %> -->
-          </div>
-          <ul class="nav navbar-nav navbar-right margin-0">
-            <% @menus.each do |menu| %>
+  <% @menus.each do |menu| %>
+    <% if menu.menu_childs.count == 0 %>
+      <% link_menu = "#" %>
 
-              <% if menu.menu_childs.active.count == 0 %>
-                <% if menu.link_type == "scroll" %>
-                  <% link_menu = "#" %>
-                  <% unless menu.disable_content %>
-                    <% link_menu = "##{menu.slug}" %>
-                  <% end %>
-                  <li><%= link_to menu.menu, is_landing_page? ? link_menu : root_path + link_menu %></li>
-                <%else%>
-                  <li>
-                      <% link_menu = "#" %>
-                      <% unless menu.disable_content %>
-                        <% if menu.slug == 'area-cakupan'%>
-                          <% link_menu = public_check_area_path %>
-                        <% end %>
-                      <% end %>
-                      <%= link_to menu.menu, link_menu%>
-                  </li>
-                <% end %>
-              <% else %>
-                  <li class="dropdown">
-                    <a class="dropbtn"><%=menu.menu%></a>
-                    <div class="dropdown-content">
-                      <% menu.menu_childs.active.each do |child| %>
-                        <% if child.link_type == "scroll" %>
-                          <% link_menu = "#" %>
-                          <% unless child.disable_content %>
-                            <% link_menu = "##{child.slug}" %>
-                          <% end %>
-                         <%= link_to child.menu, is_landing_page? ? link_menu : root_path + link_menu %>
-                        <% else %>
-                          <% link_menu = "#" %>
-                          <% unless child.disable_content %>
-                            <% if child.slug == 'area-cakupan'%>
-                              <% link_menu = public_check_area_path %>
-                            <% end %>
-                          <% end %>
-                          <%= link_to child.menu, link_menu%>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  </li>
-
-              <% end %>
-
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <%= yield %>
-
-    <%=render "shared/support_chat" %>
-
-    <footer class="footer bg-grey text-center">
-      <a href="#beranda" class="bg-grey to-top white"><i class="fa fa-angle-double-up font-18" aria-hidden="true"></i></a>
-      <p class="font-12 white"><%= @preference.copyright_text %></p>
-      <%= link_to @preference.linked_in_url, :class => 'white social' do %>
-        <i class="fa fa-instagram font-24" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to @preference.facebook_url, :class => 'white social' do %>
-        <i class="fa fa-facebook font-24" aria-hidden="true"></i>
-      <% end %>
-      <%= link_to @preference.twitter_url, :class => 'white social' do %>
-        <i class="fa fa-twitter font-24" aria-hidden="true"></i>
-      <% end %>
-    </footer>
-
-    <% if notice %>
-      <div class="alert alert-<%= notice %> notification" role="alert">
-        <% if notice.eql?('success') %>
-          <strong>Thank you!</strong> Your message has been received, we'll contact you shortly.
-        <% else %>
-          <strong>Sorry!</strong> Something went wrong when submitting your message, please double check.
+      <% if menu.link_type == "scroll" %>
+        <% unless menu.disable_content %>
+          <% link_menu = "##{menu.slug}" %>
         <% end %>
-      </div>
+
+        <% menu_content += @menu.render({"link_to_menu" => (link_to menu.menu, is_landing_page? ? link_menu : root_path + link_menu)}) %>
+      <%else%>
+        <% unless menu.disable_content %>
+          <% if menu.slug == 'area-cakupan'%>
+            <% link_menu = public_check_area_path %>
+          <% end %>
+        <% end %>
+
+        <% menu_content += @menu.render({"link_to_menu" => (link_to menu.menu, link_menu)}) %>
+      <% end %>
+
+    <% else %>
+      <% child_content = '' %>
+      <% menu.menu_childs.active.each do |child| %>
+        <% link_menu = "#" %>
+
+        <% if child.link_type == "scroll" %>
+          <% unless child.disable_content %>
+            <% link_menu = "##{child.slug}" %>
+          <% end %>
+
+          <% child_content += (link_to child.menu, is_landing_page? ? link_menu : root_path + link_menu) %>
+        <% else %>
+          <% unless child.disable_content %>
+            <% if child.slug == 'area-cakupan'%>
+              <% link_menu = public_check_area_path %>
+            <% end %>
+          <% end %>
+
+          <% child_content += (link_to child.menu, link_menu) %>
+        <% end %>
+
+      <% end %>
+
+      <% menu_content += @dropdown_menu.render({"dropdown_menu_title"=> menu.menu,"link_to_menu" => child_content}) %>
     <% end %>
 
+  <% end %>
+    <%=@header.render({"menu_content" => menu_content}, { strict_variables: true }).html_safe%>
+    <%= yield %>
+    <% notification_type = 'hidden'
+       notification_message = '' %>
+    <% if notice %>
+      <% notification_type = "alert-#{notice}" %>
+      <% if notice.eql?('success') %>
+        <% notification_message = "<strong>Thank you!</strong> Your message has been received, we'll contact you shortly." %>
+      <% else %>
+        <% notification_message = "<strong>Sorry!</strong> Something went wrong when submitting your message, please double check." %>
+      <% end %>
+    <% end %>
+
+    <% option_channel = ''%>
+    <% @channel_cities.each do |city| %>
+      <% option_channel += "<option value='#{city['slug']}'>#{city['city']}</option>" %>
+    <% end %>
+
+    <%=@footer.render({
+      "chat_title" => @preference.chat_title,
+      "chat_status" => @preference.chat_status ? "" : "hidden",
+      "chat_off_message" => @preference.chat_off_message,
+      "option_channel" => option_channel.html_safe,
+      "copyright_text" => @preference.copyright_text,
+      "instagram_url" => @preference.linked_in_url,
+      "facebook_url" => @preference.facebook_url,
+      "twitter_url" => @preference.twitter_url,"notification_type" => notification_type, "notification_message" => notification_message}).html_safe%>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-eval' => false, 'data-turbolinks-track' => 'reload' %>
+
+    <%=@js.render({
+      "firebase_apiKey" => Rails.application.secrets.firebase_apiKey,
+      "firebase_authDomain" => Rails.application.secrets.firebase_authDomain,
+      "firebase_databaseURL" => Rails.application.secrets.firebase_databaseURL,
+      "firebase_projectId" => Rails.application.secrets.firebase_projectId,
+      "firebase_storageBucket" => Rails.application.secrets.firebase_storageBucket,
+      "firebase_messagingSenderId" => Rails.application.secrets.firebase_messagingSenderId
+    }).html_safe%>
     <%= javascript_include_tag "https://www.gstatic.com/firebasejs/4.3.0/firebase.js", 'data-turbolinks-eval' => false, 'data-turbolinks-track' => 'reload' %>
     <%= yield :javascript %>
   </body>

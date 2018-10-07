@@ -14,6 +14,9 @@
 #  link_type       :integer          default("scroll")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  html_content    :text
+#  js              :text
+#  html_additional :json
 #
 
 class MenuSetting < ApplicationRecord
@@ -22,8 +25,9 @@ class MenuSetting < ApplicationRecord
   validates :position, numericality: { greater_than: 0 }
 
   enum link_type: [:scroll, :redirect]
+  serialize :html_additional
 
-  before_save :update_slug
+  before_create :update_slug
 
   scope :active, -> {
     where("is_active = ?", true)
@@ -32,7 +36,9 @@ class MenuSetting < ApplicationRecord
   private
 
   def update_slug
-    slug = self.menu.truncate(48).parameterize
-    self.slug = slug
+    if self.slug.nil?
+      slug = self.menu.truncate(48).parameterize
+      self.slug = slug
+    end
   end
 end

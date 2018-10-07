@@ -1825,3 +1825,183 @@ section#sec-product .row, section.sec-package .row {
 .check-opening {
   padding: 50px 0;
 }
+
+.dropbtn {
+  color: white;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 175px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: transparent;}
+
+.dropdown-content a {
+  margin-left: 0 !important;
+}
+
+.benefit-img {
+  width: 120px;
+}
+
+.benefit-det.text-center .mega-blue {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.benefit-det {
+  margin: 0 10px !important;
+  width: 190px !important;
+}
+
+.mov-schedule {
+  background: #0072bc;
+}
+
+.mov-schedule .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 50px;
+}
+
+.chan-mov {
+  max-width: 100%;
+  padding: 10px 20px;
+  flex: 30%;
+}
+
+.chan-mov a {
+  background: white;
+  border-radius: 7px;
+  width: 100%;
+  height: 120px;
+  padding: 20px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.chan-mov a img {
+  height: 50%;
+  max-width: 100%;
+}
+
+.chan-mov a:hover, .chan-mov a:focus {
+  background: rgba(255,255,255,0.8);
+}
+
+.nav.navbar-nav.navbar-right.margin-0 {
+  padding-top: 15px;
+}
+
+.check-opening {
+  padding: 50px 0;
+}
+
+
+
+
+.mega-benefit {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.chan-mov {
+  max-width: 33%;
+  padding: 10px 20px;
+  flex: 33%;
+}
+
+.chan-mov a img {
+  height: 75%;
+  max-width: 100%;
+}
+
+.benefit-det {
+  margin: 10px !important;
+  width: 20%;
+  align-items: center;
+  flex: 20%;
+  max-width: 20%;
+}
+
+
+@media (max-width: 768px) {
+.benefit-det {
+  margin: 10px !important;
+  width: 29%;
+  align-items: center;
+  flex: 29%;
+  max-width: 29%;
+}
+}
+
+@media (max-width: 640px) {
+.benefit-det {
+  margin: 10px !important;
+  width: 45%;
+  align-items: center;
+  flex: 45%;
+  max-width: 45%;
+}
+}
+
+@media (max-width: 768px) {
+  .chan-mov {
+  max-width: 50%;
+  padding: 10px 20px;
+  flex: 50%;
+}
+
+.nav.navbar-nav.navbar-right.margin-0 {
+  padding-top: 0px;
+}
+
+.chan-mov a img {
+  max-height:75%;
+  max-width: 100%;
+}
+}
+
+@media (max-width: 640px) {
+  .chan-mov {
+  max-width: 50%;
+  padding: 10px 20px;
+  flex: 50%;
+}
+
+.chan-mov a img {
+  max-height: 75%;
+  max-width: 100%;
+}
+}
+
+.benefit-img {
+  margin-bottom: 10px;
+  width: 75% !important;
+}

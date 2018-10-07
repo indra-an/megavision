@@ -203,7 +203,7 @@ a.btn-vacan.col-xs-12.border-1px-white.no-padding {
 
 @-moz-document url-prefix() {
 .citibank_btn {
-background:url('../images/citi.jpg');
+background:url("../images/citi.jpg");
 text-indent: -9999px;
 width: 75px;
 }

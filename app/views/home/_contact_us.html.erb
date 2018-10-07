@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-md-8 col-sm-7 col-xs-12 contact-form">
-      <%= form_tag public_submit_contact_path, id: 'contact' do %>
+      <%form_contact= form_tag public_submit_contact_path, id: 'contact' do %>
         <div class="form-group contact-input">
           <%= text_field_tag :name, '', :placeholder => 'Name', :class => 'form-control', :required => true, disabled: disable_content %>
         </div>
