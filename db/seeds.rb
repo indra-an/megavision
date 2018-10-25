@@ -2784,3 +2784,35 @@ unless ThemeSetting.exists?
   </script>'
   })
 end
+
+unless MenuSetting.find_by_slug('product').present?
+  menu =
+    {
+      menu: 'Product',
+      type: 'MenuParent',
+      position: 11,
+      link_type: :scroll,
+      is_active: false,
+      html_content: '<section id="{{section_about}}" class="about-mega">
+          <div class="container text-center">
+            <div class="row">
+              <div class="mega-logo-tag">
+                <image src="/assets/logo-tag.png" />
+              </div>
+              <p>{{about_megavision}}</p>
+              <div class="mega-benefit">
+                {{about_product_megavision}}
+              </div>
+            </div>
+          </div>
+        </section>',
+      html_additional: {
+        about_product_html: '<div class="benefit-det text-center">
+            <image src="{{product_image}}" class="benefit-img" alt="{{product_title}}" />
+            <h5 class="mega-blue">{{product_description}}</h5>
+          </div>',
+            }
+      }
+
+  MenuSetting.create(menu)
+end

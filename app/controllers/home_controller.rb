@@ -18,6 +18,7 @@ class HomeController < ApplicationController
     @kontak_kami = MenuSetting.find_by_slug("kontak-kami")
     @sejarah = MenuSetting.find_by_slug("sejarah")
     @faq = MenuSetting.find_by_slug("faq")
+    @product_view = MenuSetting.find_by_slug("product")
 
     #html
 
@@ -27,8 +28,8 @@ class HomeController < ApplicationController
     @beranda_carousel_image = Liquid::Template.parse(@beranda.html_additional[:carousel_image].to_s, :error_mode => :strict)
 
     ##about
-    @about_html = Liquid::Template.parse(@preference.about_megavision_html.to_s, :error_mode => :strict)
-    @about_product_html = Liquid::Template.parse(@preference.about_product_html.to_s, :error_mode => :strict)
+    @product_html = Liquid::Template.parse(@product_view.html_content.to_s, :error_mode => :strict)
+    @about_product_html = Liquid::Template.parse(@product_view.html_additional[:about_product_html].to_s, :error_mode => :strict)
 
     ##paket
     @paket_html = Liquid::Template.parse(@paket.html_content.to_s, :error_mode => :strict)

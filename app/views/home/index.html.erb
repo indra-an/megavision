@@ -34,15 +34,18 @@
 </section>
  -->
 <!-- about megavision -->
-<% about_product = "" %>
 
-<%if @products.present?%>
-  <% @products.each do |product|%>
-    <% about_product += @about_product_html.render({"product_image" => product.icon_url, "product_title" => product.title, "product_description" => product.description}, { strict_variables: true }).html_safe %>
+<% unless @product_view.hidden_content %>
+  <% about_product = "" %>
+
+  <%if @products.present?%>
+    <% @products.each do |product|%>
+      <% about_product += @about_product_html.render({"product_image" => product.icon_url, "product_title" => product.title, "product_description" => product.description}, { strict_variables: true }).html_safe %>
+    <% end %>
   <% end %>
-<% end %>
 
-<%=@about_html.render({"about_product_megavision" => about_product, "section_about" => 'sec-product'}, { strict_variables: true }).html_safe%>
+  <%=@product_html.render({"about_product_megavision" => about_product, "section_about" => 'sec-product'}, { strict_variables: true }).html_safe%>
+<% end %>
 
 <!-- area channel -->
 <% unless @paket.hidden_content %>

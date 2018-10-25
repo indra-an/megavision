@@ -1,0 +1,3 @@
+class ChannelGroupChannel < ApplicationRecord
+
+end
