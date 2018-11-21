@@ -1,30 +1,14 @@
-<section class="vacancy-page">
-  <div class="container">
-    <div class="vacancy-detail col-xs-12">
-      <h3 class="bold vacan-title"><%= @vacancy.position %></h3>
-      <p class="vacan-location"><%= @vacancy.location %></p>
-      <% @vacancy.requirements.each do |req| %>
-        <p class="klasifikasi"><%= req %></p>
-      <% end %>
-    </div>
-  </div>
+<% karir_list = "" %>
+<% @vacancies.each do |vacancy| %>
+  <% is_current_vacancy = vacancy.eql?(@vacancy) %>
+  <% link_vacancy = is_current_vacancy ? "#" : public_job_vacancy_detail_path(vacancy.slug) %>
+  <% is_active = is_current_vacancy ? 'active' : '' %>
+  <% karir_list += @karir_list_html.render({"vacancy_link" => link_vacancy, "current_vacancy" => is_active, "vacancy_position" => vacancy.position, "vacancy_icon" => vacancy.icon_url}, { strict_variables: true }).html_safe %>
+<% end %>
 
-  <div class="container-fluid blue-bg other-vacan">
-    <div class="container">
-      <% @vacancies.each do |vacancy| %>
-        <div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
-          <% is_current_vacancy = vacancy.eql?(@vacancy) %>
-          <%= link_to is_current_vacancy ? 'javascript:;' : public_job_vacancy_detail_path(vacancy.slug), :class => "btn-vacan col-xs-12 border-1px-white no-padding #{is_current_vacancy ? ' active' : ''}" do %>
-            <div class=" text-center">
-              <div class="border-bot-1px bg-white-opa"><h3><%= vacancy.position %></h3></div>
-              <div class="img-vacan">
-                <%= image_tag vacancy.icon_url %>
-              </div>
-              <span class="border-1px-white pull-right">more-detail</span>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</section>
+<% requirement_list = "" %>
+<% @vacancy.requirements.each do |req| %>
+  <% requirement_list += @karir_klasifikasi_html.render({"requirement" => req}, { strict_variables: true }).html_safe %>
+<% end %>
+
+<%=@karir_detail_html.render({"requirement_list" => requirement_list, "vacancy_detail_list" => karir_list, "vacancy_position" => @vacancy.position, "vacancy_location" => @vacancy.location}, { strict_variables: true }).html_safe %>

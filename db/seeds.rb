@@ -2814,5 +2814,40 @@ unless MenuSetting.find_by_slug('product').present?
             }
       }
 
-  MenuSetting.create(menu)
+    MenuSetting.create(menu)
+end
+
+vacancy = MenuSetting.find_by_slug('karir')
+
+unless vacancy.html_additional[:vacancy_detail].present?
+    html_additional = vacancy.html_additional
+    html_additional[:vacancy_detail] = '<section class="vacancy-page">
+            <div class="container">
+                <div class="vacancy-detail col-xs-12">
+                    <h3 class="bold vacan-title">{{vacancy_position}}</h3>
+                    <p class="vacan-location">{{vacancy_location}}</p>
+                    {{requirement_list}}
+                </div>
+            </div>
+        
+            <div class="container-fluid blue-bg other-vacan">
+            <div class="container">
+                {{vacancy_detail_list}}
+            </div>
+            </div>
+        </section>'
+    html_additional[:requirement_list] = '<p class="klasifikasi">{{requirement}}</p>'
+    html_additional[:vacancy_detail_list] = '<div class="btn-group-vacan col-md-3 col-sm-4 col-xs-6">
+    <a href="{{vacancy_link}}" class="btn-vacan col-xs-12 border-1px-white no-padding {{current_vacancy}}">
+        <div class="text-center">
+            <div class="border-bot-1px bg-white-opa"><h3>{{vacancy_position}}</h3></div>
+                <div class="img-vacan">
+                    <img src="{{vacancy_icon}}" />
+                </div>
+            <span class="border-1px-white pull-right">more-detail</span>
+        </div>
+    </a>
+    </div>'
+
+    vacancy.update({html_additional: html_additional})
 end

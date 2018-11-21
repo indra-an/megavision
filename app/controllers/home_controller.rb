@@ -59,6 +59,11 @@ class HomeController < ApplicationController
   end
 
   def job_detail
+    @karir = MenuSetting.find_by_slug("karir")
+    @karir_detail_html = Liquid::Template.parse(@karir.html_additional[:vacancy_detail].to_s, :error_mode => :strict)
+    @karir_klasifikasi_html = Liquid::Template.parse(@karir.html_additional[:requirement_list].to_s, :error_mode => :strict)
+    @karir_list_html = Liquid::Template.parse(@karir.html_additional[:vacancy_detail_list].to_s, :error_mode => :strict)
+
     @vacancy = Vacancy.find_by_slug(params[:slug_id])
     raise ActiveRecord::RecordNotFound if @vacancy.nil?
     @vacancies = Vacancy.order(:position => :asc)
