@@ -1,45 +1,11 @@
-
 <% unless @area_cakupan.hidden_content %>
-  <section class="check-area-page">
-    <div class="container-fluid blue-bg">
-      <div class="container">
-        <div class="check-opening">
-          <h1 class="white uppercase bold"><%=@preference.check_area || "Cek Area Anda" %></h1>
-        </div>
-      </div>
-    </div>
+  <% check_area_title = @preference.check_area || "Cek Area Anda" %>
+  <% message_available = 'id="available"'%>
+  <% message_unavailable = 'id="unavailable"'%>
+  <% disable_content = @area_cakupan.disable_content ? 'disabled' : nil %>
+  <% subscribe_button = 'id="btn-subscribe"'%>
 
-    <div id="available" class="container-fluid tersedia">
-      <div class="notif-area container">
-        <span class="ok-color bold"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Area terjangkau</span>
-      </div>
-    </div>
-    <div id="unavailable" class="container-fluid tdk-tersedia">
-      <div class="notif-area container">
-        <span class="no-color bold"><i class="fa fa-warning" aria-hidden="true"></i> Area tidak terjangkau</span>
-      </div>
-    </div>
-
-    <div class="container check-input-grp">
-      <div class="col-xs-12 input-check-area">
-        <div class="form-group" style="margin-bottom: 20px;">
-            <input type="text" class="form-control" id="check-area-search" <%=(@area_cakupan.disable_content) ? 'disabled' : nil %>>
-          </div>
-          <a href="" id="btn-subscribe" class="btn-cek blue-bg" style="padding: 15px 50px;text-align: center; display: block;margin: 0 auto; font-size: 20px; font-weight: 700; max-width: 300px;">Subscribe</a>
-      </div>
-
-
-
-    </div>
-    <!-- <div class="map">
-      <input id="check-area-search" class="controls" type="text" placeholder="Search for places...">
-      <!-- <div id="check-area-map"></div> -->
-    <!--  <br/>
-    </div>  -->
-      <br/>
-      <br/>
-      <br/>
-  </section>
+  <%=@area_cakupan_html.render({"check_area_title" => check_area_title, "message_available" => message_available, 'message_unavailable' => message_unavailable, "disable_content" => disable_content, 'subscribe_button' => subscribe_button}, { strict_variables: true }).html_safe%>
 
   <%= content_for :javascript do %>
       <script>

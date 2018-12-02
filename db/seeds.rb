@@ -2979,3 +2979,45 @@ unless channel.html_additional[:channel_detail].present?
 
     channel.update({html_additional: html_additional})
 end
+
+coverage_area = MenuSetting.find_by_slug('area-cakupan')
+
+unless coverage_area.html_content.present?
+    html_additional = channel.html_additional
+    html_content = '
+    <section class="check-area-page">
+    <div class="container-fluid blue-bg">
+      <div class="container">
+        <div class="check-opening">
+          <h1 class="white uppercase bold">{{check_area_title}}</h1>
+        </div>
+      </div>
+    </div>
+
+    <div {{message_available}} class="container-fluid tersedia">
+      <div class="notif-area container">
+        <span class="ok-color bold"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Area terjangkau</span>
+      </div>
+    </div>
+    <div {{message_unavailable}} class="container-fluid tdk-tersedia">
+      <div class="notif-area container">
+        <span class="no-color bold"><i class="fa fa-warning" aria-hidden="true"></i> Area tidak terjangkau</span>
+      </div>
+    </div>
+
+    <div class="container check-input-grp">
+      <div class="col-xs-12 input-check-area">
+        <div class="form-group" style="margin-bottom: 20px;">
+            <input type="text" class="form-control" id="check-area-search" {{disable_content}}>
+          </div>
+          <a href="" {{subscribe_button}} class="btn-cek blue-bg" style="padding: 15px 50px;text-align: center; display: block;margin: 0 auto; font-size: 20px; font-weight: 700; max-width: 300px;">Subscribe</a>
+      </div>
+
+    </div>
+      <br/>
+      <br/>
+      <br/>
+  </section>'
+
+  coverage_area.update({html_content: html_content})
+end

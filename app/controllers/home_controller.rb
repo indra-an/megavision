@@ -97,6 +97,8 @@ class HomeController < ApplicationController
 
   def check_area
     @area_cakupan = MenuSetting.find_by_slug("area-cakupan")
+    @area_cakupan_html = Liquid::Template.parse(@area_cakupan.html_content.to_s, :error_mode => :strict)
+
     @coverages = Coverage.order(:name => :asc)
   end
 
