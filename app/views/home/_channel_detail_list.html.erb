@@ -15,7 +15,6 @@
     <% if package_idx%2 == 0 %>
       <% left_channel_price += paket_left_package_channel_price_html.render({"link_to_subscribe" => link_to_subscribe, "price" => price, 'speed_up_to' => speed_up_to}, { strict_variables: true }).html_safe%>
     <% else %>
-
       <% right_channel_price += paket_right_package_channel_price_html.render({"link_to_subscribe" => link_to_subscribe, "price" => price, 'speed_up_to' => speed_up_to}, { strict_variables: true }).html_safe%>
     <% end %>
 
@@ -34,18 +33,15 @@
     <% end %>
 
     <% if package_idx%2 == 0 %>
-
       <% left_channel_group += paket_left_package_channel_group_html.render({"channel_group_title" => channel_group.title, "channel_name" => channel_name, 'line_break' => line_break}, { strict_variables: true }).html_safe%>
-      
-      <% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
     <% else %>
-
       <% right_channel_group += paket_right_package_channel_group_html.render({"channel_group_title" => channel_group.title, "channel_name" => channel_name, 'line_break' => line_break}, { strict_variables: true }).html_safe%>
-
-      <% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
     <% end %>
 
   <% end %>
+
+  <% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
+  <% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
   
 <% end %>
 
