@@ -39,11 +39,10 @@
     <% end %>
 
   <% end %>
-
-  <% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
-  <% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
-  
 <% end %>
+
+<% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
+<% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
 
 <%=@paket_package_list_html.render({"left_package" => left_package, "right_package" => right_package}, { strict_variables: true }).html_safe %>
 
