@@ -6,7 +6,6 @@
 <% right_channel_price = '' %>
 
 <% channel_cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
-  
   <% channel_package.prices.order(amount: :asc).each do | channel_price | %>
     <% link_to_subscribe = public_subscribe_path(slug_id: params['area_slug_id'], package_id: channel_package.package.slug, price_id: channel_price.id) %>
     <% price = format_number_to_price_tag(channel_price.amount.to_i)%>
@@ -39,10 +38,13 @@
     <% end %>
 
   <% end %>
-<% end %>
 
-<% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
-<% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
+  <% if package_idx%2 == 0 %>
+    <% left_package = paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
+  <% else %>
+    <% right_package = paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
+  <% end %>
+<% end %>
 
 <%=@paket_package_list_html.render({"left_package" => left_package, "right_package" => right_package}, { strict_variables: true }).html_safe %>
 
