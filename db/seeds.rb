@@ -2851,3 +2851,131 @@ unless vacancy.html_additional[:vacancy_detail].present?
 
     vacancy.update({html_additional: html_additional})
 end
+
+
+channel = MenuSetting.find_by_slug('paket')
+
+unless channel.html_additional[:channel_detail].present?
+    html_additional = channel.html_additional
+    html_additional[:channel_detail] = '
+    <!-- channel list -->
+      <section class="channel-list-page" style="background: url({{background_channel_detail}});background-size: cover;background-position: center;">
+        <div class="container">
+          <div class="channel-list-box col-md-12 col-xs-12 absolute-parent">
+            <div class="title-channel-area-new text-center">
+              <h2 class="bold white uppercase">{{panel_name}}</h2>
+
+              <p class="white ket-search">Masukan lokasi anda di bawah</p>
+
+              <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    {{search_channel_form}}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="channel-list-all">
+        {{package_list}}
+      </section>
+
+    <!-- Modal -->
+      <div {{channel_message_modal}} class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content subscribe-modal">
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div> -->
+            <div class="modal-body">
+              <p class="text-center">Area tidak terjangkau</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>'
+
+    html_additional[:package_list] = '<div class="container-fluid">
+            <div class="row">
+                {{left_package}}
+                {{right_package}}
+            </div>
+        </div>'
+
+    html_additional[:left_package] = '<div class="col-md-6 col-sm-12 no-padding" style="background: rgba(0,114,188,1);padding-top: 15px;">
+
+    <div class="width-100 row chan-area same-height-movie">
+        <h3 class="white text-center paket-title">Paket {{package_name}}</h3>
+        {{left_package_channel_group}}
+    </div>
+
+    <div class="harga-paket row bg-white same-height-price">
+        <h3 class="color-silver text-center uppercase paket-title bold">{{package_payment_title}}</h3>
+        {{left_package_channel_price}}
+        <br />
+        <p class="font-12 ket-paket">{{package_description}}</p>
+    </div>
+    </div>'
+
+    html_additional[:left_package_channel_group] = '<div class="list-channel col-md-6 col-sm-12">
+        <div class="list-body lot-channel border-1px outer-border">
+        <div class="list-kategori bg-silver">
+            <h5 class="white text-center">{{channel_group_title}}</h5>
+        </div>
+        <div class="kategori-channel">
+            {{channel_name}}
+        </div>
+        </div>
+        {{line_break}}
+    </div>' 
+
+    html_additional[:left_package_channel_price] = '<a href="{{link_to_subscribe}}" class="bg-silver">
+    <div class="wrap-price">
+        {{price}}
+        <p class="speednya italic white"><i>{{speed_up_to}}</i></p>
+        </div>
+    </a>' 
+
+    html_additional[:right_package] = '<div class="col-md-6 col-sm-12 no-padding" style="background: rgba(0,84,166,1);padding-top: 15px;">
+
+    <div class="width-100 row chan-area same-height-movie">
+        <h3 class="white text-center paket-title">Paket {{package_name}}</h3>
+        {{right_package_channel_group}}
+    </div>
+
+    <div class="harga-paket row bg-white same-height-price">
+        <h3 class="color-silver text-center uppercase paket-title bold">{{package_payment_title}}</h3>
+        {{right_package_channel_price}}
+        <br />
+        <p class="font-12 ket-paket">{{package_description}}</p>
+    </div>
+    </div>'
+
+    html_additional[:right_package_channel_group] = '<div class="list-channel col-md-6 col-sm-12">
+        <div class="list-body lot-channel border-1px outer-border">
+        <div class="list-kategori bg-gold">
+            <h5 class="white text-center">{{channel_group_title}}</h5>
+        </div>
+        <div class="kategori-channel">
+            {{channel_name}}
+        </div>
+        </div>
+    </div>' 
+
+    html_additional[:right_package_channel_price] = '<a href="{{link_to_subscribe}}" class="bg-gold">
+    <div class="wrap-price">
+        {{price}}
+        <p class="speednya italic white"><i>{{speed_up_to}}</i></p>
+        </div>
+    </a>' 
+
+    channel.update({html_additional: html_additional})
+end

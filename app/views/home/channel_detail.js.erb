@@ -1,6 +1,6 @@
 <% unless @channel_cities_type.blank? %>
-  $("#detail-list").html("<%= escape_javascript(render 'channel_detail_list', channel_cities_type: @channel_cities_type) %>")
-
+  $("#detail-list").html("<%= escape_javascript(render 'channel_detail_list', channel_cities_type: @channel_cities_type, paket_package_list_html: @paket_package_list_html, paket_left_package_html: @paket_left_package_html, paket_left_package_channel_group_html: @paket_left_package_channel_group_html, paket_left_package_channel_price_html: @paket_left_package_channel_price_html, paket_right_package_html: @paket_right_package_html, paket_right_package_channel_group_html: @paket_right_package_channel_group_html, paket_right_package_channel_price_html: @paket_right_package_channel_price_html) %>")
+      
 <% end %>
 
 $(function() {

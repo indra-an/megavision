@@ -73,6 +73,16 @@ class HomeController < ApplicationController
     @channel_city = ChannelCity.includes(:channel_types, :channel_groups, :packages, :prices).find_by_slug(params[:slug_id])
     raise ActiveRecord::RecordNotFound if @channel_city.nil?
 
+    @paket = MenuSetting.find_by_slug("paket")
+    @paket_channel_detail_html = Liquid::Template.parse(@paket.html_additional[:channel_detail].to_s, :error_mode => :strict)
+    @paket_package_list_html = Liquid::Template.parse(@paket.html_additional[:package_list].to_s, :error_mode => :strict)
+    @paket_left_package_html = Liquid::Template.parse(@paket.html_additional[:left_package].to_s, :error_mode => :strict)
+    @paket_left_package_channel_group_html = Liquid::Template.parse(@paket.html_additional[:left_package_channel_group].to_s, :error_mode => :strict)
+    @paket_left_package_channel_price_html = Liquid::Template.parse(@paket.html_additional[:left_package_channel_price].to_s, :error_mode => :strict)
+    @paket_right_package_html = Liquid::Template.parse(@paket.html_additional[:right_package].to_s, :error_mode => :strict)
+    @paket_right_package_channel_group_html = Liquid::Template.parse(@paket.html_additional[:right_package_channel_group].to_s, :error_mode => :strict)
+    @paket_right_package_channel_price_html = Liquid::Template.parse(@paket.html_additional[:right_package_channel_price].to_s, :error_mode => :strict)
+    
     unless params[:area_slug_id].blank?
       @area = AreaCoverage.find_by_slug(params[:area_slug_id])
       @channel_type = @area.area_code.channel_types.first

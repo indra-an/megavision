@@ -1,52 +1,53 @@
+<% left_package = '' %>
+<% right_package = '' %>
+<% left_channel_group = '' %>
+<% right_channel_group = '' %>
+<% left_channel_price = '' %>
+<% right_channel_price = '' %>
 
-        <div class="container-fluid">
-          <div class="row">
-                <% channel_cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
-                   <%
-                        if package_idx%2 == 0
-                           bg_package = "background: rgba(0,114,188,1)"
-                           class_package = "bg-silver"
-                        else
-                            bg_package = "background: rgba(0,84,166,1)"
-                            class_package = "bg-gold"
-                        end %>
-                <div class="col-md-6 col-sm-12 no-padding" style="<%=bg_package%>;padding-top: 15px;">
+<% channel_cities_type.channel_packages.order(package_id: :asc).each_with_index do |channel_package, package_idx| %>
+  
+  <% channel_package.prices.order(amount: :asc).each do | channel_price | %>
+    <% link_to_subscribe = public_subscribe_path(slug_id: params['area_slug_id'], package_id: channel_package.package.slug, price_id: channel_price.id) %>
+    <% price = format_number_to_price_tag(channel_price.amount.to_i)%>
+    <% speed_up_to = [channel_price.up_to_speed, channel_price.unit].join(" ")%>
+    
+    <% if package_idx%2 == 0 %>
+      <% left_channel_price += paket_left_package_channel_price_html.render({"link_to_subscribe" => link_to_subscribe, "price" => price, 'speed_up_to' => speed_up_to}, { strict_variables: true }).html_safe%>
+    <% else %>
 
-                  <div class="width-100 row chan-area same-height-movie">
-                    <h3 class="white text-center paket-title">Paket <%=channel_package.package.name%></h3>
-                    <% channel_package.channel_groups.each_with_index do |channel_group, idx| %>
-                    <div class="list-channel col-md-6 col-sm-12">
-                      <div class="list-body lot-channel border-1px outer-border">
-                        <div class="list-kategori <%=class_package%>">
-                          <h5 class="white text-center"><%=channel_group.title %></h5>
-                        </div>
-                        <div class="kategori-channel">
-                          <% channel_group.channels.each do |channel| %>
-                            <p class="white"><%=channel.name %></p>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                      <% if idx != 0 && (idx%2) == 1 %>
-                        <br />
-                      <% end %>
-                    <% end %>
-                  </div>
+      <% right_channel_price += paket_right_package_channel_price_html.render({"link_to_subscribe" => link_to_subscribe, "price" => price, 'speed_up_to' => speed_up_to}, { strict_variables: true }).html_safe%>
+    <% end %>
 
-                  <div class="harga-paket row bg-white same-height-price">
-                    <h3 class="color-silver text-center uppercase paket-title bold"><%=channel_package.package.payment_title%></h3>
-                    <% channel_package.prices.order(amount: :asc).each do | price | %>
-                      <a href="<%=public_subscribe_path(slug_id: params['area_slug_id'], package_id: channel_package.package.slug, price_id: price.id) %>" class="<%=class_package%>">
-                        <div class="wrap-price">
-                          <%=format_number_to_price_tag(price.amount.to_i) %>
-                          <p class="speednya italic white"><i><%=[price.up_to_speed, price.unit].join(" ") %></i></p>
-                        </div>
-                      </a>
-                    <% end %>
-                    <br />
-                    <p class="font-12 ket-paket"><%=channel_package.description %></p>
-                  </div>
-                </div>
-                  <% end %>
-          </div>
-        </div>
+  <% end %>
+
+  <% channel_package.channel_groups.each_with_index do |channel_group, idx| %>
+    <% line_break = '' %>
+
+    <% if idx != 0 && (idx%2) == 1 %>
+      <% line_break = '<br />'%>
+    <% end %>
+
+    <% channel_name = '' %>
+    <% channel_group.channels.each do |channel| %>
+      <% channel_name += '<p class="white">'+ channel.name + '</p>'%>
+    <% end %>
+
+    <% if package_idx%2 == 0 %>
+
+      <% left_channel_group += paket_left_package_channel_group_html.render({"channel_group_title" => channel_group.title, "channel_name" => channel_name, 'line_break' => line_break}, { strict_variables: true }).html_safe%>
+      
+      <% left_package += paket_left_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description , 'left_package_channel_group' => left_channel_group, 'left_package_channel_price' => left_channel_price}, { strict_variables: true }).html_safe %>
+    <% else %>
+
+      <% right_channel_group += paket_right_package_channel_group_html.render({"channel_group_title" => channel_group.title, "channel_name" => channel_name, 'line_break' => line_break}, { strict_variables: true }).html_safe%>
+
+      <% right_package += paket_right_package_html.render({"package_name" => channel_package.package.name, "payment_title" => channel_package.package.payment_title, 'package_description' => channel_package.description, 'right_package_channel_group' => right_channel_group, 'right_package_channel_price' => right_channel_price}, { strict_variables: true }).html_safe %>
+    <% end %>
+
+  <% end %>
+  
+<% end %>
+
+<%=@paket_package_list_html.render({"left_package" => left_package, "right_package" => right_package}, { strict_variables: true }).html_safe %>
+
