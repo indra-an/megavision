@@ -3,7 +3,13 @@ class Admins::ContactsController < Admins::BaseController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    @contacts = Contact.all.order(id: :desc)
+
+    filename = "contacts_#{Time.now.strftime('%Y%m%d%H%M%S')}.xlsx"
+    respond_to do |format|
+      format.html
+      format.xlsx { headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" }
+    end
   end
 
   # GET /contacts/1

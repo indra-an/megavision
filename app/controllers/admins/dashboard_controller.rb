@@ -40,7 +40,7 @@ class Admins::DashboardController < Admins::BaseController
     @preference.disclaimer_content = params[:disclaimer_content][:content]
     @preference.about_megavision_html = params[:about_megavision_html]
     @preference.about_product_html = params[:about_product_html]
-
+    
     if @preference.save
       redirect_to admins_preferences_path, notice: 'Website preferences saved.'
     else
@@ -95,7 +95,7 @@ class Admins::DashboardController < Admins::BaseController
   end
 
   def admin_logs
-    @logs = SignedIn.includes(:admin).all
+    @logs = SignedIn.includes(:admin).all.order(id: :desc)
   end
 
   def destroy_area_coverage

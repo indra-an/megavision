@@ -19,6 +19,10 @@
           <%= link_to 'https://mail.megavision.net.id', :class => 'btn btn-primary pull-right', :target => '_blank' do %>
             <span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;Open Webmail
           <% end %>
+          
+          <%= link_to admins_contacts_path(format: :xlsx), :class => 'btn btn-success pull-left' do %>
+            Export to Excel
+          <% end %>
 
           <thead>
             <tr>

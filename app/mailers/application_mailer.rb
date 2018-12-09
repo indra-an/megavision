@@ -5,10 +5,11 @@ class ApplicationMailer < ActionMailer::Base
   def send_contact_notification(contact)
     return unless contact.class.eql?(Contact)
     @contact = contact
-    @admin_email = Preference.fetch.contact_emails.reject(&:empty?).join(",")
+    @admin_email = Preference.fetch.contact_emails.reject(&:empty?).join(",").delete(' ')
+
     mail(:reply_to => contact.email,
          :to => @admin_email,
-         :subject => '[New Contact] ' + contact.subject)
+         :subject => '[Contact Us] ' + contact.subject)
   end
 
   def send_subscriber(data)
@@ -20,7 +21,7 @@ class ApplicationMailer < ActionMailer::Base
       email, city = split_data[0], split_data[1]
 
       if data['city'].downcase == city.try(:downcase)
-        @admin_emails << email
+        @admin_emails << email.delete(' ')
       end
 
     end

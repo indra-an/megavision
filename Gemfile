@@ -31,6 +31,8 @@ gem "roo-xls"
 gem "writeexcel"
 gem 'prawn'
 gem 'prawn-rails'
+gem "axlsx", git: "https://github.com/randym/axlsx.git", ref: "776037c0fc799bb09da8c9ea47980bd3bf296874"
+gem "axlsx_rails"
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -1,0 +1,14 @@
+wb = xlsx_package.workbook
+styles = wb.styles
+header= styles.add_style alignment: {vertical: :center, horizontal: :center, wrap_text: true}, sz: 12, b: true
+blank_value = []
+14.times { blank_value << "" }
+wb.add_worksheet(name: "Contacts") do |sheet|
+  sheet.add_row ["Email", "Name", "Subject", "Message", "Posted"], style: header
+
+  @contacts.each do |contact|
+    sheet.add_row [contact.email, contact.name, contact.subject, 
+      contact.message, contact.created_at.try(:strftime, "%c")
+      ]
+  end
+end
